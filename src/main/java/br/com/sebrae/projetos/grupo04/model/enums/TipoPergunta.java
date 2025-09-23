@@ -1,4 +1,4 @@
-package br.com.sebrae.projetos.grupo04.models.enums;
+package br.com.sebrae.projetos.grupo04.model.enums;
 
 public enum TipoPergunta {
     TEXTO(1, "Texto"),

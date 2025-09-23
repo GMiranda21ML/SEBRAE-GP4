@@ -1,4 +1,4 @@
-package br.com.sebrae.projetos.grupo04.models;
+package br.com.sebrae.projetos.grupo04.model;
 
 import java.util.List;
 

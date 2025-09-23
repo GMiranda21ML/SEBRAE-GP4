@@ -1,6 +1,6 @@
-package br.com.sebrae.projetos.grupo04.models;
+package br.com.sebrae.projetos.grupo04.model;
 
-import br.com.sebrae.projetos.grupo04.models.enums.TipoPergunta;
+import br.com.sebrae.projetos.grupo04.model.enums.TipoPergunta;
 
 public class Pergunta {
     private Long id;

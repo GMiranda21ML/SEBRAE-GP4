@@ -1,7 +1,7 @@
 package br.com.sebrae.projetos.grupo04.controller;
 
-import br.com.sebrae.projetos.grupo04.models.Pergunta;
-import br.com.sebrae.projetos.grupo04.models.enums.TipoPergunta;
+import br.com.sebrae.projetos.grupo04.model.Pergunta;
+import br.com.sebrae.projetos.grupo04.model.enums.TipoPergunta;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
