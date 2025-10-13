@@ -25,6 +25,13 @@ public class Pergunta {
         this.ehObrigatoria = ehObrigatoria;
     }
 
+    public Pergunta(String texto, TipoPergunta tipo, Boolean ehObrigatoria, Pesquisa pesquisa) {
+        this.texto = texto;
+        this.tipo = tipo;
+        this.ehObrigatoria = ehObrigatoria;
+        this.pesquisa = pesquisa;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -53,5 +60,12 @@ public class Pergunta {
         return this.ehObrigatoria;
     }
 
+    public void setPesquisa(Pesquisa pesquisa) {
+        this.pesquisa = pesquisa;
+    }
+
+    public Pesquisa getPesquisa() {
+        return this.pesquisa;
+    }
 
 }

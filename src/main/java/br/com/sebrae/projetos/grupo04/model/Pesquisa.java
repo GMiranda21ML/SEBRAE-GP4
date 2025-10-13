@@ -12,7 +12,7 @@ public class Pesquisa {
     private Long id;
     private String titulo;
     private String descricao;
-    @OneToMany(mappedBy = "pesquisa")
+    @OneToMany(mappedBy = "pesquisa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pergunta> perguntas;
 
     public Pesquisa() {}
@@ -21,6 +21,11 @@ public class Pesquisa {
         this.titulo = titulo;
         this.descricao = descricao;
         this.perguntas = perguntas;
+    }
+
+    public Pesquisa(String titulo, String descricao) {
+        this.titulo = titulo;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -46,5 +51,9 @@ public class Pesquisa {
     // não sei se no banco ja atualiza, mas se nao atualizar, cria um set dps
     public List<Pergunta> getPerguntas() {
         return this.perguntas;
+    }
+
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
     }
 }
