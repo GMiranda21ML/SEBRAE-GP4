@@ -1,11 +1,18 @@
 package br.com.sebrae.projetos.grupo04.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table(name = "pesquisas")
 public class Pesquisa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String descricao;
+    @OneToMany(mappedBy = "pesquisa")
     private List<Pergunta> perguntas;
 
     public Pesquisa() {}

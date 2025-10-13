@@ -1,12 +1,21 @@
 package br.com.sebrae.projetos.grupo04.model;
 
 import br.com.sebrae.projetos.grupo04.model.enums.TipoPergunta;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "perguntas")
 public class Pergunta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String texto;
+    @Enumerated(EnumType.STRING)
     private TipoPergunta tipo;
     private Boolean ehObrigatoria;
+    @ManyToOne
+    @JoinColumn(name = "pesquisa_id")
+    private Pesquisa pesquisa;
 
     public Pergunta() {}
 
