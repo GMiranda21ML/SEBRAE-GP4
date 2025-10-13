@@ -5,10 +5,7 @@ import br.com.sebrae.projetos.grupo04.Service.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/pesquisa")
@@ -19,5 +16,10 @@ public class PesquisaController {
     @PostMapping("/criar")
     public ResponseEntity<Void> criarPesquisa(@RequestBody CriarPesquisaDTO dto) {
         return service.criarPesquisa(dto);
+    }
+
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarPesquisa(@PathVariable Long id) {
+        return service.deletarPesquisa(id);
     }
 }

@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PesquisaService {
@@ -29,5 +31,16 @@ public class PesquisaService {
         repository.save(pesquisa);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    public ResponseEntity<Void> deletarPesquisa(Long id) {
+        Optional<Pesquisa> pesquisa =  repository.findById(id);
+        if (pesquisa.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        repository.delete(pesquisa.get());
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
