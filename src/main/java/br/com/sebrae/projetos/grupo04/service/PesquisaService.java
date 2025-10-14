@@ -17,8 +17,12 @@ import java.util.UUID;
 
 @Service
 public class PesquisaService {
+
     @Autowired
     private PesquisaRepository repository;
+
+    @Autowired
+    PerguntaService perguntaService;
 
     public List<Pesquisa> findAll() {
         return repository.findAll();
@@ -32,14 +36,10 @@ public class PesquisaService {
     public ResponseEntity<Void> criarPesquisa(CriarPesquisaDTO dto) {
         Pesquisa pesquisa = new Pesquisa(dto.titulo(), dto.descricao());
 
-        List<Pergunta> perguntas = dto.perguntas().stream()
-                .map(p -> new Pergunta(p.texto(), p.tipo(), p.ehObrigatoria(), pesquisa))
-                .toList();
+        List<Pergunta> perguntas = perguntaService.criarPerguntasParaPesquisa(dto.perguntas(),pesquisa);
 
         pesquisa.setPerguntas(perguntas);
-
         repository.save(pesquisa);
-
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
