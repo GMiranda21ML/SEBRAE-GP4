@@ -3,13 +3,15 @@ package br.com.sebrae.projetos.grupo04.model;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "pesquisas")
 public class Pesquisa {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "uuid",updatable = false,nullable = false)
+    private UUID id;
     private String titulo;
     private String descricao;
     @OneToMany(mappedBy = "pesquisa", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -28,7 +30,7 @@ public class Pesquisa {
         this.descricao = descricao;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return this.id;
     }
 
