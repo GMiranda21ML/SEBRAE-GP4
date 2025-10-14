@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PatchMapping;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -36,14 +36,14 @@ public class PesquisaService {
     public ResponseEntity<Void> criarPesquisa(CriarPesquisaDTO dto) {
         Pesquisa pesquisa = new Pesquisa(dto.titulo(), dto.descricao());
 
-        List<Pergunta> perguntas = perguntaService.criarPerguntasParaPesquisa(dto.perguntas(),pesquisa);
+        List<Pergunta> perguntas = perguntaService.criarPerguntasParaPesquisa(dto.perguntas(), pesquisa);
 
         pesquisa.setPerguntas(perguntas);
         repository.save(pesquisa);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    ResponseEntity<Void> editarPesquisa(CriarPesquisaDTO dto, UUID id) {
+    public ResponseEntity<Void> editarPesquisa(CriarPesquisaDTO dto, UUID id) {
         Pesquisa pesquisa = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         pesquisa.setTitulo(dto.titulo());
         pesquisa.setDescricao(dto.descricao());
@@ -52,7 +52,7 @@ public class PesquisaService {
     }
 
     public ResponseEntity<Void> deletarPesquisa(UUID id) {
-        Optional<Pesquisa> pesquisa =  repository.findById(id);
+        Optional<Pesquisa> pesquisa = repository.findById(id);
         if (pesquisa.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

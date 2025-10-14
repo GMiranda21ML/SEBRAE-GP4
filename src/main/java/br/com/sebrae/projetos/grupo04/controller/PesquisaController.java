@@ -37,4 +37,10 @@ public class PesquisaController {
     public ResponseEntity<Void> deletarPesquisa(@PathVariable UUID id) {
         return service.deletarPesquisa(id);
     }
+
+    @PatchMapping("/editar/{id}")
+    public ResponseEntity<Void> editarPesquisa(@RequestBody CriarPesquisaDTO dto, @PathVariable UUID id) {
+        service.editarPesquisa(dto, id);
+        return ResponseEntity.ok().build();
+    }
 }
