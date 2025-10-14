@@ -2,7 +2,7 @@ package br.com.sebrae.projetos.grupo04.model.enums;
 
 public enum TipoPergunta {
     TEXTO(1, "Texto"),
-    MULTIPLCA_ESCOLHA(2, "Multipla escolha"),
+    MULTIPLA_ESCOLHA(2, "Multipla escolha"),
     SIM_NAO(3, "Sim ou Não");
 
     private Integer id;

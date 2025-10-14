@@ -33,32 +33,28 @@ public class PesquisaService {
         return pesquisa.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public ResponseEntity<Void> criarPesquisa(CriarPesquisaDTO dto) {
+    public Pesquisa criarPesquisa(CriarPesquisaDTO dto) {
         Pesquisa pesquisa = new Pesquisa(dto.titulo(), dto.descricao());
+        repository.save(pesquisa);
 
         List<Pergunta> perguntas = perguntaService.criarPerguntasParaPesquisa(dto.perguntas(), pesquisa);
 
         pesquisa.setPerguntas(perguntas);
-        repository.save(pesquisa);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+
+        return repository.save(pesquisa);
     }
 
-    public ResponseEntity<Void> editarPesquisa(CriarPesquisaDTO dto, UUID id) {
+    public void editarPesquisa(CriarPesquisaDTO dto, UUID id) {
         Pesquisa pesquisa = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         pesquisa.setTitulo(dto.titulo());
         pesquisa.setDescricao(dto.descricao());
+        List<Pergunta> perguntasAtualizadas = perguntaService.editarPerguntasParaPesquisa(dto.perguntas(),pesquisa);
+        pesquisa.setPerguntas(perguntasAtualizadas);
         repository.save(pesquisa);
-        return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<Void> deletarPesquisa(UUID id) {
-        Optional<Pesquisa> pesquisa = repository.findById(id);
-        if (pesquisa.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        repository.delete(pesquisa.get());
-
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public void deletarPesquisa(UUID id) {
+        Pesquisa pesquisa = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+        repository.delete(pesquisa);
     }
 }

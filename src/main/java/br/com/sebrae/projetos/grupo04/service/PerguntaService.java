@@ -40,5 +40,24 @@ public class PerguntaService {
 
         return repository.saveAll(perguntas);
     }
+
+    public List<Pergunta> editarPerguntasParaPesquisa(List<CriarPerguntaDTO> dtos, Pesquisa pesquisa) {
+        List<Pergunta> perguntasAntigas = pesquisa.getPerguntas();
+        for (int i = 0; i < dtos.size();i++) {
+
+            CriarPerguntaDTO dto = dtos.get(i);
+
+            if (i < perguntasAntigas.size()) {
+                Pergunta pergunta = perguntasAntigas.get(i);
+                pergunta.setTexto(dto.texto());
+                pergunta.setTipo(dto.tipo());
+                pergunta.setEhObrigatoria(dto.ehObrigatoria());
+            } else {
+                Pergunta nova = new Pergunta(dto.texto(),dto.tipo(),dto.ehObrigatoria(),pesquisa);
+                perguntasAntigas.add(nova);
+            }
+        }
+        return perguntasAntigas;
+    }
 }
 

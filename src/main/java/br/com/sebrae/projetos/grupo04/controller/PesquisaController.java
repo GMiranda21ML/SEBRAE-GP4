@@ -6,7 +6,9 @@ import br.com.sebrae.projetos.grupo04.service.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,13 +31,21 @@ public class PesquisaController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<Void> criarPesquisa(@RequestBody CriarPesquisaDTO dto) {
-        return service.criarPesquisa(dto);
+    public ResponseEntity<Pesquisa> criarPesquisa(@RequestBody CriarPesquisaDTO dto) {
+        Pesquisa pesquisa = service.criarPesquisa(dto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(pesquisa.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(pesquisa);
     }
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarPesquisa(@PathVariable UUID id) {
-        return service.deletarPesquisa(id);
+        service.deletarPesquisa(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/editar/{id}")
