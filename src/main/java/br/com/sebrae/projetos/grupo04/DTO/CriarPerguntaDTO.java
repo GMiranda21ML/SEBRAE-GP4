@@ -13,6 +13,6 @@ public record CriarPerguntaDTO(
         @NotNull
         TipoPergunta tipo,
         @NotNull
-        Boolean ehObrigatoria
+        Boolean obrigatoria
 ) {
 }

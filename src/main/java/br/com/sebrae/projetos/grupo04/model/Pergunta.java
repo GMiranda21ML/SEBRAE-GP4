@@ -19,7 +19,7 @@ public class Pergunta {
     private String texto;
     @Enumerated(EnumType.STRING)
     private TipoPergunta tipo;
-    private Boolean ehObrigatoria;
+    private Boolean obrigatoria;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pesquisa_id")
@@ -30,16 +30,16 @@ public class Pergunta {
 
     public Pergunta() {}
 
-    public Pergunta(String texto, TipoPergunta tipo, Boolean ehObrigatoria) {
+    public Pergunta(String texto, TipoPergunta tipo, Boolean obrigatoria) {
         this.texto = texto;
         this.tipo = tipo;
-        this.ehObrigatoria = ehObrigatoria;
+        this.obrigatoria = obrigatoria;
     }
 
-    public Pergunta(String texto, TipoPergunta tipo, Boolean ehObrigatoria, Pesquisa pesquisa) {
+    public Pergunta(String texto, TipoPergunta tipo, Boolean obrigatoria, Pesquisa pesquisa) {
         this.texto = texto;
         this.tipo = tipo;
-        this.ehObrigatoria = ehObrigatoria;
+        this.obrigatoria = obrigatoria;
         this.pesquisa = pesquisa;
     }
 
@@ -63,12 +63,12 @@ public class Pergunta {
         return this.tipo;
     }
 
-    public void setEhObrigatoria(Boolean ehObrigatoria) {
-        this.ehObrigatoria = ehObrigatoria;
+    public void setObrigatoria(Boolean obrigatoria) {
+        this.obrigatoria = obrigatoria;
     }
 
-    public Boolean getEhObrigatoria() {
-        return this.ehObrigatoria;
+    public Boolean getObrigatoria() {
+        return this.obrigatoria;
     }
 
     public void setPesquisa(Pesquisa pesquisa) {
