@@ -1,5 +1,6 @@
 package br.com.sebrae.projetos.grupo04.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -12,7 +13,8 @@ public class Resposta {
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID id;
     private String respostaTexto;
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "pergunta_id")
     private Pergunta pergunta;
 

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,9 +24,9 @@ public class Pergunta {
     @ManyToOne
     @JoinColumn(name = "pesquisa_id")
     private Pesquisa pesquisa;
-    @JsonIgnore
-    @OneToOne(mappedBy = "pergunta")
-    private Resposta resposta;
+    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resposta> respostas = new ArrayList<>();
+
 
     public Pergunta() {}
 
@@ -75,6 +77,10 @@ public class Pergunta {
 
     public Pesquisa getPesquisa() {
         return this.pesquisa;
+    }
+
+    public List<Resposta> getRespostas() {
+        return this.respostas;
     }
 
 }

@@ -4,12 +4,12 @@ import br.com.sebrae.projetos.grupo04.DTO.CriarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.model.Resposta;
 import br.com.sebrae.projetos.grupo04.service.RespostaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/resposta")
@@ -20,8 +20,9 @@ public class RespostaController {
 
 
     @GetMapping
-    public ResponseEntity<Void> buscarRespostas() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<Resposta>> buscarRespostas() {
+        List<Resposta> respostas = service.findAll();
+        return ResponseEntity.ok(respostas);
     }
 
     @PostMapping
