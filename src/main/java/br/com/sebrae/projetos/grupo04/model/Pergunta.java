@@ -22,6 +22,9 @@ public class Pergunta {
     @ManyToOne
     @JoinColumn(name = "pesquisa_id")
     private Pesquisa pesquisa;
+    @JsonIgnore
+    @OneToOne(mappedBy = "pergunta")
+    private Resposta resposta;
 
     public Pergunta() {}
 
