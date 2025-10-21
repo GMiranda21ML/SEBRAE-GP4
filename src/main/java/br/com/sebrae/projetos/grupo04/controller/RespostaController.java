@@ -21,9 +21,14 @@ public class RespostaController {
 
     @Autowired
     private RespostaService respostaService;
-    @Autowired
     private GenericoService service;
 
+
+    @GetMapping
+    public ResponseEntity<List<Resposta>> buscarRespostas() {
+        List<Resposta> respostas = service.findAll(TipoEntidade.RESPOSTA);
+        return ResponseEntity.ok(respostas);
+    }
 
     @PostMapping
     public ResponseEntity<Resposta> criarResposta(@RequestBody CriarRespostaDTO dto) {
@@ -39,13 +44,13 @@ public class RespostaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> atualizarResposta(@RequestBody AtualizarRespostaDTO dto, @PathVariable UUID id) {
-        service.atualizarResposta(dto, id);
+        respostaService.atualizarResposta(dto, id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarResposta(@PathVariable UUID id) {
-        service.deletarResposta(id);
+        respostaService.deletarResposta(id);
         return ResponseEntity.noContent().build();
     }
 }
