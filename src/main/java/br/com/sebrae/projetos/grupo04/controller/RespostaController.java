@@ -1,5 +1,6 @@
 package br.com.sebrae.projetos.grupo04.controller;
 
+import br.com.sebrae.projetos.grupo04.DTO.AtualizarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.DTO.CriarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.model.Resposta;
 import br.com.sebrae.projetos.grupo04.service.RespostaService;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/resposta")
@@ -35,5 +37,17 @@ public class RespostaController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(resposta);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> atualizarResposta(@RequestBody AtualizarRespostaDTO dto, @PathVariable UUID id) {
+        service.atualizarResposta(dto, id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarResposta(@PathVariable UUID id) {
+        service.deletarResposta(id);
+        return ResponseEntity.noContent().build();
     }
 }
