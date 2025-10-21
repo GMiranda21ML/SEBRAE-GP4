@@ -1,7 +1,10 @@
 package br.com.sebrae.projetos.grupo04.controller;
 
 import br.com.sebrae.projetos.grupo04.DTO.CriarPesquisaDTO;
+import br.com.sebrae.projetos.grupo04.model.Pergunta;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
+import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
+import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +19,26 @@ import java.util.UUID;
 @RequestMapping("/pesquisa")
 public class PesquisaController {
     @Autowired
-    private PesquisaService service;
+    private GenericoService service;
+    @Autowired
+    private PesquisaService pesquisaService;
 
-    @GetMapping
-    public ResponseEntity<List<Pesquisa>> findAll() {
-        List<Pesquisa> pesquisas = service.findAll();
-        return ResponseEntity.ok().body(pesquisas);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Pesquisa> findById(@PathVariable UUID id) {
-        Pesquisa pesquisa = service.findById(id);
+        Pesquisa pesquisa = service.findPesquisaById(id);
         return ResponseEntity.ok().body(pesquisa);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Pesquisa>> findAll() {
+        List<Pesquisa> pesquisas = service.findAll(TipoEntidade.PESQUISA);
+        return ResponseEntity.ok().body(pesquisas);
     }
 
     @PostMapping("/criar")
     public ResponseEntity<Pesquisa> criarPesquisa(@RequestBody CriarPesquisaDTO dto) {
-        Pesquisa pesquisa = service.criarPesquisa(dto);
+        Pesquisa pesquisa = pesquisaService.criarPesquisa(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -44,13 +50,13 @@ public class PesquisaController {
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarPesquisa(@PathVariable UUID id) {
-        service.deletarPesquisa(id);
+        pesquisaService.deletarPesquisa(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/editar/{id}")
     public ResponseEntity<Void> editarPesquisa(@RequestBody CriarPesquisaDTO dto, @PathVariable UUID id) {
-        service.editarPesquisa(dto, id);
+        pesquisaService.editarPesquisa(dto, id);
         return ResponseEntity.ok().build();
     }
 }
