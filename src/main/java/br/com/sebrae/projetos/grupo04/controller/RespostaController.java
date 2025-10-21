@@ -21,13 +21,14 @@ public class RespostaController {
 
     @Autowired
     private RespostaService respostaService;
+    @Autowired
     private GenericoService service;
 
 
     @GetMapping
     public ResponseEntity<List<Resposta>> buscarRespostas() {
         List<Resposta> respostas = service.findAll(TipoEntidade.RESPOSTA);
-        return ResponseEntity.ok(respostas);
+        return ResponseEntity.ok().body(respostas);
     }
 
     @PostMapping

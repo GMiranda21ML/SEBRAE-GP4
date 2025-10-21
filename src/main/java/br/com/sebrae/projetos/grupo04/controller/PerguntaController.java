@@ -3,6 +3,7 @@ package br.com.sebrae.projetos.grupo04.controller;
 
 import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaPorIDDTO;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
+import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PerguntaService;
@@ -35,9 +36,9 @@ public class PerguntaController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<CriarPerguntaPorIDDTO> criarPerguntaPorID(@RequestBody CriarPerguntaPorIDDTO pergunta, @PathVariable UUID id) {
-        perguntaService.criarPerguntaPorID(pergunta,id);
-        return ResponseEntity.ok().body(pergunta);
+    public ResponseEntity<Pergunta> criarPerguntaPorID(@RequestBody CriarPerguntaPorIDDTO dto) {
+        Pergunta novaPergunta = perguntaService.criarPerguntaPorID(dto);
+        return ResponseEntity.ok().body(novaPergunta);
     }
 
 }

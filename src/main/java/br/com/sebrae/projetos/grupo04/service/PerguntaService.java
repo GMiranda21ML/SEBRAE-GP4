@@ -20,11 +20,12 @@ public class PerguntaService {
     @Autowired
     private PerguntaRepository repository;
 
+    @Autowired
     private GenericoService service;
 
-    public Pergunta criarPerguntaPorID(CriarPerguntaPorIDDTO dto,UUID id) {
-        Pesquisa pesquisa = service.findPesquisaById(id);
-        Pergunta pergunta = new Pergunta(dto.texto(),dto.tipo(),dto.obrigatoria(),pesquisa);
+    public Pergunta criarPerguntaPorID(CriarPerguntaPorIDDTO dto) {
+        Pesquisa pesquisa = service.findPesquisaById(dto.idPesquisa());
+        Pergunta pergunta = new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(), pesquisa);
         return repository.save(pergunta);
     }
 

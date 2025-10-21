@@ -32,10 +32,6 @@ public class RespostaService {
         return resposta;
     }
 
-    public List<Resposta> findAll() {
-        return repository.findAll();
-    }
-
     public void deletarResposta(UUID id) {
         Resposta resposta = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 
