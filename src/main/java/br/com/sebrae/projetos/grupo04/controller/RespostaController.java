@@ -3,6 +3,8 @@ package br.com.sebrae.projetos.grupo04.controller;
 import br.com.sebrae.projetos.grupo04.DTO.AtualizarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.DTO.CriarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.model.Resposta;
+import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
+import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.RespostaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +20,20 @@ import java.util.UUID;
 public class RespostaController {
 
     @Autowired
-    private RespostaService service;
+    private RespostaService respostaService;
+    @Autowired
+    private GenericoService service;
 
 
     @GetMapping
     public ResponseEntity<List<Resposta>> buscarRespostas() {
-        List<Resposta> respostas = service.findAll();
-        return ResponseEntity.ok(respostas);
+        List<Resposta> respostas = service.findAll(TipoEntidade.RESPOSTA);
+        return ResponseEntity.ok().body(respostas);
     }
 
     @PostMapping
     public ResponseEntity<Resposta> criarResposta(@RequestBody CriarRespostaDTO dto) {
-        Resposta resposta = service.criarResposta(dto);
+        Resposta resposta = respostaService.criarResposta(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -41,13 +45,13 @@ public class RespostaController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> atualizarResposta(@RequestBody AtualizarRespostaDTO dto, @PathVariable UUID id) {
-        service.atualizarResposta(dto, id);
+        respostaService.atualizarResposta(dto, id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarResposta(@PathVariable UUID id) {
-        service.deletarResposta(id);
+        respostaService.deletarResposta(id);
         return ResponseEntity.noContent().build();
     }
 }

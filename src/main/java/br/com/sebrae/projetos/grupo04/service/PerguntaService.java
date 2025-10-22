@@ -2,6 +2,7 @@ package br.com.sebrae.projetos.grupo04.service;
 
 
 import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaDTO;
+import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaPorIDDTO;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.repository.PerguntaRepository;
@@ -19,17 +20,12 @@ public class PerguntaService {
     @Autowired
     private PerguntaRepository repository;
 
-    public List<Pergunta> findAll() {
-        return repository.findAll();
-    }
+    @Autowired
+    private GenericoService service;
 
-    public Pergunta findById(UUID id) {
-        Optional<Pergunta> pergunta = repository.findById(id);
-        return pergunta.orElseThrow(() -> new ResourceNotFoundException(id));
-    }
-
-    public Pergunta criarPergunta(CriarPerguntaDTO dto) {
-        Pergunta pergunta = new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria());
+    public Pergunta criarPerguntaPorID(CriarPerguntaPorIDDTO dto) {
+        Pesquisa pesquisa = service.findPesquisaById(dto.idPesquisa());
+        Pergunta pergunta = new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(), pesquisa);
         return repository.save(pergunta);
     }
 

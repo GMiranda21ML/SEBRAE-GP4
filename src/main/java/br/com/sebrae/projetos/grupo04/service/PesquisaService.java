@@ -22,16 +22,11 @@ public class PesquisaService {
     private PesquisaRepository repository;
 
     @Autowired
-    PerguntaService perguntaService;
+    private GenericoService service;
 
-    public List<Pesquisa> findAll() {
-        return repository.findAll();
-    }
+    @Autowired
+    private PerguntaService perguntaService;
 
-    public Pesquisa findById(UUID id) {
-        Optional<Pesquisa> pesquisa = repository.findById(id);
-        return pesquisa.orElseThrow(() -> new ResourceNotFoundException(id));
-    }
 
     public Pesquisa criarPesquisa(CriarPesquisaDTO dto) {
         Pesquisa pesquisa = new Pesquisa(dto.titulo(), dto.descricao());

@@ -18,22 +18,18 @@ public class RespostaService {
     @Autowired
     private RespostaRepository repository;
     @Autowired
-    private PerguntaService perguntaService;
+    private GenericoService service;
 
     public Resposta criarResposta(CriarRespostaDTO dto) {
         UUID perguntaId = dto.perguntaId().id();
 
-        Pergunta pergunta = perguntaService.findById(perguntaId);
+        Pergunta pergunta = service.findPerguntaById(perguntaId);
 
         Resposta resposta = new Resposta(dto.respostaTexto(), pergunta);
         pergunta.getRespostas().add(resposta);
 
         repository.save(resposta);
         return resposta;
-    }
-
-    public List<Resposta> findAll() {
-        return repository.findAll();
     }
 
     public void deletarResposta(UUID id) {
