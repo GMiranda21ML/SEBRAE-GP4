@@ -19,6 +19,7 @@ public class EmailController {
     private EmailService emailService;
 
     private List<Email> emails = Arrays.asList(
+            new Email("gigicarrilhofreire@gmail.com", "teste rod", "texto de teste"),
             new Email("rjdo@cesar.school", "teste rod", "texto de teste"),
             new Email("ams10@cesar.school", "teste gg", "texto de teste"));
 

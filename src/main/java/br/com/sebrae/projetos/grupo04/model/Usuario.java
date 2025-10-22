@@ -31,7 +31,7 @@ public class Usuario implements UserDetails {
     public Usuario(String nome, String email, String senha, Role role, PasswordEncoder passwordEncoder) {
         this.nome = nome;
         this.email = email;
-        this.senha = passwordEncoder.encode(this.senha);
+        this.senha = passwordEncoder.encode(senha);
         this.role = role;
     }
 

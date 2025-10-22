@@ -6,6 +6,7 @@ import br.com.sebrae.projetos.grupo04.model.Resposta;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.RespostaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class RespostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Resposta> criarResposta(@RequestBody CriarRespostaDTO dto) {
+    public ResponseEntity<Resposta> criarResposta(@RequestBody @Valid CriarRespostaDTO dto) {
         Resposta resposta = respostaService.criarResposta(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,7 +45,7 @@ public class RespostaController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> atualizarResposta(@RequestBody AtualizarRespostaDTO dto, @PathVariable UUID id) {
+    public ResponseEntity<Void> atualizarResposta(@RequestBody @Valid AtualizarRespostaDTO dto, @PathVariable UUID id) {
         respostaService.atualizarResposta(dto, id);
         return ResponseEntity.ok().build();
     }

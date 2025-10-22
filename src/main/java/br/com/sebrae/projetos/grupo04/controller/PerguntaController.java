@@ -7,6 +7,7 @@ import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PerguntaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class PerguntaController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<Pergunta> criarPerguntaPorID(@RequestBody CriarPerguntaPorIDDTO dto) {
+    public ResponseEntity<Pergunta> criarPerguntaPorID(@RequestBody @Valid CriarPerguntaPorIDDTO dto) {
         Pergunta novaPergunta = perguntaService.criarPerguntaPorID(dto);
         return ResponseEntity.ok().body(novaPergunta);
     }

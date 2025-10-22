@@ -6,6 +6,7 @@ import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PesquisaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class PesquisaController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<Pesquisa> criarPesquisa(@RequestBody CriarPesquisaDTO dto) {
+    public ResponseEntity<Pesquisa> criarPesquisa(@RequestBody @Valid CriarPesquisaDTO dto) {
         Pesquisa pesquisa = pesquisaService.criarPesquisa(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -55,7 +56,7 @@ public class PesquisaController {
     }
 
     @PatchMapping("/editar/{id}")
-    public ResponseEntity<Void> editarPesquisa(@RequestBody CriarPesquisaDTO dto, @PathVariable UUID id) {
+    public ResponseEntity<Void> editarPesquisa(@RequestBody @Valid CriarPesquisaDTO dto, @PathVariable UUID id) {
         pesquisaService.editarPesquisa(dto, id);
         return ResponseEntity.ok().build();
     }
