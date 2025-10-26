@@ -26,7 +26,6 @@ public class RespostaService {
         Pergunta pergunta = service.findPerguntaById(perguntaId);
 
         Resposta resposta = new Resposta(dto.respostaTexto(), pergunta);
-        pergunta.getRespostas().add(resposta);
 
         repository.save(resposta);
         return resposta;

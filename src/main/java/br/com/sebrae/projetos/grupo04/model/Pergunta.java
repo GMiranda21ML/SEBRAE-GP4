@@ -24,8 +24,8 @@ public class Pergunta {
     @ManyToOne
     @JoinColumn(name = "pesquisa_id")
     private Pesquisa pesquisa;
-    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Resposta> respostas = new ArrayList<>();
+//    @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Resposta> respostas = new ArrayList<>();
 
 
     public Pergunta() {}
@@ -79,8 +79,8 @@ public class Pergunta {
         return this.pesquisa;
     }
 
-    public List<Resposta> getRespostas() {
-        return this.respostas;
-    }
+//    public List<Resposta> getRespostas() {
+//        return this.respostas;
+//    }
 
 }

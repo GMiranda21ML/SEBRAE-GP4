@@ -1,6 +1,7 @@
 package br.com.sebrae.projetos.grupo04.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -44,4 +45,13 @@ public class Resposta {
     public Pergunta getPergunta() {
         return this.pergunta;
     }
+
+    @JsonProperty("perguntaId")
+    public UUID getPerguntaId() {
+        if (this.pergunta != null) {
+            return this.pergunta.getId();
+        }
+        return null;
+    }
+
 }
