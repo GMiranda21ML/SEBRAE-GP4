@@ -3,10 +3,12 @@ package br.com.sebrae.projetos.grupo04.service;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.Resposta;
+import br.com.sebrae.projetos.grupo04.model.Usuario;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.repository.PerguntaRepository;
 import br.com.sebrae.projetos.grupo04.repository.PesquisaRepository;
 import br.com.sebrae.projetos.grupo04.repository.RespostaRepository;
+import br.com.sebrae.projetos.grupo04.repository.UsuarioRepository;
 import br.com.sebrae.projetos.grupo04.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class GenericoService {
     PesquisaRepository pesquisaRepository;
     @Autowired
     RespostaRepository respostaRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     @SuppressWarnings("unchecked")
     public <T> List<T> findAll(TipoEntidade tipo) {
@@ -31,6 +35,7 @@ public class GenericoService {
             case PESQUISA -> (List<T>) pesquisaRepository.findAll();
             case PERGUNTA -> (List<T>) perguntaRepository.findAll();
             case RESPOSTA -> (List<T>) respostaRepository.findAll();
+            case USUARIO -> (List<T>) usuarioRepository.findAll();
             default ->  throw new IllegalArgumentException("Tipo inválido");
         };
     }
@@ -50,11 +55,17 @@ public class GenericoService {
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public Usuario findUsuarioById(UUID id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
     public Object findById(TipoEntidade tipo, UUID id) {
         return switch (tipo) {
             case PESQUISA -> findPesquisaById(id);
             case PERGUNTA -> findPerguntaById(id);
             case RESPOSTA -> findRespostaById(id);
+            case USUARIO -> findUsuarioById(id);
             default -> throw new IllegalArgumentException("Tipo inválido");
         };
     }

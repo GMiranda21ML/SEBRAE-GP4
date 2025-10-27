@@ -6,10 +6,12 @@ import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record CriarRespostaDTO(
+public record  CriarRespostaDTO(
         @NotNull
         String respostaTexto,
         @NotNull
-        PerguntaIdDTO perguntaId
+        PerguntaIdDTO perguntaId,
+        @NotNull
+        UsuarioIdDTO usuarioId
 ) {
 }

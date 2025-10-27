@@ -25,25 +25,25 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public Usuario login(UsuarioLoginDTO dto) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
-        Authentication autenticacao = authenticationManager.authenticate(authenticationToken);
-
-        SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(autenticacao);
-        SecurityContextHolder.setContext(context);
-
-        return (Usuario) autenticacao.getPrincipal();
-    }
-
-    public Usuario cadastro(UsuarioCadastroDTO dto) {
-        if (repository.existsByEmail(dto.email())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuario com este email");
-        }
-
-        Usuario usuario = new Usuario(dto.nome(),dto.email(), dto.senha(), dto.role());
-        repository.save(usuario);
-        return usuario;
-    }
+//    public Usuario login(UsuarioLoginDTO dto) {
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
+//        Authentication autenticacao = authenticationManager.authenticate(authenticationToken);
+//
+//        SecurityContext context = SecurityContextHolder.createEmptyContext();
+//        context.setAuthentication(autenticacao);
+//        SecurityContextHolder.setContext(context);
+//
+//        return (Usuario) autenticacao.getPrincipal();
+//    }
+//
+//    public Usuario cadastro(UsuarioCadastroDTO dto) {
+//        if (repository.existsByEmail(dto.email())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuario com este email");
+//        }
+//
+//        Usuario usuario = new Usuario(dto.nome(),dto.email(), dto.senha(), dto.role());
+//        repository.save(usuario);
+//        return usuario;
+//    }
 
 }

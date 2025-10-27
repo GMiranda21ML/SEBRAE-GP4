@@ -30,9 +30,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/cadastro").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/pesquisa", "/pergunta", "/resposta").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/pesquisa/**", "/resposta/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/pesquisa/**", "/resposta/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/pesquisa", "/pergunta").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/pesquisa/**", "/pergunta/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/pesquisa/**", "/pergunta/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
