@@ -3,6 +3,9 @@ package br.com.sebrae.projetos.grupo04.model;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioCadastroDTO;
 import br.com.sebrae.projetos.grupo04.model.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,11 +38,12 @@ public class Usuario implements UserDetails {
         this.role = role;
     }
 
-    public Usuario(UsuarioCadastroDTO dto, PasswordEncoder passwordEncoder) {
-        this.nome = dto.nome();
-        this.email = dto.email();
-        this.senha = passwordEncoder.encode(dto.senha());
-        this.role = dto.role();
+
+    public Usuario(String nome, String email, String encryptedPassword, Role role) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = encryptedPassword;
+        this.role = role;
     }
 
     public UUID getId() {
@@ -80,7 +84,12 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
+        if (this.role == Role.ROLE_ADMIN)  {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
     }
 
     @Override

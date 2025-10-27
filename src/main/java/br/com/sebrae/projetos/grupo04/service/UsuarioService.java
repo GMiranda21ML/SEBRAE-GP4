@@ -41,7 +41,7 @@ public class UsuarioService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuario com este email");
         }
 
-        Usuario usuario = new Usuario(dto, passwordEncoder);
+        Usuario usuario = new Usuario(dto.nome(),dto.email(), dto.senha(), dto.role());
         repository.save(usuario);
         return usuario;
     }
