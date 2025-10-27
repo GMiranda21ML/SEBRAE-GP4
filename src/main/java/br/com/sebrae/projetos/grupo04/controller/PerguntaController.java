@@ -36,7 +36,7 @@ public class PerguntaController {
         return ResponseEntity.ok().body(perguntas);
     }
 
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<Pergunta> criarPerguntaPorID(@RequestBody @Valid CriarPerguntaPorIDDTO dto) {
         Pergunta novaPergunta = perguntaService.criarPerguntaPorID(dto);
         return ResponseEntity.ok().body(novaPergunta);

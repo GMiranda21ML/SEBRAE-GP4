@@ -37,7 +37,7 @@ public class PesquisaController {
         return ResponseEntity.ok().body(pesquisas);
     }
 
-    @PostMapping("/criar")
+    @PostMapping
     public ResponseEntity<Pesquisa> criarPesquisa(@RequestBody @Valid CriarPesquisaDTO dto) {
         Pesquisa pesquisa = pesquisaService.criarPesquisa(dto);
         URI uri = ServletUriComponentsBuilder

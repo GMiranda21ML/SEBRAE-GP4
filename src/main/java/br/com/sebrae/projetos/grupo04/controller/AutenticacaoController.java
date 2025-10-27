@@ -1,9 +1,11 @@
 package br.com.sebrae.projetos.grupo04.controller;
 
+import br.com.sebrae.projetos.grupo04.DTO.RespostaLoginDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioCadastroDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioLoginDTO;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
 import br.com.sebrae.projetos.grupo04.repository.UsuarioRepository;
+import br.com.sebrae.projetos.grupo04.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class AutenticacaoController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
     @Autowired
-    UsuarioRepository repository;
+    private UsuarioRepository repository;
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid UsuarioLoginDTO dto) {
+    public ResponseEntity<?> login(@RequestBody @Valid UsuarioLoginDTO dto) {
         var usuarioSenha = new UsernamePasswordAuthenticationToken(dto.email(),dto.senha());
         var auth = this.authenticationManager.authenticate(usuarioSenha);
-
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario) auth.getPrincipal());
+        return ResponseEntity.ok().body(new RespostaLoginDTO(token));
     }
 
     @PostMapping("/cadastro")
