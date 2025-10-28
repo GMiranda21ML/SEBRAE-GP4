@@ -1,6 +1,7 @@
 package br.com.sebrae.projetos.grupo04.controller;
 
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioCadastroDTO;
+import br.com.sebrae.projetos.grupo04.DTO.UsuarioDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioLoginDTO;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
@@ -33,9 +34,12 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> findAll() {
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
         List<Usuario> usuarios = genericoService.findAll(TipoEntidade.USUARIO);
-        return ResponseEntity.ok().body(usuarios);
+        List<UsuarioDTO> usuarioDTOS = usuarios.stream()
+                .map(u -> new UsuarioDTO(u.getId(), u.getNome(), u.getEmail(), u.getRole()))
+                .toList();
+        return ResponseEntity.ok().body(usuarioDTOS);
     }
 
 }
