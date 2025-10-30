@@ -8,32 +8,62 @@
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo-placeholder"></div>
-        <a href="homepage.html" class="logout-btn">Log out</a>
-    </header>
+<header class="header">
+    <div class="logo-placeholder"></div>
+    <button class="logout-btn">Log out</button>
+</header>
 
-    <main class="main-content">
-        
-        <div class="form-container">
-            <input type="text" class="title-input" placeholder="Título da pesquisa">
-            <div class="form-body">
-            </div>
-            <input type="text" class="footer-input" placeholder="Escreva aqui...">
+<main class="main-content">
+
+    <div class="form-container">
+        <input type="text" class="title-input" placeholder="Título da pesquisa">
+
+        <textarea class="summary-textarea" placeholder="Resumo sobre cliente e intuito da pesquisa"></textarea>
+
+        <div class="form-body">
         </div>
+        <input type="text" class="footer-input" placeholder="Escreva aqui...">
+    </div>
 
-        <aside class="sidebar">
-            <label class="sidebar-label">Adicionar:</label>
+    <aside class="sidebar">
+        <label class="sidebar-label">Adicionar:</label>
+        <div class="add-buttons">
             <button class="sidebar-btn">Questionario</button>
             <button class="sidebar-btn">Escala</button>
             <button class="sidebar-btn">Texto</button>
             <button class="sidebar-btn">Caixa de resposta</button>
-            
-            <button class="save-btn">Salvar rascunho</button>
-        </aside>
+        </div>
 
-    </main>
+        <label class="sidebar-label">Meios de envio:</label>
+        <div class="toggle-group">
+            <div class="toggle-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">E-mail</span>
+            </div>
+            <div class="toggle-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">SMS</span>
+            </div>
+            <div class="toggle-item">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">WhatsApp</span>
+            </div>
+        </div>
 
-    <script src="/js/criacaoEdicaoPesquisa.js"></script>
+        <button class="save-btn">Salvar rascunho</button>
+    </aside>
+
+</main>
+
+<script src="criacaoEdicaoPesquisa.js"></script>
 </body>
 </html>
