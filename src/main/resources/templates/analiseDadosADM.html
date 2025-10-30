@@ -4,45 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise de Dados ADM</title>
-    
+
     <link rel="stylesheet" href="/css/analiseDadosADM.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="logo-placeholder"></div>
-        <a href="homepage.html" class="logout-btn">Log out</a>
-    </header>
+<header class="header">
+    <div class="logo-placeholder"></div>
+    <a href="homepage.html" class="logout-btn">Log out</a>
+</header>
 
-    <nav class="nav">
-        <ul class="nav-list">
-            <li><a href="#" class="nav-link">Criação de pesquisas</a></li>
-            <li><a href="#" class="nav-link">Disparo de pesquisas</a></li>
-            <li><a href="#" class="nav-link active">Análise de dados</a></li>
-            <li><a href="#" class="nav-link">Mural</a></li>
-        </ul>
-    </nav>
+<nav class="nav">
+    <ul class="nav-list">
+        <li><a href="#" class="nav-link">Criação de pesquisas</a></li>
+        <li><a href="#" class="nav-link">Disparo de pesquisas</a></li>
+        <li><a href="#" class="nav-link active">Análise de dados</a></li>
+        <li><a href="#" class="nav-link">Mural</a></li>
+    </ul>
+</nav>
 
-    <main class="main-content">
-        
-        <div class="controls-bar">
-            <input type="text" class="search-bar" placeholder="Pesquisar">
-            <button class="filter-btn">Filtrar</button>
+<main class="main-content">
+
+    <div class="controls-bar">
+        <input type="text" class="search-bar" placeholder="Pesquisar">
+        <button class="filter-btn">Filtrar</button>
+    </div>
+
+    <div class="data-block">
+        <div class="data-details">
+            <h3 class="data-title">Título da Pesquisa Exemplo 1</h3>
+            <p>Tipo de pesquisa: Avaliação de Produto</p>
+            <p>Número de respostas: 1500 | Taxa de adesão: 85%</p>
+            <p>Resumo: Resumo sobre o tema da pesquisa. Esta pesquisa avalia a satisfação e a usabilidade do nosso novo produto X, buscando pontos de melhoria e feedback inicial.</p>
         </div>
+        <button class="visualizar-btn">Visualizar</button>
+    </div>
 
-        <div class="data-block">
-            </div>
-        <div class="data-block">
+    <div class="data-block">
+        <div class="data-details">
+            <h3 class="data-title">Título da Pesquisa Exemplo 2</h3>
+            <p>Tipo de pesquisa: Pesquisa Interna</p>
+            <p>Número de respostas: 250 | Taxa de adesão: 62%</p>
+            <p>Resumo: Resumo sobre o tema da pesquisa. Foco na satisfação dos colaboradores com o ambiente de trabalho e ferramentas internas.</p>
+        </div>
+        <button class="visualizar-btn">Visualizar</button>
+    </div>
+
+</main>
+
+<div id="details-modal" class="modal-overlay">
+    <div class="modal-container">
+        <button class="modal-close-btn" id="close-details-modal">X</button>
+
+        <div class="modal-content-details">
+            <h2 class="details-title">Título da Pesquisa</h2>
+
+            <div class="details-info-section">
+                <p><strong>Tipo de pesquisa:</strong> Aaaaaaaaaaaaaaaa</p>
+                <p><strong>Número de respostas:</strong> Aaaaaaaaaaaaaaaa</p>
+                <p><strong>Taxa de adesão:</strong> Aaaaaaaaaaaaaaaa</p>
             </div>
 
-        <div class="data-block">
-            </div>
-        <div class="data-block">
+            <div class="details-summary">
+                <p><strong>Resumo:</strong> Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa. Resumo sobre o tema da pesquisa.</p>
             </div>
 
-    </main>
+            <div class="questions-container">
+                <div class="question-block">
+                    <h4 class="question-title">Questão 1</h4>
+                    <p class="question-enunciado">Enunciado da pergunta. Enunciado da pergunta.</p>
+                </div>
 
-    <script src="/js/analiseDadosADM.js"></script>
+                <div class="question-block">
+                    <h4 class="question-title">Questão 2</h4>
+                    <p class="question-enunciado">Enunciado da pergunta. Enunciado da pergunta.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/js/analiseDadosADM.js"></script>
 
 </body>
 </html>
