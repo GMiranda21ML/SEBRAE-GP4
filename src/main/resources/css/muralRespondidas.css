@@ -1,0 +1,58 @@
+/* Este arquivo complementa o 'analiseDadosADM.css',
+  que já define header, nav, main-content, controls-bar,
+  search-bar, filter-btn, data-block, etc.
+*/
+
+/* Estilo para o novo botão "Comentários" */
+.comments-btn {
+    /* Mesmo estilo do .filter-btn de analiseDadosADM.css
+      para consistência
+    */
+    padding: 14px 28px;
+    font-size: 16px;
+    border: none;
+    background-color: #e9e9e9;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Estilo para o botão "Editar"
+  (baseado no .edit-btn de criacaoDePesquisasADM.css)
+*/
+.edit-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    border: 1px solid #b0b0b0;
+    cursor: pointer;
+    border-radius: 4px; /* Ajuste do mockup */
+    font-weight: bold;
+    color: #333;
+}
+
+.edit-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Ajuste no .data-block de analiseDadosADM.css
+  para garantir que o botão "Editar" fique alinhado ao centro.
+*/
+.data-block {
+    align-items: center;
+}
+
+/* Ajuste no .data-details de analiseDadosADM.css
+  para remover a margem que empurraria o botão.
+*/
+.data-details {
+    margin-right: 20px;
+}
+
+/* Ajuste nos parágrafos dentro do data-details
+  para corresponder ao "Preview" do mockup.
+*/
+.data-block p {
+    font-size: 0.9em;
+    color: #555;
+    margin: 3px 0;
+}
