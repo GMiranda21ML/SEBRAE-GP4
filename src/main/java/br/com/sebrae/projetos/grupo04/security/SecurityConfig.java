@@ -28,6 +28,21 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET,
+                                "/paginaLogin.html",
+                                "/paginaCadastro.html",
+                                "/homepage.html",
+                                "/userHomepage.html",
+                                "/analiseDadosADM.html",
+                                "/criacaoDePesquisasADM.html",
+                                "/criacaoEdicaoPesquisa.html",
+                                "/disparoDePesquisasADM.html",
+                                "/muralADM.html",
+                                "/muralRespondidas.html",
+                                "/respostaMural.html",
+                                "/js/**",
+                                "/css/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/cadastro").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/pesquisa", "/pergunta").hasRole("ADMIN")
@@ -38,6 +53,7 @@ public class SecurityConfig {
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -48,4 +64,3 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
