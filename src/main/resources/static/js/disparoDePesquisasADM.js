@@ -1,41 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault(); 
-            
-            navLinks.forEach(nav => nav.classList.remove('active'));
-            
-            link.classList.add('active');
-            
-            console.log(`Navegando para: ${link.textContent}`);
-        });
-    });
-
-    const logoutBtn = document.querySelector('.logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            console.log('Botão Log out clicado');
-        });
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert('Você não está autenticado.');
+        window.location.href = 'paginaLogin.html';
+        return;
     }
 
-    const filterBtn = document.querySelector('.filter-btn');
-    if (filterBtn) {
-        filterBtn.addEventListener('click', () => {
-            console.log('Botão Filtrar clicado');
-        });
-    }
+    const listContainer = document.querySelector('.list-container');
 
+    async function carregarPesquisas() {
+        try {
+            const pesquisas = await getPesquisas();
+            listContainer.innerHTML = '';
+
+            if (pesquisas.length === 0) {
+                listContainer.innerHTML = '<p>Nenhuma pesquisa pronta para disparo.</p>';
+                return;
+            }
+
+            pesquisas.forEach(pesquisa => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+
+                item.innerHTML = `
+                    <div class="item-details" style="flex-grow: 1; margin-right: 20px;">
+                        <h4>${pesquisa.titulo || 'Pesquisa sem título'}</h4>
+                        <p>${pesquisa.descricao || 'Sem descrição.'}</p>
+                    </div>
+                    <div class="item-actions">
+                        <div class="action-icon green" data-id="${pesquisa.id}"></div>
+                        <div class="action-icon red" data-id="${pesquisa.id}"></div>
+                    </div>
+                `;
+                listContainer.appendChild(item);
+            });
+
+        } catch (error) {
+            console.error('Erro ao carregar pesquisas:', error);
+            listContainer.innerHTML = '<p>Falha ao carregar pesquisas. Tente novamente.</p>';
+        }
+    }
 
     const modal = document.getElementById('confirmation-modal');
     const returnBtn = document.getElementById('modal-return-btn');
 
-
     function showModal() {
         if (modal) {
-            console.log('Disparo de Pesquisa confirmado. Exibindo modal.');
             modal.style.display = 'flex';
         }
     }
@@ -50,21 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
         returnBtn.addEventListener('click', hideModal);
     }
 
+    listContainer.addEventListener('click', (event) => {
+        const target = event.target;
 
-    const listContainer = document.querySelector('.list-container');
-    if (listContainer) {
-        listContainer.addEventListener('click', (event) => {
-            if (event.target.classList.contains('action-icon')) {
+        if (target.classList.contains('action-icon') && target.classList.contains('green')) {
+            const id = target.dataset.id;
+            console.log(`Disparar pesquisa ID: ${id}`);
+            showModal();
+        }
 
-                if (event.target.classList.contains('green')) {
-                    console.log('Botão de Ação Verde (Aprovar/Disparar) clicado');
-
-                    showModal();
-
-                } else if (event.target.classList.contains('red')) {
-                    console.log('Botão de Ação Vermelho (Apagar) clicado');
-                }
+        if (target.classList.contains('action-icon') && target.classList.contains('red')) {
+             const id = target.dataset.id;
+            if (confirm('Tem certeza que deseja excluir esta pesquisa?')) {
+                deletarPesquisa(id).then(() => carregarPesquisas());
             }
-        });
-    }
+        }
+    });
+
+    carregarPesquisas();
 });

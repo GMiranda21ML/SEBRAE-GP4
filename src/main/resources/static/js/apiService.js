@@ -12,24 +12,53 @@ async function fetchAutenticado(url, options = {}) {
         ...options.headers,
     };
 
-    const response = await fetch(url, { ...options, headers });
+    try {
+        const response = await fetch(url, { ...options, headers });
 
-    if (response.status === 401 || response.status === 403) {
+        if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem('authToken');
+            window.location.href = 'paginaLogin.html';
+            return Promise.reject(new Error('Não autorizado'));
+        }
 
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.statusText}`);
+        }
+
+        try {
+            return await response.json();
+        } catch (e) {
+            return response;
+        }
+
+    } catch (error) {
+        console.error('Erro na chamada fetchAutenticado:', error);
         localStorage.removeItem('authToken');
         window.location.href = 'paginaLogin.html';
-        return Promise.reject(new Error('Não autorizado'));
+        return Promise.reject(error);
     }
-
-    if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.statusText}`);
-    }
-
-    return response.json();
 }
 
 function getPesquisas() {
     return fetchAutenticado('/pesquisa', { method: 'GET' });
+}
+
+function getPesquisaPorId(id) {
+    return fetchAutenticado(`/pesquisa/${id}`, { method: 'GET' });
+}
+
+function criarPesquisa(dto) {
+    return fetchAutenticado('/pesquisa', {
+        method: 'POST',
+        body: JSON.stringify(dto)
+    });
+}
+
+function editarPesquisa(id, dto) {
+    return fetchAutenticado(`/pesquisa/editar/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(dto)
+    });
 }
 
 function deletarPesquisa(id) {
