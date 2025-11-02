@@ -29,17 +29,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET,
-                                "/paginaLogin.html",
-                                "/paginaCadastro.html",
-                                "/homepage.html",
-                                "/userHomepage.html",
-                                "/analiseDadosADM.html",
-                                "/criacaoDePesquisasADM.html",
-                                "/criacaoEdicaoPesquisa.html",
-                                "/disparoDePesquisasADM.html",
-                                "/muralADM.html",
-                                "/muralRespondidas.html",
-                                "/respostaMural.html",
+                                "/*.html",
                                 "/js/**",
                                 "/css/**"
                         ).permitAll()
