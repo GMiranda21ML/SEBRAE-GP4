@@ -187,3 +187,135 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(20px);
 }
+
+.form-body {
+    flex-grow: 1;
+    border: 1px dashed #ccc;
+    padding: 20px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.question-block {
+    background-color: #ffffff;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+.question-title-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 15px;
+    outline: none;
+    box-sizing: border-box;
+}
+.question-title-input:focus {
+    border-bottom-color: #8c8c8c;
+}
+
+.answer-placeholder {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.answer-placeholder input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+    background-color: #f4f4f4;
+    border-bottom: 1px dotted #999;
+}
+
+.answer-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.option-item input[type="radio"],
+.option-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.option-text-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    font-size: 14px;
+    flex-grow: 1;
+}
+.option-text-input:focus {
+    outline: none;
+    border-bottom-color: #8c8c8c;
+}
+
+.add-option-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    padding: 5px;
+}
+.add-option-btn:hover {
+    text-decoration: underline;
+}
+
+.remove-option-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+}
+.remove-option-btn:hover {
+    color: #333;
+}
+
+
+.question-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 10px;
+    gap: 20px;
+}
+
+.delete-question-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #8c8c8c;
+    padding: 5px;
+    line-height: 1;
+}
+.delete-question-btn:hover {
+    color: #ff0000;
+}
+
+.question-controls .toggle-item {
+    margin-bottom: 0;
+}
