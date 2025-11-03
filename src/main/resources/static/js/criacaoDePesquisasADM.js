@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addBtn) {
         addBtn.addEventListener('click', () => {
 
-            window.location.href = 'criacaoEdicaoPesquisa.html';
+            window.location.href = 'criacaoDeEdicaoPesquisa.html';
         });
     }
 

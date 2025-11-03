@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const addSimNaoBtn = document.getElementById('add-simnao-btn');
     const addMultiplaBtn = document.getElementById('add-multipla-btn');
 
+    const emailToggle = document.getElementById('email-toggle');
+    const smsToggle = document.getElementById('sms-toggle');
+    const whatsappToggle = document.getElementById('whatsapp-toggle');
+
     const urlParams = new URLSearchParams(window.location.search);
     const pesquisaId = urlParams.get('id');
     let modoEdicao = pesquisaId != null;
@@ -25,6 +29,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             const pesquisa = await getPesquisaPorId(pesquisaId);
             titleInput.value = pesquisa.titulo;
             summaryTextarea.value = pesquisa.descricao;
+
+            if (pesquisa.meiosEnvio) {
+                emailToggle.checked = pesquisa.meiosEnvio.email || false;
+                smsToggle.checked = pesquisa.meiosEnvio.sms || false;
+                whatsappToggle.checked = pesquisa.meiosEnvio.whatsapp || false;
+            }
 
             if (pesquisa.perguntas && pesquisa.perguntas.length > 0) {
                 pesquisa.perguntas.forEach(pergunta => {
@@ -111,17 +121,24 @@ document.addEventListener('DOMContentLoaded', async () => {
         `;
 
         const optionsList = placeholder.querySelector('.answer-options-list');
-        adicionarOpcaoEditavel(optionsList);
+
+        if (perguntaData.opcoes && perguntaData.opcoes.length > 0) {
+            perguntaData.opcoes.forEach(opcaoTexto => {
+                adicionarOpcaoEditavel(optionsList, opcaoTexto);
+            });
+        } else {
+            adicionarOpcaoEditavel(optionsList);
+        }
 
         formBody.appendChild(block);
     }
 
-    function adicionarOpcaoEditavel(optionsList) {
+    function adicionarOpcaoEditavel(optionsList, texto = '') {
         const optionItem = document.createElement('div');
         optionItem.className = 'option-item';
         optionItem.innerHTML = `
             <input type="radio" name="multi_${Date.now()}" disabled>
-            <input type="text" class="option-text-input" placeholder="Opção">
+            <input type="text" class="option-text-input" placeholder="Opção" value="${texto}">
             <button class="remove-option-btn" title="Remover Opção">✖</button>
         `;
         optionsList.appendChild(optionItem);
@@ -168,27 +185,47 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tipo = block.dataset.tipo;
             const obrigatoria = block.querySelector('.obrigatoria-toggle').checked;
 
-            if (texto) {
-                perguntas.push({
-                    texto: texto,
-                    tipo: tipo,
-                    obrigatoria: obrigatoria
+            if (!texto) return;
+
+            const pergunta = {
+                texto: texto,
+                tipo: tipo,
+                obrigatoria: obrigatoria
+            };
+
+            if (tipo === 'MULTIPLA_ESCOLHA') {
+                const opcoes = [];
+                const optionInputs = block.querySelectorAll('.option-text-input');
+
+                optionInputs.forEach(input => {
+                    if (input.value) {
+                        opcoes.push(input.value);
+                    }
                 });
+
+                pergunta.opcoes = opcoes;
             }
+
+            perguntas.push(pergunta);
         });
 
         const dto = {
             titulo: titulo,
             descricao: descricao,
-            perguntas: perguntas
+            perguntas: perguntas,
+            meiosEnvio: {
+                email: emailToggle.checked,
+                sms: smsToggle.checked,
+                whatsapp: whatsappToggle.checked
+            }
         };
 
         try {
             if (modoEdicao) {
-                await editarPesquisa(pesquisaId, dto); //
+                await editarPesquisa(pesquisaId, dto);
                 alert('Pesquisa atualizada com sucesso!');
             } else {
-                await criarPesquisa(dto); //
+                await criarPesquisa(dto);
                 alert('Pesquisa criada com sucesso!');
             }
             window.location.href = 'criacaoDePesquisasADM.html';
