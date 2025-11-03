@@ -1,4 +1,3 @@
-/* ======== HEADER.CSS ======== */
 .header {
     display: flex;
     justify-content: space-between;
@@ -64,7 +63,6 @@
     border-bottom: 3px solid #777;
 }
 
-/* ======== ESTILOS DA PÁGINA ======== */
 * {
     box-sizing: border-box;
 }
