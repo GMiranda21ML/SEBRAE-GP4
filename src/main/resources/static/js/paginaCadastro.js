@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.location.href = 'criacaoDePesquisasADM.html';
                     } else {
                         window.location.href = 'paginaLogin.html';
+                        }
                 } else {
                     const errorText = await response.text();
 
