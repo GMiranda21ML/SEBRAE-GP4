@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mural</title>
-    <link rel="stylesheet" href="css/visualizacaoDoMuralUsuario.css">
-</head>
+    <title>Visualização do Usuário</title>
+    <link rel="stylesheet" href="css/visualizacaoDoMuralUsuario.css"> </head>
 <body>
 
 <header class="header">
@@ -13,45 +12,36 @@
     <button class="logout-btn">Log out</button>
 </header>
 
+<nav class="nav">
+    <ul class="nav-list">
+        <li><a href="/criacaoDePesquisasADM.html" class="nav-link">Criação de pesquisas</a></li>
+        <li><a href="/disparoDePesquisasADM.html" class="nav-link">Disparo de pesquisas</a></li>
+        <li><a href="/analiseDadosADM.html" class="nav-link">Análise de dados</a></li>
+        <li><a href="/muralADM.html" class="nav-link active">Mural</a></li>
+    </ul>
+</nav>
+
 <main class="main-content">
+    <div class="controls-bar">
+        <input type="text" class="search-bar" placeholder="Pesquisar">
+        <button class="filter-btn">Filtrar</button>
+    </div>
 
-    <nav class="sub-nav">
-        <a href="criacaoDePesquisasADM.html" class="nav-link">Criação de pesquisas</a>
-        <a href="disparoDePesquisasADM.html" class="nav-link">Disparo de pesquisas</a>
-        <a href="analiseDadosADM.html" class="nav-link">Análise de dados</a>
-        <a href="muralADM.html" class="nav-link active">Mural</a>
-    </nav>
+    <div class="research-block">
+        <h3 class="research-title">Título da pesquisa</h3>
+        <p class="research-summary">Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
+        <p class="research-summary">Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
+        <button class="respond-btn">Responder</button>
+    </div>
 
-    <div class="page-content">
-
-        <div class="action-bar">
-            <button class="filter-btn">Filtrar</button>
-        </div>
-
-        <div class="list-container">
-
-            <div class="list-item">
-                <h3>Título da pesquisa</h3>
-                <p>Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
-                <div class="item-actions">
-                    <button class="respond-btn">Responder</button>
-                </div>
-            </div>
-
-            <div class="list-item">
-                <h3>Título da pesquisa</h3>
-                <p>Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
-                <div class="item-actions">
-                    <button class="respond-btn">Responder</button>
-                </div>
-            </div>
-
-        </div>
-
+    <div class="research-block">
+        <h3 class="research-title">Título da pesquisa</h3>
+        <p class="research-summary">Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
+        <p class="research-summary">Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa. Resumo sobre tema da pesquisa.</p>
+        <button class="respond-btn">Responder</button>
     </div>
 
 </main>
-
 <script src="js/visualizacaoDoMuralUsuario.js"></script>
 </body>
 </html>

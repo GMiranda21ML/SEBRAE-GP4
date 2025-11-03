@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify(cadastroData)
                 });
 
-                // 5. Trata a resposta
                 if (response.ok) {
                     alert('Cadastro realizado com sucesso! Você será redirecionado para a página de login.');
 
-                    window.location.href = 'paginaLogin.html'; //
+                    if (role === 'ROLE_ADMIN') {
+                        window.location.href = 'criacaoDePesquisasADM.html';
+                    } else {
+                        window.location.href = 'paginaLogin.html';
                 } else {
                     const errorText = await response.text();
 

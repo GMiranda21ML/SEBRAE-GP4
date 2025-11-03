@@ -16,6 +16,7 @@ body {
     padding: 12px 24px;
     background-color: #8c8c8c;
     height: 60px;
+
     position: fixed;
     top: 0;
     width: 100%;
@@ -37,12 +38,51 @@ body {
     cursor: pointer;
 }
 
-.main-content {
-    padding: 84px 24px 24px 24px;
-    min-height: 100vh;
-    gap: 24px;
+.nav {
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #c0c0c0;
+
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    z-index: 10;
+}
+
+.nav-list {
     display: flex;
-    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0 24px;
+    height: 44px;
+}
+
+.nav-list li {
+    flex-grow: 1;
+}
+
+.nav-link {
+    display: block;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    text-align: center;
+}
+
+.nav-link.active {
+    border-bottom: 3px solid #777;
+}
+
+.main-content {
+    background-color: #ffffff;
+    padding-top: 105px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 24px;
+
+    min-height: 100vh;
+    width: 100%;
 }
 
 .form-container {
