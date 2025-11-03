@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-
                 const response = await fetch('/auth/login', {
                     method: 'POST',
                     headers: {
@@ -31,14 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     localStorage.setItem('authToken', data.token);
 
-                    window.location.href = 'userHomepage.html';
-                } else {
 
+                    if (data.role === 'ROLE_USER') {
+                        window.location.href = 'visualizarMuralUsuario.html';
+                    } else if (data.role === 'ROLE_ADMIN') {
+                        window.location.href = 'userHomepage.html';
+                    } else {
+                        alert('Role desconhecido. Contate o suporte.');
+                    }
+
+                } else {
                     console.error('Falha no login');
                     alert('Email ou senha inválidos. Tente novamente.');
                 }
             } catch (error) {
-
                 console.error('Erro ao tentar fazer login:', error);
                 alert('Não foi possível conectar ao servidor. Tente novamente mais tarde.');
             }
