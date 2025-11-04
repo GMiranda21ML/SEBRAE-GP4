@@ -22,8 +22,8 @@ public class AutenticacaoController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid UsuarioLoginDTO dto) {
-        String token = usuarioService.login(dto);
-        return ResponseEntity.ok().body(new RespostaLoginDTO(token));
+       RespostaLoginDTO respostaLoginDTO = usuarioService.login(dto);
+        return ResponseEntity.ok().body(respostaLoginDTO);
     }
 
     @PostMapping("/cadastro")

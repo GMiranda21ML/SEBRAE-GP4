@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${pesquisa.descricao || 'Sem descrição.'}</p>
                     </div>
                     <div class="item-actions">
-                        <div class="action-icon red" data-id="${pesquisa.id}"></div>
+                        <button class="excluir-btn" data-id="${pesquisa.id}">Excluir</button>
                         <button class="edit-btn" data-id="${pesquisa.id}">Editar</button>
                     </div>
                 `;
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = `criacaoEdicaoPesquisa.html?id=${id}`;
         }
 
-        if (target.classList.contains('action-icon') && target.classList.contains('red')) {
+        if (target.classList.contains('excluir-btn')) {
             if (confirm('Tem certeza que deseja excluir esta pesquisa?')) {
                 try {
                     await deletarPesquisa(id);

@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     const loginForm = document.querySelector('form');
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
+
             event.preventDefault();
 
             const email = document.getElementById('email').value;
@@ -27,15 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('authToken', data.token);
 
                     if (data.role === 'ROLE_USER') {
-<<<<<<< HEAD
-                        window.location.href = 'VisualizacaoDoMuralUsuario.html';
-=======
                         window.location.href = 'visualizacaoDoMuralUsuario.html';
->>>>>>> 407ec7eb992288dd38705a46ab0e27106cd7ec7d
                     } else if (data.role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
                     } else {
-                        alert('Role desconhecido. Contate o suporte.');
+                        alert('Perfil de usuário desconhecido. Contate o suporte.');
                     }
                 } else {
                     console.error('Falha no login');

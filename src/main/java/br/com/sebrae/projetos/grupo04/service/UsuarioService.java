@@ -1,5 +1,6 @@
 package br.com.sebrae.projetos.grupo04.service;
 
+import br.com.sebrae.projetos.grupo04.DTO.RespostaLoginDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioCadastroDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioLoginDTO;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
@@ -26,10 +27,13 @@ public class UsuarioService {
     @Autowired
     private TokenService tokenService;
 
-    public String login(UsuarioLoginDTO dto) {
+
+    public RespostaLoginDTO login(UsuarioLoginDTO dto) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
         Authentication autenticacao = authenticationManager.authenticate(authenticationToken);
-        return tokenService.generateToken((Usuario) autenticacao.getPrincipal());
+        Usuario usuario = (Usuario) autenticacao.getPrincipal();
+        String token = tokenService.generateToken(usuario);
+        return new RespostaLoginDTO(token, usuario.getRole());
     }
 
     public Usuario cadastro(UsuarioCadastroDTO dto) {
