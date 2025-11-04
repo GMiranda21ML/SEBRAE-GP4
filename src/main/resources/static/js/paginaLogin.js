@@ -27,7 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('authToken', data.token);
 
                     if (data.role === 'ROLE_USER') {
+<<<<<<< HEAD
                         window.location.href = 'VisualizacaoDoMuralUsuario.html';
+=======
+                        window.location.href = 'visualizacaoDoMuralUsuario.html';
+>>>>>>> 407ec7eb992288dd38705a46ab0e27106cd7ec7d
                     } else if (data.role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
                     } else {

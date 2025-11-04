@@ -27,8 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
+<<<<<<< HEAD
                     alert('Cadastro realizado com sucesso! Faça login para continuar.');
                     window.location.href = 'paginaLogin.html';
+=======
+                    alert('Cadastro realizado com sucesso! Você será redirecionado para a página de login.');
+
+                    if (role === 'ROLE_ADMIN') {
+                        window.location.href = 'criacaoDePesquisasADM.html';
+                    }else if (role == 'ROLE_USER') {
+                        window.location.href = 'visualizacaoDoMuralUsuario.html'
+                    }
+                    else{
+                        window.location.href = 'paginaLogin.html';
+                        }
+>>>>>>> 407ec7eb992288dd38705a46ab0e27106cd7ec7d
                 } else {
                     const errorText = await response.text();
                     if (errorText.includes('Já existe um usuario com este email')) {
