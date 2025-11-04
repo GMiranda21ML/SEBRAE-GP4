@@ -10,19 +10,18 @@
 
 <header class="header">
   <div class="logo-placeholder"></div>
-  <a href="emAnalise/homepage.html" class="logout-btn">Log out</a>
+  <button class="logout-btn">Log out</button>
 </header>
 
-<nav class="nav">
-  <ul class="nav-list">
-    <li><a href="criacaoDePesquisasADM.html" class="nav-link">Criação de pesquisas</a></li>
-    <li><a href="emAnalise/disparoDePesquisasADM.html" class="nav-link active">Disparo de pesquisas</a></li>
-    <li><a href="emAnalise/analiseDadosADM.html" class="nav-link">Análise de dados</a></li>
-    <li><a href="emAnalise/muralADM.html" class="nav-link">Mural</a></li>
-  </ul>
-</nav>
-
 <main class="main-content">
+
+  <nav class="sub-nav">
+    <a href="#" class="nav-link active">Criação de pesquisas</a>
+    <a href="#" class="nav-link">Disparo de pesquisas</a>
+    <a href="#" class="nav-link">Análise de dados</a>
+    <a href="#" class="nav-link">Mural</a>
+  </nav>
+
   <div class="page-content">
 
     <div class="action-bar">
@@ -34,14 +33,14 @@
 
       <div class="list-item">
         <div class="item-actions">
-          <div class="action-icon red"></div>
+          <button class="excluir-btn">Excluir</button>
           <button class="edit-btn">Editar</button>
         </div>
       </div>
 
       <div class="list-item">
         <div class="item-actions">
-          <div class="action-icon red"></div>
+          <button class="excluir-btn">Excluir</button>
           <button class="edit-btn">Editar</button>
         </div>
       </div>
@@ -52,7 +51,6 @@
 
 </main>
 
-<script src="js/apiService.js"></script>
-<script src="js/criacaoDePesquisasADM.js"></script>
+<script src="/js/criacaoDePesquisasADM.js"></script>
 </body>
 </html>
