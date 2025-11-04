@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const cadastroForm = document.querySelector('form');
 
     if (cadastroForm) {
         cadastroForm.addEventListener('submit', async (event) => {
-
             event.preventDefault();
 
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
-
             const role = document.getElementById('role').value;
 
             const cadastroData = {
@@ -21,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const response = await fetch('/auth/cadastro', { //
+                const response = await fetch('/auth/cadastro', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -30,17 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    alert('Cadastro realizado com sucesso! Você será redirecionado para a página de login.');
-
-                    if (role === 'ROLE_ADMIN') {
-                        window.location.href = 'criacaoDePesquisasADM.html';
-                    } else {
-                        window.location.href = 'paginaLogin.html';
-                        }
+                    alert('Cadastro realizado com sucesso! Faça login para continuar.');
+                    window.location.href = 'paginaLogin.html';
                 } else {
                     const errorText = await response.text();
-
-                    if (errorText.includes('Já existe um usuario com este email')) { //
+                    if (errorText.includes('Já existe um usuario com este email')) {
                         alert('Este email já está cadastrado. Tente fazer login ou use um email diferente.');
                     } else {
                         alert('Não foi possível realizar o cadastro. Verifique os dados e tente novamente.');

@@ -1,18 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const navLinks = document.querySelectorAll('.nav-link');
+    const researchListContainer = document.querySelector('.research-list');
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
+    function loadResearches(data) {
+        if (!data || data.length === 0) {
+            const noDataMessage = document.createElement('p');
+            noDataMessage.textContent = 'Nenhuma pesquisa disponível no momento.';
+            noDataMessage.style.textAlign = 'center';
+            noDataMessage.style.padding = '20px';
+            researchListContainer.appendChild(noDataMessage);
+            return;
+        }
 
-            navLinks.forEach(nav => nav.classList.remove('active'));
+        data.forEach(research => {
+            const researchBlock = document.createElement('div');
+            researchBlock.classList.add('research-block');
 
-            link.classList.add('active');
+            researchBlock.innerHTML = `
+                <h3 class="research-title">${research.title}</h3>
+                <p class="research-summary">${research.summary}</p>
+                <button class="respond-btn" data-id="${research.id}">Responder</button>
+            `;
 
-            console.log(`Navegando para: ${link.textContent}`);
+            researchListContainer.appendChild(researchBlock);
+
+            const respondBtn = researchBlock.querySelector('.respond-btn');
+            respondBtn.addEventListener('click', (event) => {
+                const id = event.target.getAttribute('data-id');
+                console.log(`Botão Responder clicado para Pesquisa ID: ${id}`);
+            });
         });
-    });
+    }
+
+    function fetchAndLoadResearches() {
+        getPesquisas()
+            .then(data => {
+                loadResearches(data);
+            })
+            .catch(error => {
+                console.error('Erro ao carregar pesquisas:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.textContent = 'Falha ao carregar pesquisas. Tente recarregar a página.';
+                errorMessage.style.color = 'red';
+                errorMessage.style.textAlign = 'center';
+                researchListContainer.appendChild(errorMessage);
+            });
+    }
+
+    fetchAndLoadResearches();
 
     const logoutBtn = document.querySelector('.logout-btn');
     if (logoutBtn) {
@@ -25,16 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterBtn) {
         filterBtn.addEventListener('click', () => {
             console.log('Botão Filtrar clicado');
-        });
-    }
-
-    const listContainer = document.querySelector('.list-container');
-    if (listContainer) {
-        listContainer.addEventListener('click', (event) => {
-
-            if (event.target.classList.contains('respond-btn')) {
-                console.log('Botão Responder clicado');
-            }
         });
     }
 });

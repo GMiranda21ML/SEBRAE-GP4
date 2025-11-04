@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const loginForm = document.querySelector('form');
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
-
             event.preventDefault();
 
             const email = document.getElementById('email').value;
@@ -25,20 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-
                     const data = await response.json();
-
                     localStorage.setItem('authToken', data.token);
 
-
                     if (data.role === 'ROLE_USER') {
-                        window.location.href = 'visualizarMuralUsuario.html';
+                        window.location.href = 'VisualizacaoDoMuralUsuario.html';
                     } else if (data.role === 'ROLE_ADMIN') {
-                        window.location.href = 'userHomepage.html';
+                        window.location.href = 'criacaoDePesquisasADM.html';
                     } else {
                         alert('Role desconhecido. Contate o suporte.');
                     }
-
                 } else {
                     console.error('Falha no login');
                     alert('Email ou senha inválidos. Tente novamente.');
