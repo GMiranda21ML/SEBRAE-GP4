@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
-                    } else {
+                    }else if (role == 'ROLE_USER') {
+                        window.location.href = 'visualizacaoDoMuralUsuario.html'
+                    }
+                    else{
                         window.location.href = 'paginaLogin.html';
                         }
                 } else {

@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
                     if (data.role === 'ROLE_USER') {
-                        window.location.href = 'visualizarMuralUsuario.html';
+                        window.location.href = 'visualizacaoDoMuralUsuario.html';
                     } else if (data.role === 'ROLE_ADMIN') {
-                        window.location.href = 'userHomepage.html';
+                        window.location.href = 'criacaoDePesquisasADM.html';
                     } else {
                         alert('Role desconhecido. Contate o suporte.');
                     }
