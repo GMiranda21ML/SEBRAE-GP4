@@ -3,12 +3,16 @@ package br.com.sebrae.projetos.grupo04.controller;
 import br.com.sebrae.projetos.grupo04.DTO.CriarPesquisaDTO;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
+import br.com.sebrae.projetos.grupo04.model.Usuario;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
+import br.com.sebrae.projetos.grupo04.service.EmailService;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PesquisaService;
+import br.com.sebrae.projetos.grupo04.service.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,7 +28,55 @@ public class PesquisaController {
     @Autowired
     private PesquisaService pesquisaService;
 
+    @Autowired
+    private EmailService emailService;
 
+    @PostMapping("/{id}/disparar-email")
+    public ResponseEntity<String> dispararPesquisaEmail(@PathVariable UUID id){
+        Pesquisa pesquisa;
+        try{
+            pesquisa = service.findPesquisaById(id);
+        }catch (ResourceNotFoundException e ){
+            return ResponseEntity.notFound().build();
+        }
+        List<Usuario> usuarios = service.findAll(TipoEntidade.USUARIO);
+        if(usuarios.isEmpty()){
+            System.err.println("Usuário não encontrado");
+        }
+        final String LINK_SITE= "sebrae-gp4.onrender.com";
+        String assunto = "Responder nova pesquisa: " + pesquisa.getTitulo();
+        String linkAcesso  = "http://"+LINK_SITE+"/responder?pesquisaId=" + pesquisa.getId();
+        String mensagemPadrao = "Olá, %s!\n"
+                + "Gostaria de responder nossa nova pesquisa?\n"
+                + "Titulo: %s\n"
+                + "Descrição: %s\n"
+                + "Responda por este link: %s\n"
+                + "Obrigado pela anteção.";
+        int emailEnviados = 0;
+        int falhasEnviar = 0;
+
+        for (Usuario usuario : usuarios){
+            String emailDestinatario = usuario.getEmail();
+            String nomeDestinatario = usuario.getNome();
+
+            String formatoEmail = String.format(mensagemPadrao,
+                    nomeDestinatario,
+                    pesquisa.getTitulo(),
+                    pesquisa.getDescricao(),
+                    linkAcesso
+            );
+            try{
+                emailService.enviarEmail(emailDestinatario, assunto, formatoEmail);
+                emailEnviados++;
+            }catch (MailException e){
+                System.err.println("Erro ao enviar email ");
+                falhasEnviar++;
+            }
+        }
+        String logDisparos = "Emails enviados: "+emailEnviados+ "\nFalhas ao enviar: "+ falhasEnviar;
+        return ResponseEntity.ok(logDisparos);
+
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Pesquisa> findById(@PathVariable UUID id) {
         Pesquisa pesquisa = service.findPesquisaById(id);
