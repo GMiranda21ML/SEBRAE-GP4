@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responder Pesquisa</title>
+    <link rel="stylesheet" href="css/responderPesquisa.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo-placeholder"></div>
+    <button class="logout-btn">Log out</button>
+</header>
+
+<main class="main-content">
+
+    <div class="sidebar">
+        <button class="sidebar-btn" id="voltar-btn">Voltar</button>
+        <button class="sidebar-btn submit" id="enviar-btn">Enviar</button>
+    </div>
+
+    <div class="form-container">
+        <h2 class="survey-title" id="survey-title">Carregando título...</h2>
+
+        <form id="response-form">
+        </form>
+    </div>
+
+</main>
+
+<script src="js/apiService.js"></script>
+<script src="js/responderPesquisa.js"></script>
+</body>
+</html>

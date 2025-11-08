@@ -64,3 +64,10 @@ function editarPesquisa(id, dto) {
 function deletarPesquisa(id) {
     return fetchAutenticado(`/pesquisa/deletar/${id}`, { method: 'DELETE' });
 }
+
+function submeterRespostas(pesquisaId, dto) {
+    return fetchAutenticado(`/respostas/responder/${pesquisaId}`, {
+        method: 'POST',
+        body: JSON.stringify(dto)
+    });
+}
