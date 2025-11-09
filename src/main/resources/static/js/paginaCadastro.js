@@ -27,11 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
+                     const data = await response.json();
+                    localStorage.setItem('authToken', data.token);
 
                     alert('Cadastro realizado com sucesso! Faça login para continuar.');
                     window.location.href = 'paginaLogin.html';
-
-                    alert('Cadastro realizado com sucesso! Você será redirecionado para a página de login.');
 
                     if (role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';

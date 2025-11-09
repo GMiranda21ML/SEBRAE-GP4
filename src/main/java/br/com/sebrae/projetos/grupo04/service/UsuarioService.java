@@ -36,13 +36,16 @@ public class UsuarioService {
         return new RespostaLoginDTO(token, usuario.getRole());
     }
 
-    public Usuario cadastro(UsuarioCadastroDTO dto) {
+    public RespostaLoginDTO cadastro(UsuarioCadastroDTO dto) {
         if (repository.existsByEmail(dto.email())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuario com este email");
         }
 
         String encryptedPassword = passwordEncoder.encode(dto.senha());
         Usuario usuario = new Usuario(dto.nome(), dto.email(), encryptedPassword, dto.role());
-        return repository.save(usuario);
+        repository.save(usuario);
+        String token = tokenService.generateToken(usuario);
+
+        return new RespostaLoginDTO(token,usuario.getRole());
     }
 }

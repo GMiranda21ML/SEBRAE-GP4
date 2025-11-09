@@ -27,8 +27,8 @@ public class AutenticacaoController {
     }
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Usuario> cadastro(@RequestBody @Valid UsuarioCadastroDTO dto) {
-        Usuario novoUsuario = usuarioService.cadastro(dto);
-        return ResponseEntity.ok(novoUsuario);
+    public ResponseEntity<RespostaLoginDTO> cadastro(@RequestBody @Valid UsuarioCadastroDTO dto) {
+        RespostaLoginDTO  respostaLoginDTO = usuarioService.cadastro(dto);
+        return ResponseEntity.ok(respostaLoginDTO);
     }
 }

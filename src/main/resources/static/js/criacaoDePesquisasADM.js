@@ -7,6 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('authToken');
+            alert('Você foi desconectado.');
+            window.location.href = 'paginaLogin.html';
+        });
+    }
+
     const listContainer = document.querySelector('.list-container');
     const addBtn = document.querySelector('.add-btn');
 
@@ -36,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${pesquisa.descricao || 'Sem descrição.'}</p>
                     </div>
                     <div class="item-actions">
-                        <button class="excluir-btn" data-id="${pesquisa.id}">Excluir</button>
                         <button class="edit-btn" data-id="${pesquisa.id}">Editar</button>
+                        <button class="excluir-btn" data-id="${pesquisa.id}">Excluir</button>
                     </div>
                 `;
                 listContainer.appendChild(item);

@@ -33,8 +33,6 @@ async function fetchAutenticado(url, options = {}) {
 
     } catch (error) {
         console.error('Erro na chamada fetchAutenticado:', error);
-        localStorage.removeItem('authToken');
-        window.location.href = 'paginaLogin.html';
         return Promise.reject(error);
     }
 }
@@ -66,7 +64,7 @@ function deletarPesquisa(id) {
 }
 
 function submeterRespostas(pesquisaId, dto) {
-    return fetchAutenticado(`/respostas/responder/${pesquisaId}`, {
+    return fetchAutenticado(`/resposta`, {
         method: 'POST',
         body: JSON.stringify(dto)
     });

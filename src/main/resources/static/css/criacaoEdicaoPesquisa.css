@@ -115,6 +115,7 @@ body {
     border-radius: 20px;
 }
 
+.back-btn,
 .save-btn {
     background-color: #ffffff;
     border: 1px solid #b0b0b0;
@@ -122,8 +123,12 @@ body {
     font-size: 14px;
     text-align: center;
     cursor: pointer;
-    margin-top: auto;
     border-radius: 20px;
+}
+
+.back-btn {
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
 .toggle-group {

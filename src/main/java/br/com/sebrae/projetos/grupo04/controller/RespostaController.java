@@ -2,6 +2,7 @@ package br.com.sebrae.projetos.grupo04.controller;
 
 import br.com.sebrae.projetos.grupo04.DTO.AtualizarRespostaDTO;
 import br.com.sebrae.projetos.grupo04.DTO.CriarRespostaDTO;
+import br.com.sebrae.projetos.grupo04.DTO.ListaRespostasDTO;
 import br.com.sebrae.projetos.grupo04.model.Resposta;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
@@ -33,15 +34,9 @@ public class RespostaController {
     }
 
     @PostMapping
-    public ResponseEntity<Resposta> criarResposta(@RequestBody @Valid CriarRespostaDTO dto) {
-        Resposta resposta = respostaService.criarResposta(dto);
-        URI uri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(resposta.getId())
-                .toUri();
-
-        return ResponseEntity.created(uri).body(resposta);
+    public ResponseEntity<Resposta> criarResposta(@RequestBody @Valid ListaRespostasDTO dto) {
+        respostaService.criarRespostas(dto);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}")

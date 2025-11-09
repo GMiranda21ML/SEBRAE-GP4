@@ -7,9 +7,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('authToken');
+            alert('Você foi desconectado.');
+            window.location.href = 'paginaLogin.html';
+        });
+    }
+
     const titleInput = document.querySelector('.title-input');
     const summaryTextarea = document.querySelector('.summary-textarea');
     const saveBtn = document.querySelector('.save-btn');
+    const backBtn = document.getElementById('back-btn');
 
     const formBody = document.querySelector('.form-body');
     const addTextoBtn = document.getElementById('add-texto-btn');
@@ -172,6 +182,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    if (backBtn) {
+        backBtn.addEventListener('click', () => {
+            window.location.href = 'criacaoDePesquisasADM.html';
+        });
+    }
 
     saveBtn.addEventListener('click', async () => {
         const titulo = titleInput.value;
