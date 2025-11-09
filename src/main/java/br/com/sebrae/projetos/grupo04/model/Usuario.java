@@ -28,14 +28,16 @@ public class Usuario implements UserDetails {
     private String senha;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private Boolean recebeEmail;
 
     public Usuario() {}
 
-    public Usuario(String nome, String email, String senha, Role role, PasswordEncoder passwordEncoder) {
+    public Usuario(String nome, String email, String senha, Role role, PasswordEncoder passwordEncoder, Boolean recebeEmail) {
         this.nome = nome;
         this.email = email;
         this.senha = passwordEncoder.encode(senha);
         this.role = role;
+        this.recebeEmail = false;
     }
 
 
@@ -81,6 +83,10 @@ public class Usuario implements UserDetails {
     public Role getRole() {
         return this.role;
     }
+
+    public Boolean isRecebeEmail() { return this.recebeEmail;}
+
+    public void setRecebeEmail(Boolean recebeEmail) { this.recebeEmail = recebeEmail;}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -40,9 +40,13 @@ public class UsuarioService {
         if (repository.existsByEmail(dto.email())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um usuario com este email");
         }
-
         String encryptedPassword = passwordEncoder.encode(dto.senha());
         Usuario usuario = new Usuario(dto.nome(), dto.email(), encryptedPassword, dto.role());
+        Boolean recebeEmail = false;
+        if (dto.recebeEmail() != null) {
+            recebeEmail = dto.recebeEmail();
+        }
+        usuario.setRecebeEmail(recebeEmail);
         repository.save(usuario);
         String token = tokenService.generateToken(usuario);
 

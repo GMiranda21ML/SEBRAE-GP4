@@ -11,6 +11,7 @@ public record UsuarioDetalhadoDTO(
         String nome,
         String email,
         Role role,
+        Boolean recebeEmail,
         Boolean enabled,
         Boolean accountNonExpired,
         Boolean credentialsNonExpired,

@@ -11,6 +11,7 @@ public record UsuarioDTO(
         UUID id,
         String nome,
         String email,
-        Role role
+        Role role,
+        Boolean recebeEmail
 ) {
 }

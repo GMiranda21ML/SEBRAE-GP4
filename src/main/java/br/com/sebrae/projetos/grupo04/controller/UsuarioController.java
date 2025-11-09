@@ -36,6 +36,7 @@ public class UsuarioController {
                 usuario.getNome(),
                 usuario.getEmail(),
                 usuario.getRole(),
+                usuario.isRecebeEmail(),
                 usuario.isEnabled(),
                 usuario.isAccountNonExpired(),
                 usuario.isCredentialsNonExpired(),
@@ -50,7 +51,7 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioDTO>> findAll() {
         List<Usuario> usuarios = genericoService.findAll(TipoEntidade.USUARIO);
         List<UsuarioDTO> usuarioDTOS = usuarios.stream()
-                .map(u -> new UsuarioDTO(u.getId(), u.getNome(), u.getEmail(), u.getRole()))
+                .map(u -> new UsuarioDTO(u.getId(), u.getNome(), u.getEmail(), u.getRole(),u.isRecebeEmail()))
                 .toList();
         return ResponseEntity.ok().body(usuarioDTOS);
     }

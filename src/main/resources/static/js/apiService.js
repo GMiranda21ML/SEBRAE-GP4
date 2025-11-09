@@ -69,3 +69,9 @@ function submeterRespostas(pesquisaId, dto) {
         body: JSON.stringify(dto)
     });
 }
+
+function dispararPesquisaEmail(id) {
+    return fetchAutenticado(`/pesquisa/${id}/disparar-email`, {
+        method: 'POST'
+    });
+}

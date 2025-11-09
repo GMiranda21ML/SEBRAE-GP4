@@ -61,22 +61,33 @@ document.addEventListener('DOMContentLoaded', () => {
         returnBtn.addEventListener('click', hideModal);
     }
 
-    listContainer.addEventListener('click', (event) => {
-        const target = event.target;
-
-        if (target.classList.contains('action-icon') && target.classList.contains('green')) {
+    listContainer.addEventListener('click', async (event) => {
+            const target = event.target;
             const id = target.dataset.id;
-            console.log(`Disparar pesquisa ID: ${id}`);
-            showModal();
-        }
 
-        if (target.classList.contains('action-icon') && target.classList.contains('red')) {
-             const id = target.dataset.id;
-            if (confirm('Tem certeza que deseja excluir esta pesquisa?')) {
-                deletarPesquisa(id).then(() => carregarPesquisas());
+            if (!id) return;
+
+            if (target.classList.contains('action-icon') && target.classList.contains('green')) {
+                if (confirm('Tem certeza que deseja disparar esta pesquisa para todos os usuários?')) {
+                    try {
+                        const logResultado = await dispararPesquisaEmail(id);
+
+                        alert(logResultado);
+
+                        showModal();
+                    } catch (error) {
+                        console.error('Erro ao disparar pesquisa:', error);
+                        alert('Falha ao disparar a pesquisa.');
+                    }
+                }
             }
-        }
-    });
+
+            if (target.classList.contains('action-icon') && target.classList.contains('red')) {
+                if (confirm('Tem certeza que deseja excluir esta pesquisa?')) {
+                    deletarPesquisa(id).then(() => carregarPesquisas());
+                }
+            }
+        });
 
     carregarPesquisas();
 });

@@ -17,6 +17,8 @@ public record UsuarioCadastroDTO(
         @NotBlank
         String senha,
         @NotNull
-        Role role
+        Role role,
+        @NotNull
+        Boolean recebeEmail
 ) {
 }
