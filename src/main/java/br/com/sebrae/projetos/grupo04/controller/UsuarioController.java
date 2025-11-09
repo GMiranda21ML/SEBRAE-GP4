@@ -2,6 +2,7 @@ package br.com.sebrae.projetos.grupo04.controller;
 
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioCadastroDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioDTO;
+import br.com.sebrae.projetos.grupo04.DTO.UsuarioDetalhadoDTO;
 import br.com.sebrae.projetos.grupo04.DTO.UsuarioLoginDTO;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
@@ -28,9 +29,21 @@ public class UsuarioController {
     private GenericoService genericoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable UUID id) {
+    public ResponseEntity<UsuarioDetalhadoDTO> findById(@PathVariable UUID id) {
         Usuario usuario = genericoService.findUsuarioById(id);
-        return ResponseEntity.ok().body(usuario);
+        UsuarioDetalhadoDTO usuarioDTO = new UsuarioDetalhadoDTO(
+                usuario.getId(),
+                usuario.getNome(),
+                usuario.getEmail(),
+                usuario.getRole(),
+                usuario.isEnabled(),
+                usuario.isAccountNonExpired(),
+                usuario.isCredentialsNonExpired(),
+                usuario.getUsername(),
+                usuario.isAccountNonLocked(),
+                usuario.getAuthorities()
+        );
+        return ResponseEntity.ok().body(usuarioDTO);
     }
 
     @GetMapping
