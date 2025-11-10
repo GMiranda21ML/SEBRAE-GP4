@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criação de Pesquisas</title>
-  <link rel="stylesheet" href="css/criacaoDePesquisasADM.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de Pesquisas</title>
+    <link rel="stylesheet" href="css/criacaoDePesquisasADM.css">
+    <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
 
-<header class="header">
-  <div class="logo-placeholder"></div>
-  <button class="logout-btn">Log out</button>
-</header>
+<div id="header-placeholder"></div>
 
 <main class="main-content">
 
-  <nav class="sub-nav">
-    <a href="#" class="nav-link active">Criação de pesquisas</a>
-    <a href="#" class="nav-link">Disparo de pesquisas</a>
-    <a href="#" class="nav-link">Análise de dados</a>
-    <a href="#" class="nav-link">Mural</a>
-  </nav>
+    <div class="page-content">
 
-  <div class="page-content">
-
-    <div class="action-bar">
-      <a href="criacaoEdicaoPesquisa.html">
-        <button class="add-btn">+</button>
-      </a>
-      <button class="filter-btn">Filtrar</button>
-    </div>
-
-    <div class="list-container">
-
-      <div class="list-item">
-        <div class="item-actions">
-          <button class="edit-btn">Editar</button>
-          <button class="excluir-btn">Excluir</button>
+        <div class="action-bar">
+            <a href="criacaoEdicaoPesquisa.html">
+                <button class="add-btn">+</button>
+            </a>
+            <button class="filter-btn">Filtrar</button>
         </div>
-      </div>
 
-      <div class="list-item">
-        <div class="item-actions">
-          <button class="edit-btn">Editar</button>
-          <button class="excluir-btn">Excluir</button>
+        <div class="list-container">
+            <div class="list-item">
+                <div class="item-details">
+                    <h4>string</h4>
+                    <p>string</p>
+                </div>
+                <div class="item-actions">
+                    <button class="edit-btn">Editar</button>
+                    <button class="excluir-btn">Excluir</button>
+                </div>
+            </div>
+
+            <div class="list-item">
+                <div class="item-details">
+                    <h4>meia noite</h4>
+                    <p>quarenta</p>
+                </div>
+                <div class="item-actions">
+                    <button class="edit-btn">Editar</button>
+                    <button class="excluir-btn">Excluir</button>
+                </div>
+            </div>
+
         </div>
-      </div>
 
     </div>
-
-  </div>
 
 </main>
 
 <script src="js/apiService.js"></script>
 <script src="js/criacaoDePesquisasADM.js"></script>
+<script src="js/headerLoader.js"></script>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class PesquisaController {
         }
         final String LINK_SITE= "sebrae-gp4.onrender.com";
         String assunto = "Responder nova pesquisa: " + pesquisa.getTitulo();
-        String linkAcesso  = "http://"+LINK_SITE+"/responder?pesquisaId=" + pesquisa.getId();
+        String linkAcesso  = "http://"+LINK_SITE+"/responderPesquisa.html?id=" + pesquisa.getId();
         String mensagemPadrao = "Olá, %s!\n"
                 + "Gostaria de responder nossa nova pesquisa?\n"
                 + "Titulo: %s\n"

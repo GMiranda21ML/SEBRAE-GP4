@@ -37,7 +37,7 @@ public class Usuario implements UserDetails {
         this.email = email;
         this.senha = passwordEncoder.encode(senha);
         this.role = role;
-        this.recebeEmail = false;
+        this.recebeEmail = recebeEmail;
     }
 
 

@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${pesquisa.descricao || 'Sem descrição.'}</p>
                     </div>
                     <div class="item-actions">
-                        <div class="action-icon green" data-id="${pesquisa.id}"></div>
-                        <div class="action-icon red" data-id="${pesquisa.id}"></div>
+                         <button class="disparar-btn" data-id="${pesquisa.id}">Disparar pesquisa</button>
                     </div>
                 `;
                 listContainer.appendChild(item);
@@ -63,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     listContainer.addEventListener('click', async (event) => {
             const target = event.target;
-            const id = target.dataset.id;
 
-            if (!id) return;
+            if (target.classList.contains('disparar-btn')) {
+                const id = target.dataset.id;
+                if (!id) return;
 
-            if (target.classList.contains('action-icon') && target.classList.contains('green')) {
                 if (confirm('Tem certeza que deseja disparar esta pesquisa para todos os usuários?')) {
                     try {
                         const logResultado = await dispararPesquisaEmail(id);
@@ -79,12 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Erro ao disparar pesquisa:', error);
                         alert('Falha ao disparar a pesquisa.');
                     }
-                }
-            }
-
-            if (target.classList.contains('action-icon') && target.classList.contains('red')) {
-                if (confirm('Tem certeza que deseja excluir esta pesquisa?')) {
-                    deletarPesquisa(id).then(() => carregarPesquisas());
                 }
             }
         });

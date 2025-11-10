@@ -25,6 +25,7 @@
     background-color: #f0f0f0;
     border: 1px solid #b0b0b0;
     cursor: pointer;
+    border-radius: 20px;
 }
 
 .nav {

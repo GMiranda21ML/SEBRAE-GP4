@@ -82,70 +82,6 @@ body {
     flex-direction: column;
 }
 
-.form-container {
-    flex-grow: 1;
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.title-input,
-.footer-input {
-    width: 100%;
-    padding: 10px 12px;
-    font-size: 14px;
-    border: 1px solid #b0b0b0;
-    background-color: #ffffff;
-}
-
-.title-input {
-    margin-bottom: 20px;
-}
-
-.footer-input {
-    margin-top: 20px;
-}
-
-.form-body {
-    flex-grow: 1;
-    border: 1px solid #b0b0b0;
-}
-
-.sidebar {
-    width: 220px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-label {
-    color: #333;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 12px;
-}
-
-.sidebar-btn {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.save-btn {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    margin-top: auto;
-}
-
 .page-content {
     display: flex;
     flex-direction: column;
@@ -184,12 +120,27 @@ body {
 
 .list-item {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
     background-color: #e0e0e0;
     border: 1px solid #b0b0b0;
-    min-height: 160px;
+    min-height: 100px;
     padding: 20px;
+}
+
+.disparar-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border: 1px solid #b0b0b0;
+    cursor: pointer;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.disparar-btn:hover {
+    background-color: #dcdcdc;
 }
 
 .item-actions {
@@ -220,7 +171,6 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;

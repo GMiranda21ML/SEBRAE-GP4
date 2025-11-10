@@ -25,10 +25,12 @@ async function fetchAutenticado(url, options = {}) {
             throw new Error(`Erro na requisição: ${response.statusText}`);
         }
 
+        const text = await response.text();
+
         try {
-            return await response.json();
+            return JSON.parse(text);
         } catch (e) {
-            return response;
+            return text;
         }
 
     } catch (error) {

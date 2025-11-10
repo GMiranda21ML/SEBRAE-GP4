@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise de Dados ADM</title>
 
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="css/analiseDadosADM.css">
+    <link rel="stylesheet" href="../css/header.css"> <link rel="stylesheet" href="css/analiseDadosADM.css">
 </head>
 <body>
 
@@ -44,53 +43,9 @@
 </main>
 
 <div id="details-modal" class="modal-overlay">
-    <div class="modal-container">
-        <button class="modal-close-btn" id="close-details-modal">X</button>
-
-        <div class="modal-content-details">
-            <h2 class="details-title">Título da Pesquisa</h2>
-
-            <div class="details-info-section">
-                <p><strong>Tipo de pesquisa:</strong> Aaaaaaaaaaaaaaaa</p>
-                <p><strong>Número de respostas:</strong> Aaaaaaaaaaaaaaaa</p>
-                <p><strong>Taxa de adesão:</strong> Aaaaaaaaaaaaaaaa</p>
-            </div>
-
-            <div class="details-summary">
-                <p><strong>Resumo:</strong> Resumo sobre o tema da pesquisa.</p>
-            </div>
-
-            <div class="questions-container">
-                <div class="question-block">
-                    <h4 class="question-title">Questão 1</h4>
-                    <p class="question-enunciado">Enunciado da pergunta.</p>
-                </div>
-
-                <div class="question-block">
-                    <h4 class="question-title">Questão 2</h4>
-                    <p class="question-enunciado">Enunciado da pergunta.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script src="js/analiseDadosADM.js"></script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch("header.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("header-placeholder").innerHTML = data;
-                const currentPage = window.location.pathname.split("/").pop();
-                document.querySelectorAll(".nav-link").forEach(link => {
-                    if (link.getAttribute("href") === currentPage) {
-                        link.classList.add("active");
-                    }
-                });
-            });
-    });
-</script>
-</body>
+<script src="../js/headerLoader.js"></script> </body>
 </html>
