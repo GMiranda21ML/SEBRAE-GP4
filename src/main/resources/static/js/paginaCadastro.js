@@ -1,4 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const roleSelect = document.getElementById('role');
+    const recebeEmailGroup = document.getElementById('recebeEmailGroup');
+    const recebeEmailCheckbox = document.getElementById('recebeEmail');
+
+    function toggleRecebeEmailVisibility() {
+        if (roleSelect.value === 'ROLE_USER') {
+            recebeEmailGroup.style.display = 'flex';
+        } else {
+            recebeEmailGroup.style.display = 'none';
+            recebeEmailCheckbox.checked = false;
+        }
+    }
+
+    if (roleSelect) {
+        roleSelect.addEventListener('change', toggleRecebeEmailVisibility);
+    }
+
+    if (roleSelect && recebeEmailGroup) {
+        toggleRecebeEmailVisibility();
+    }
+
     const cadastroForm = document.querySelector('form');
 
     if (cadastroForm) {
@@ -10,11 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const senha = document.getElementById('senha').value;
             const role = document.getElementById('role').value;
 
+            const recebeEmail = recebeEmailCheckbox.checked;
+
             const cadastroData = {
                 nome: nome,
                 email: email,
                 senha: senha,
-                role: role
+                role: role,
+                recebeEmail: recebeEmail
             };
 
             try {
@@ -31,15 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('authToken', data.token);
 
                     alert('Cadastro realizado com sucesso! Faça login para continuar.');
-                    window.location.href = 'paginaLogin.html';
 
                     if (role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
-                    }else if (role == 'ROLE_USER') {
-                        window.location.href = 'visualizacaoDoMuralUsuario.html'
+                    } else if (role === 'ROLE_USER') {
+                        window.location.href = 'visualizacaoDoMuralUsuario.html';
                     } else {
                         window.location.href = 'paginaLogin.html';
-                        }
+                    }
 
                 } else {
                     const errorText = await response.text();

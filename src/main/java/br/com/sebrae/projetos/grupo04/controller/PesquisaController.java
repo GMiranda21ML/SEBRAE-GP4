@@ -56,27 +56,30 @@ public class PesquisaController {
         int falhasEnviar = 0;
 
         for (Usuario usuario : usuarios){
-            String emailDestinatario = usuario.getEmail();
-            String nomeDestinatario = usuario.getNome();
+            if (usuario.isRecebeEmail() != null && usuario.isRecebeEmail()) {
 
-            String formatoEmail = String.format(mensagemPadrao,
-                    nomeDestinatario,
-                    pesquisa.getTitulo(),
-                    pesquisa.getDescricao(),
-                    linkAcesso
-            );
-            try{
-                emailService.enviarEmail(emailDestinatario, assunto, formatoEmail);
-                emailEnviados++;
-            }catch (MailException e){
-                System.err.println("Erro ao enviar email ");
-                falhasEnviar++;
+                String emailDestinatario = usuario.getEmail();
+                String nomeDestinatario = usuario.getNome();
+
+                String formatoEmail = String.format(mensagemPadrao,
+                        nomeDestinatario,
+                        pesquisa.getTitulo(),
+                        pesquisa.getDescricao(),
+                        linkAcesso
+                );
+                try{
+                    emailService.enviarEmail(emailDestinatario, assunto, formatoEmail);
+                    emailEnviados++;
+                }catch (MailException e){
+                    System.err.println("Erro ao enviar email para: " + emailDestinatario);
+                    falhasEnviar++;
+                }
             }
         }
         String logDisparos = "Emails enviados: "+emailEnviados+ "\nFalhas ao enviar: "+ falhasEnviar;
         return ResponseEntity.ok(logDisparos);
-
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Pesquisa> findById(@PathVariable UUID id) {
         Pesquisa pesquisa = service.findPesquisaById(id);

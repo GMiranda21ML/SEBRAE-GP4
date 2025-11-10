@@ -32,9 +32,15 @@
 
             <div class="form-group">
                 <label for="role">Tipo de Usuário</label>
-                <select id="role" name="role" class="form-group input"> <option value="ROLE_USER">USER</option>
+                <select id="role" name="role" class="form-group input">
+                    <option value="ROLE_USER">USER</option>
                     <option value="ROLE_ADMIN">ADMIN</option>
                 </select>
+            </div>
+
+            <div id="recebeEmailGroup" class="form-group" style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" id="recebeEmail" name="recebeEmail" style="width: auto;">
+                <label for="recebeEmail" style="margin-bottom: 0;">Desejo receber e-mails e novidades.</label>
             </div>
 
             <button type="submit">Cadastre-se</button>
