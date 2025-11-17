@@ -14,12 +14,12 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 24px;
-    background-color: #8c8c8c;
     height: 60px;
+    background-color: #8c8c8c;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 10;
+    z-index: 20;
 }
 
 .logo-placeholder {
@@ -38,6 +38,10 @@ body {
     border-radius: 20px;
     text-decoration: none;
     color: #333;
+}
+
+.logout-btn:hover {
+    background-color: #ffffff;
 }
 
 .nav {
@@ -59,6 +63,7 @@ body {
 
 .nav-list li {
     flex-grow: 1;
+    text-align: center;
 }
 
 .nav-link {
@@ -68,86 +73,38 @@ body {
     color: #333;
     font-weight: 500;
     border-bottom: 3px solid transparent;
-    text-align: center;
 }
 
 .nav-link.active {
     border-bottom: 3px solid #777;
+    font-weight: bold;
 }
 
 .main-content {
     background-color: #ffffff;
-    padding-top: 128px;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 24px;
+    padding-top: calc(60px + 44px + 15px);
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
     min-height: 100vh;
-    width: 100%;
 }
 
-.controls-bar {
-    display: flex;
-    margin-top: 0;
-    margin-bottom: 20px;
-    gap: 12px;
-}
-
-.search-bar {
-    flex-grow: 1;
-    padding: 14px;
-    font-size: 16px;
-    border: none;
-    background-color: #e9e9e9;
-    border-radius: 8px;
-}
-
-.filter-btn {
-    padding: 14px 28px;
-    font-size: 16px;
-    border: none;
-    background-color: #e9e9e9;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.research-block {
+.data-block {
     background-color: #f7f7f7;
     border: 1px solid #c0c0c0;
     border-radius: 4px;
     padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.research-title {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
-.research-summary {
-    font-size: 14px;
-    line-height: 1.5;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: #555;
-    margin-bottom: 8px;
+    font-size: 16px;
+    min-height: 180px;
 }
 
-.respond-btn {
-    float: right;
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #e0e0e0;
-    border: 1px solid #b0b0b0;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.research-block::after {
-    content: "";
-    display: table;
-    clear: both;
+.data-block h3 {
+    margin-top: 0;
+    color: #333;
 }

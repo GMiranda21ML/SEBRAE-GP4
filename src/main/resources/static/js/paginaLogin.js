@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('authToken', data.token);
 
                     if (data.role === 'ROLE_USER') {
-                        window.location.href = 'visualizacaoDoMuralUsuario.html';
+                        window.location.href = 'dashboardUsuario.html';
                     } else if (data.role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
                     } else {

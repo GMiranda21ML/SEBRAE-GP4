@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const researchListContainer = document.querySelector('.research-list');
 
-    function loadResearches(data) {
+    function loadRespostas(data) {
         if (!data || data.length === 0) {
             const noDataMessage = document.createElement('p');
-            noDataMessage.textContent = 'Nenhuma pesquisa disponível no momento.';
+            noDataMessage.textContent = 'Nenhuma pesquisa respondida por você.';
             noDataMessage.style.textAlign = 'center';
             noDataMessage.style.padding = '20px';
             researchListContainer.appendChild(noDataMessage);
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
             researchBlock.classList.add('research-block');
 
             researchBlock.innerHTML = `
-                <h3 class-="research-title">${research.titulo || 'Pesquisa sem Título'}</h3>
+                <h3 class="research-title">${research.titulo || 'Pesquisa sem Título'}</h3>
                 <p class="research-summary">${research.descricao || 'Sem descrição.'}</p>
-                <button class="respond-btn" data-id="${research.id}">Responder</button>
+                <button class="respond-btn" data-id="${research.id}">Visualizar</button>
             `;
 
             researchListContainer.appendChild(researchBlock);
@@ -34,19 +34,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const respondBtn = researchBlock.querySelector('.respond-btn');
             respondBtn.addEventListener('click', (event) => {
                 const id = event.target.getAttribute('data-id');
-
                 window.location.href = `responderPesquisa.html?id=${id}`;
             });
         });
     }
 
-    function fetchAndLoadResearches() {
-        getPesquisas()
+    function fetchAndLoadRespostas() {
+        getMyPesquisasRespondidas()
             .then(data => {
-                loadResearches(data);
+                loadRespostas(data);
             })
             .catch(error => {
-                console.error('Erro ao carregar pesquisas:', error);
+                console.error('Erro ao carregar pesquisas respondidas:', error);
                 const errorMessage = document.createElement('p');
                 errorMessage.textContent = 'Falha ao carregar pesquisas. Tente recarregar a página.';
                 errorMessage.style.color = 'red';
@@ -55,12 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    fetchAndLoadResearches();
+    fetchAndLoadRespostas();
 
     const logoutBtn = document.querySelector('.logout-btn');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
+        logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('authToken');
             alert('Você foi desconectado.');
             window.location.href = 'paginaLogin.html';
