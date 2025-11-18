@@ -65,7 +65,7 @@ function deletarPesquisa(id) {
     return fetchAutenticado(`/pesquisa/deletar/${id}`, { method: 'DELETE' });
 }
 
-function submeterRespostas(pesquisaId, dto) {
+function submeterRespostas(dto) {
     return fetchAutenticado(`/resposta`, {
         method: 'POST',
         body: JSON.stringify(dto)
@@ -76,4 +76,13 @@ function dispararPesquisaEmail(id) {
     return fetchAutenticado(`/pesquisa/${id}/disparar-email`, {
         method: 'POST'
     });
+}
+
+function getMyRespostasPorPesquisa(pesquisaId) {
+    return fetchAutenticado(`/resposta/pesquisa/${pesquisaId}`, { method: 'GET' });
+}
+
+
+function getMyPesquisasRespondidas() {
+    return fetchAutenticado('/resposta/minhas-pesquisas', { method: 'GET' });
 }

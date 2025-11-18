@@ -1,3 +1,5 @@
+// src/main/resources/static/js/minhasRespostas.js
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const token = localStorage.getItem('authToken');
@@ -10,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const researchListContainer = document.querySelector('.research-list');
 
     function loadRespostas(data) {
+        // Limpa a lista antes de adicionar (boa prática)
+        researchListContainer.innerHTML = '';
+
         if (!data || data.length === 0) {
             const noDataMessage = document.createElement('p');
             noDataMessage.textContent = 'Nenhuma pesquisa respondida por você.';
@@ -23,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const researchBlock = document.createElement('div');
             researchBlock.classList.add('research-block');
 
+            // Note que o botão aqui diz "Visualizar" ou "Editar"
             researchBlock.innerHTML = `
                 <h3 class="research-title">${research.titulo || 'Pesquisa sem Título'}</h3>
                 <p class="research-summary">${research.descricao || 'Sem descrição.'}</p>
@@ -31,11 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             researchListContainer.appendChild(researchBlock);
 
+            // --- CORREÇÃO AQUI: Apenas UM bloco de declaração ---
             const respondBtn = researchBlock.querySelector('.respond-btn');
             respondBtn.addEventListener('click', (event) => {
                 const id = event.target.getAttribute('data-id');
-                window.location.href = `responderPesquisa.html?id=${id}`;
+                // Redireciona com o modo de visualização ativado
+                window.location.href = `responderPesquisa.html?id=${id}&mode=view`;
             });
+            // ----------------------------------------------------
         });
     }
 

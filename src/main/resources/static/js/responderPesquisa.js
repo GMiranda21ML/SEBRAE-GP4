@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const pesquisaId = urlParams.get('id');
+    const mode = urlParams.get('mode');
 
     if (!pesquisaId) {
         alert('ID da pesquisa não encontrado.');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const surveyTitleEl = document.getElementById('survey-title');
     const formEl = document.getElementById('response-form');
     const enviarBtn = document.getElementById('enviar-btn');
+    const editarBtn = document.getElementById('editar-btn');
     const voltarBtn = document.getElementById('voltar-btn');
     const logoutBtn = document.querySelector('.logout-btn');
 
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </h4>
                 </div>
                 <div class="question-response-area" data-pergunta-id="${pergunta.id}" data-tipo="${pergunta.tipo}" data-obrigatoria="${pergunta.obrigatoria}">
-                    </div>
+                </div>
             `;
 
             const responseArea = questionWrapper.querySelector('.question-response-area');
@@ -72,20 +74,82 @@ document.addEventListener('DOMContentLoaded', () => {
                     responseArea.innerHTML = `<div class="option-list">${optionsHtml}</div>`;
                     break;
             }
-
             formEl.appendChild(questionWrapper);
         });
+    }
+
+    async function carregarMinhasRespostas(pesquisaId) {
+        try {
+            const minhasRespostas = await getMyRespostasPorPesquisa(pesquisaId);
+
+            if (minhasRespostas && minhasRespostas.length > 0) {
+                const respostasMap = new Map();
+                minhasRespostas.forEach(r => {
+                    const pId = r.perguntaId || (r.pergunta ? r.pergunta.id : null);
+                    if(pId) respostasMap.set(pId, r.respostaTexto);
+                });
+
+                const responseAreas = formEl.querySelectorAll('.question-response-area');
+                responseAreas.forEach(area => {
+                    const id = area.dataset.perguntaId;
+                    const tipo = area.dataset.tipo;
+
+                    if (respostasMap.has(id)) {
+                        const respostaTexto = respostasMap.get(id);
+                        if (tipo === 'TEXTO') {
+                            const textarea = area.querySelector('.answer-textarea');
+                            if (textarea) textarea.value = respostaTexto;
+                        } else if (tipo === 'SIM_NAO' || tipo === 'MULTIPLA_ESCOLHA') {
+                            const optionInput = area.querySelector(`input[value="${respostaTexto}"]`);
+                            if (optionInput) optionInput.checked = true;
+                        }
+                    }
+                });
+            }
+        } catch (error) {
+            console.warn('Erro ao carregar respostas.', error);
+        }
+    }
+
+    function alternarModoEdicao(habilitar) {
+        const inputs = formEl.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.disabled = !habilitar;
+        });
+
+        if (habilitar) {
+            enviarBtn.style.display = 'block';
+            editarBtn.style.display = 'none';
+        } else {
+            enviarBtn.style.display = 'none';
+            editarBtn.style.display = 'block';
+        }
     }
 
     async function carregarPesquisa() {
         try {
             const pesquisa = await getPesquisaPorId(pesquisaId);
             renderizarPesquisa(pesquisa);
+            await carregarMinhasRespostas(pesquisaId);
+
+            if (mode === 'view') {
+                alternarModoEdicao(false);
+            } else {
+                alternarModoEdicao(true);
+            }
+
         } catch (error) {
             console.error('Erro ao carregar pesquisa:', error);
-            alert('Não foi possível carregar a pesquisa. Você será redirecionado.');
+            alert('Não foi possível carregar a pesquisa.');
             window.location.href = 'visualizacaoDoMuralUsuario.html';
         }
+    }
+
+    if (editarBtn) {
+        editarBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alternarModoEdicao(true);
+        });
     }
 
     enviarBtn.addEventListener('click', async () => {
@@ -115,21 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     break;
             }
-
-            respostas.push({
-                perguntaId: id,
-                resposta: resposta
-            });
+            respostas.push({ perguntaId: id, resposta: resposta });
         });
 
-        const dto = {
-            respostas: respostas
-        };
+        const dto = { respostas: respostas };
 
         try {
-            await submeterRespostas(pesquisaId, dto);
-            alert('Pesquisa respondida com sucesso!');
-            window.location.href = 'visualizacaoDoMuralUsuario.html';
+            await submeterRespostas(dto);
+            alert('Respostas salvas com sucesso!');
+
+            if (mode === 'view') {
+                 window.location.href = 'minhasRespostas.html';
+            } else {
+                 window.location.href = 'visualizacaoDoMuralUsuario.html';
+            }
+
         } catch (error) {
             console.error('Erro ao enviar respostas:', error);
             alert('Houve um erro ao enviar sua resposta. Tente novamente.');
@@ -142,7 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('authToken');
-        alert('Você foi desconectado.');
         window.location.href = 'paginaLogin.html';
     });
 
