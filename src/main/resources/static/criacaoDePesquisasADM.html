@@ -4,51 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criação de Pesquisas</title>
-    <link rel="stylesheet" href="css/criacaoDePesquisasADM.css">
+
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/criacaoDePesquisasADM.css">
 </head>
 <body>
 
 <div id="header-placeholder"></div>
 
 <main class="main-content">
-
     <div class="page-content">
 
-        <div class="action-bar">
-            <a href="criacaoEdicaoPesquisa.html">
-                <button class="add-btn">+</button>
-            </a>
-            <button class="filter-btn">Filtrar</button>
+        <div class="controls-bar">
+            <input type="text" class="search-bar" placeholder="Pesquisar...">
+
+            <div class="controls-buttons">
+                <button class="filter-btn">Filtrar</button>
+                <a href="criacaoEdicaoPesquisa.html" class="add-link">
+                    <button class="add-btn">Nova Pesquisa</button>
+                </a>
+            </div>
         </div>
 
         <div class="list-container">
             <div class="list-item">
-                <div class="item-details">
-                    <h4>string</h4>
-                    <p>string</p>
+                <div class="item-header">
+                    <h4 class="item-title">Carregando...</h4>
+                    <span class="item-date">--/--/----</span>
                 </div>
-                <div class="item-actions">
-                    <button class="edit-btn">Editar</button>
-                    <button class="excluir-btn">Excluir</button>
-                </div>
+                <p class="item-desc">Aguarde enquanto buscamos os dados.</p>
             </div>
-
-            <div class="list-item">
-                <div class="item-details">
-                    <h4>meia noite</h4>
-                    <p>quarenta</p>
-                </div>
-                <div class="item-actions">
-                    <button class="edit-btn">Editar</button>
-                    <button class="excluir-btn">Excluir</button>
-                </div>
-            </div>
-
         </div>
 
     </div>
-
 </main>
 
 <script src="js/apiService.js"></script>

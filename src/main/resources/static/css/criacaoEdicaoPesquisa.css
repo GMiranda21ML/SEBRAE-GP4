@@ -1,158 +1,214 @@
 * {
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #387CC8;
     overflow-x: hidden;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background-color: #8c8c8c;
-    height: 60px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-}
-
-.logo-placeholder {
-    width: 120px;
-    height: 36px;
-    background-color: white;
-    border: 1px solid #b0b0b0;
-}
-
-.logout-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #f0f0f0;
-    border: 1px solid #b0b0b0;
-    cursor: pointer;
-    border-radius: 20px;
+    color: white;
 }
 
 .main-content {
-    display: flex;
-    padding: 84px 24px 24px 24px;
+    padding: 100px 40px 40px 40px;
     min-height: 100vh;
-    gap: 24px;
+    display: flex;
+    gap: 40px;
 }
 
 .form-container {
     flex-grow: 1;
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    border-radius: 12px;
+    gap: 20px;
 }
 
 .title-input,
-.footer-input,
 .summary-textarea {
     width: 100%;
-    padding: 10px 12px;
-    font-size: 14px;
-    border: 1px solid #b0b0b0;
     background-color: #ffffff;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-}
-
-.title-input {
-    margin-bottom: 12px;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #555;
+    outline: none;
 }
 
 .summary-textarea {
-    min-height: 80px;
+    min-height: 120px;
     resize: vertical;
-    margin-bottom: 20px;
 }
 
-.footer-input {
-    margin-top: 20px;
+.separator {
+    border: 0;
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+    margin: 10px 0;
+    width: 100%;
 }
 
 .form-body {
-    flex-grow: 1;
-    border-radius: 8px;
-}
-
-.sidebar {
-    width: 220px;
     display: flex;
     flex-direction: column;
+    gap: 30px;
+}
+
+.question-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.question-title-input {
+    width: 100%;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+}
+
+.answer-placeholder {
+    padding-left: 10px;
+}
+
+.answer-line-label {
+    font-size: 14px;
+    color: white;
+    margin-bottom: 5px;
+    display: block;
+}
+.answer-line {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    margin-top: 5px;
+}
+
+.simnao-options {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-top: 5px;
+    justify-content: center;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.radio-circle {
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.question-controls {
+    position: absolute;
+    right: -30px;
+    top: 10px;
+}
+
+.delete-question-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+    cursor: pointer;
+}
+.delete-question-btn:hover { color: white; }
+
+
+.sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    align-items: center;
 }
 
 .sidebar-label {
-    color: #333;
     font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.9);
+
+    width: 100%;
+    max-width: 160px;
+    text-align: left;
+    padding-left: 5px;
 }
 
 .add-buttons {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
 }
 
 .sidebar-btn {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 10px;
+    background-color: #2C5885;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
     font-size: 14px;
-    text-align: center;
-    margin-bottom: 10px;
     cursor: pointer;
     width: 100%;
-    border-radius: 20px;
+    max-width: 160px;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.back-btn,
-.save-btn {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 20px;
-}
+.sidebar-btn:hover { background-color: #1f4063; }
 
-.back-btn {
-    margin-top: auto;
-    margin-bottom: 10px;
+.shipping-section {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
 }
 
 .toggle-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    width: 100%;
+    max-width: 160px;
 }
 
 .toggle-item {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    padding-left: 5px;
 }
 
 .toggle-label {
     margin-left: 10px;
     font-size: 14px;
-    color: #333;
+    color: white;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 44px;
-    height: 24px;
+    width: 40px;
+    height: 22px;
+    flex-shrink: 0;
 }
 
 .switch input {
@@ -164,13 +220,10 @@ body {
 .slider {
     position: absolute;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.3);
     transition: .4s;
-    border-radius: 24px;
+    border-radius: 22px;
 }
 
 .slider:before {
@@ -178,149 +231,113 @@ body {
     content: "";
     height: 16px;
     width: 16px;
-    left: 4px;
-    bottom: 4px;
+    left: 3px;
+    bottom: 3px;
     background-color: white;
     transition: .4s;
     border-radius: 50%;
 }
 
 input:checked + .slider {
-    background-color: #8c8c8c;
+    background-color: #2C5885;
 }
 
 input:checked + .slider:before {
-    transform: translateX(20px);
+    transform: translateX(18px);
 }
 
-.form-body {
-    flex-grow: 1;
-    border: 1px dashed #ccc;
-    padding: 20px;
-    background-color: #fafafa;
+.action-buttons {
+    margin-top: auto;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    justify-content: center;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.save-btn {
+    background-color: #2C5885;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 160px;
 }
 
 .question-block {
-    background-color: #ffffff;
-    border: 1px solid #b0b0b0;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    position: relative;
-}
-
-.question-title-input {
-    width: 100%;
-    padding: 10px 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-bottom: 2px solid #eee;
-    margin-bottom: 15px;
-    outline: none;
-    box-sizing: border-box;
-}
-.question-title-input:focus {
-    border-bottom-color: #8c8c8c;
-}
-
-.answer-placeholder {
-    margin-top: 10px;
-    padding-left: 10px;
-}
-
-.answer-placeholder input[type="text"] {
-    width: 70%;
-    padding: 8px;
-    font-size: 14px;
-    border: none;
-    background-color: #f4f4f4;
-    border-bottom: 1px dotted #999;
-}
-
-.answer-options-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
+    position: relative;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.option-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.question-header-actions {
+    position: absolute;
+    top: -25px;
+    right: -10px;
 }
-
-.option-item input[type="radio"],
-.option-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-}
-
-.option-text-input {
-    border: none;
-    border-bottom: 1px solid #ccc;
-    padding: 5px;
-    font-size: 14px;
-    flex-grow: 1;
-}
-.option-text-input:focus {
-    outline: none;
-    border-bottom-color: #8c8c8c;
-}
-
-.add-option-btn {
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
-    padding: 5px;
-}
-.add-option-btn:hover {
-    text-decoration: underline;
-}
-
-.remove-option-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #999;
-    font-weight: bold;
-    font-size: 16px;
-}
-.remove-option-btn:hover {
-    color: #333;
-}
-
-
-.question-controls {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border-top: 1px solid #eee;
-    margin-top: 20px;
-    padding-top: 10px;
-    gap: 20px;
-}
-
 .delete-question-btn {
     background: none;
     border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
     cursor: pointer;
-    font-size: 20px;
-    color: #8c8c8c;
     padding: 5px;
-    line-height: 1;
 }
-.delete-question-btn:hover {
-    color: #ff0000;
+.delete-question-btn:hover { color: white; }
+
+.question-title-input {
+    width: 100%;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #333;
+    outline: none;
+    margin-top: 10px;
 }
 
-.question-controls .toggle-item {
-    margin-bottom: 0;
+.question-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
+
+.question-footer .toggle-item {
+    display: flex;
+    align-items: center;
+}
+
+.question-footer .toggle-label {
+    margin-left: 10px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+}
+
+.question-footer .switch {
+    width: 34px;
+    height: 18px;
+}
+
+.question-footer .slider {
+    border-radius: 18px;
+}
+
+.question-footer .slider:before {
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+}
+
+.question-footer input:checked + .slider:before {
+    transform: translateX(16px);
+}
+
+.save-btn:hover { background-color: #1f4063; }

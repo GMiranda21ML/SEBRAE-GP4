@@ -3,67 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criação de Pesquisa</title>
+    <title>Nova Pesquisa</title>
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/criacaoEdicaoPesquisa.css">
 </head>
 <body>
 
-<header class="header">
-    <div class="logo-placeholder"></div>
-    <button class="logout-btn">Log out</button>
-</header>
+<div id="header-placeholder"></div>
 
 <main class="main-content">
 
     <div class="form-container">
         <input type="text" class="title-input" placeholder="Título da pesquisa">
 
-        <textarea class="summary-textarea" placeholder="Resumo sobre cliente e intuito da pesquisa"></textarea>
+        <textarea class="summary-textarea" placeholder="Resumo sobre a pesquisa (Objetivos e expectativas)"></textarea>
+
+        <hr class="separator">
 
         <div class="form-body">
         </div>
     </div>
 
     <aside class="sidebar">
-        <label class="sidebar-label">Adicionar pergunta:</label>
+
+        <label class="sidebar-label">Adicionar:</label>
         <div class="add-buttons">
             <button class="sidebar-btn" id="add-texto-btn">Texto</button>
             <button class="sidebar-btn" id="add-simnao-btn">Sim ou Não</button>
-            <button class="sidebar-btn" id="add-multipla-btn">Múltipla Escolha</button>
+            <button class="sidebar-btn" id="add-multipla-btn">Múltipla escolha</button>
         </div>
 
-        <label class="sidebar-label">Meios de envio:</label>
-        <div class="toggle-group">
-            <div class="toggle-item">
-                <label class="switch">
-                    <input type="checkbox" id="email-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">E-mail</span>
-            </div>
-            <div class="toggle-item">
-                <label class="switch">
-                    <input type="checkbox" id="sms-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">SMS</span>
-            </div>
-            <div class="toggle-item">
-                <label class="switch">
-                    <input type="checkbox" id="whatsapp-toggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label">WhatsApp</span>
+        <div class="shipping-section">
+            <label class="sidebar-label">Meios de envio:</label>
+
+            <div class="toggle-group">
+                <div class="toggle-item">
+                    <label class="switch">
+                        <input type="checkbox" id="email-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">E-mail</span>
+                </div>
+                <div class="toggle-item">
+                    <label class="switch">
+                        <input type="checkbox" id="sms-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">SMS</span>
+                </div>
+                <div class="toggle-item">
+                    <label class="switch">
+                        <input type="checkbox" id="whatsapp-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">WhatsApp</span>
+                </div>
             </div>
         </div>
 
-        <button class="back-btn" id="back-btn">Voltar</button>
-        <button class="save-btn">Salvar pesquisa</button>
+        <div class="action-buttons">
+            <button class="save-btn">Salvar Rascunho</button>
+        </div>
     </aside>
 
 </main>
 
 <script src="js/apiService.js"></script>
 <script src="js/criacaoEdicaoPesquisa.js"></script>
+<script src="js/headerLoader.js"></script>
 </body>
 </html>

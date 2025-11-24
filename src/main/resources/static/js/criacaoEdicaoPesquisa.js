@@ -7,19 +7,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const logoutBtn = document.querySelector('.logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('authToken');
-            alert('Você foi desconectado.');
-            window.location.href = 'paginaLogin.html';
-        });
-    }
-
+    // --- Elementos do DOM ---
     const titleInput = document.querySelector('.title-input');
     const summaryTextarea = document.querySelector('.summary-textarea');
     const saveBtn = document.querySelector('.save-btn');
-    const backBtn = document.getElementById('back-btn');
 
     const formBody = document.querySelector('.form-body');
     const addTextoBtn = document.getElementById('add-texto-btn');
@@ -30,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const smsToggle = document.getElementById('sms-toggle');
     const whatsappToggle = document.getElementById('whatsapp-toggle');
 
+    // --- Carregamento para Edição ---
     const urlParams = new URLSearchParams(window.location.search);
     const pesquisaId = urlParams.get('id');
     let modoEdicao = pesquisaId != null;
@@ -40,30 +32,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             titleInput.value = pesquisa.titulo;
             summaryTextarea.value = pesquisa.descricao;
 
+            // Carrega meios de envio
             if (pesquisa.meiosEnvio) {
-                emailToggle.checked = pesquisa.meiosEnvio.email || false;
-                smsToggle.checked = pesquisa.meiosEnvio.sms || false;
-                whatsappToggle.checked = pesquisa.meiosEnvio.whatsapp || false;
+                if(emailToggle) emailToggle.checked = pesquisa.meiosEnvio.email || false;
+                if(smsToggle) smsToggle.checked = pesquisa.meiosEnvio.sms || false;
+                if(whatsappToggle) whatsappToggle.checked = pesquisa.meiosEnvio.whatsapp || false;
             }
 
             if (pesquisa.perguntas && pesquisa.perguntas.length > 0) {
                 pesquisa.perguntas.forEach(pergunta => {
-                    if (pergunta.tipo === 'TEXTO') {
-                        criarPerguntaTexto(pergunta);
-                    } else if (pergunta.tipo === 'SIM_NAO') {
-                        criarPerguntaSimNao(pergunta);
-                    } else if (pergunta.tipo === 'MULTIPLA_ESCOLHA') {
-                        criarPerguntaMultiplaEscolha(pergunta);
-                    }
+                    if (pergunta.tipo === 'TEXTO') criarPerguntaTexto(pergunta);
+                    else if (pergunta.tipo === 'SIM_NAO') criarPerguntaSimNao(pergunta);
+                    else if (pergunta.tipo === 'MULTIPLA_ESCOLHA') criarPerguntaMultiplaEscolha(pergunta);
                 });
             }
-
         } catch (error) {
-            console.error('Erro ao carregar dados da pesquisa:', error);
-            alert('Não foi possível carregar a pesquisa para edição.');
-            modoEdicao = false;
+            console.error('Erro ao carregar dados:', error);
+            alert('Erro ao carregar pesquisa.');
         }
     }
+
+    // --- Funções de Criação de Perguntas (HTML Dinâmico) ---
 
     function criarBlocoBase(tipo, perguntaData = {}) {
         const block = document.createElement('div');
@@ -73,13 +62,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         const titulo = perguntaData.texto || '';
         const obrigatoria = perguntaData.obrigatoria || false;
 
+        // HTML do Bloco: Input + Resposta + Controles (Toggle + Excluir)
         block.innerHTML = `
-            <input type="text" class="question-title-input" placeholder="Digite sua pergunta aqui..." value="${titulo}">
+            <div class="question-header-actions">
+                 <button class="delete-question-btn" title="Excluir">✖</button>
+            </div>
+
+            <input type="text" class="question-title-input" placeholder="Escreva sua pergunta aqui:" value="${titulo}">
 
             <div class="answer-placeholder">
                 </div>
 
-            <div class="question-controls">
+            <div class="question-footer">
                 <div class="toggle-item">
                     <label class="switch">
                         <input type="checkbox" class="obrigatoria-toggle" ${obrigatoria ? 'checked' : ''}>
@@ -87,18 +81,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </label>
                     <span class="toggle-label">Obrigatória</span>
                 </div>
-
-                <button class="delete-question-btn" title="Excluir Pergunta">✖</button>
             </div>
         `;
+
+        // Funcionalidade de Excluir
+        block.querySelector('.delete-question-btn').addEventListener('click', () => {
+            block.remove();
+        });
+
         return block;
     }
 
     function criarPerguntaTexto(perguntaData = {}) {
         const block = criarBlocoBase('TEXTO', perguntaData);
         const placeholder = block.querySelector('.answer-placeholder');
+
         placeholder.innerHTML = `
-            <input type="text" placeholder="Resposta" disabled>
+            <div style="margin-top: 15px;">
+                <span class="answer-line-label">Caixa de Resposta:</span>
+                <div class="answer-line"></div>
+            </div>
         `;
         formBody.appendChild(block);
     }
@@ -106,16 +108,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     function criarPerguntaSimNao(perguntaData = {}) {
         const block = criarBlocoBase('SIM_NAO', perguntaData);
         const placeholder = block.querySelector('.answer-placeholder');
+
         placeholder.innerHTML = `
-            <div class="answer-options-list">
-                <div class="option-item">
-                    <input type="radio" name="simnao_${Date.now()}" disabled>
-                    <label>Sim</label>
-                </div>
-                <div class="option-item">
-                    <input type="radio" name="simnao_${Date.now()}" disabled>
-                    <label>Não</label>
-                </div>
+            <div class="simnao-options">
+                <label class="radio-label">
+                    <span class="radio-circle"></span> Sim
+                </label>
+                <label class="radio-label">
+                    <span class="radio-circle"></span> Não
+                </label>
             </div>
         `;
         formBody.appendChild(block);
@@ -124,80 +125,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     function criarPerguntaMultiplaEscolha(perguntaData = {}) {
         const block = criarBlocoBase('MULTIPLA_ESCOLHA', perguntaData);
         const placeholder = block.querySelector('.answer-placeholder');
+
         placeholder.innerHTML = `
-            <div class="answer-options-list">
-                </div>
-            <button class="add-option-btn">+ Adicionar Opção</button>
+            <div class="answer-options-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+            </div>
+            <button class="add-option-btn" style="background:none; border:none; color: #ddd; cursor:pointer; font-size:13px; margin-top:5px;">+ Adicionar Opção</button>
         `;
 
         const optionsList = placeholder.querySelector('.answer-options-list');
+        const addBtn = block.querySelector('.add-option-btn');
+
+        const adicionarOpcao = (texto = '') => {
+            const item = document.createElement('div');
+            item.style.display = 'flex';
+            item.style.alignItems = 'center';
+            item.style.gap = '10px';
+
+            item.innerHTML = `
+                <span class="radio-circle" style="width: 15px; height: 15px;"></span>
+                <input type="text" class="option-text-input" placeholder="Opção" value="${texto}"
+                       style="background: transparent; border: none; border-bottom: 1px solid white; color: white; outline: none; flex-grow: 1;">
+                <button class="remove-option-btn" style="background:none; border:none; color:#ffcccc; cursor:pointer;">✖</button>
+            `;
+
+            item.querySelector('.remove-option-btn').addEventListener('click', () => item.remove());
+            optionsList.appendChild(item);
+        };
 
         if (perguntaData.opcoes && perguntaData.opcoes.length > 0) {
-            perguntaData.opcoes.forEach(opcaoTexto => {
-                adicionarOpcaoEditavel(optionsList, opcaoTexto);
-            });
+            perguntaData.opcoes.forEach(op => adicionarOpcao(op));
         } else {
-            adicionarOpcaoEditavel(optionsList);
+            adicionarOpcao();
         }
 
+        addBtn.addEventListener('click', () => adicionarOpcao());
         formBody.appendChild(block);
     }
 
-    function adicionarOpcaoEditavel(optionsList, texto = '') {
-        const optionItem = document.createElement('div');
-        optionItem.className = 'option-item';
-        optionItem.innerHTML = `
-            <input type="radio" name="multi_${Date.now()}" disabled>
-            <input type="text" class="option-text-input" placeholder="Opção" value="${texto}">
-            <button class="remove-option-btn" title="Remover Opção">✖</button>
-        `;
-        optionsList.appendChild(optionItem);
-    }
+    // --- Listeners dos Botões da Sidebar ---
+    if(addTextoBtn) addTextoBtn.addEventListener('click', () => criarPerguntaTexto());
+    if(addSimNaoBtn) addSimNaoBtn.addEventListener('click', () => criarPerguntaSimNao());
+    if(addMultiplaBtn) addMultiplaBtn.addEventListener('click', () => criarPerguntaMultiplaEscolha());
 
-
-    if (addTextoBtn) {
-        addTextoBtn.addEventListener('click', () => criarPerguntaTexto());
-    }
-    if (addSimNaoBtn) {
-        addSimNaoBtn.addEventListener('click', () => criarPerguntaSimNao());
-    }
-    if (addMultiplaBtn) {
-        addMultiplaBtn.addEventListener('click', () => criarPerguntaMultiplaEscolha());
-    }
-
-    formBody.addEventListener('click', (event) => {
-        const target = event.target;
-
-        if (target.classList.contains('delete-question-btn')) {
-            target.closest('.question-block').remove();
-        }
-
-        if (target.classList.contains('add-option-btn')) {
-            const optionsList = target.previousElementSibling;
-            adicionarOpcaoEditavel(optionsList);
-        }
-
-        if (target.classList.contains('remove-option-btn')) {
-            target.closest('.option-item').remove();
-        }
-    });
-
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            window.location.href = 'criacaoDePesquisasADM.html';
-        });
-    }
-
+    // --- Salvar ---
     saveBtn.addEventListener('click', async () => {
         const titulo = titleInput.value;
         const descricao = summaryTextarea.value;
-
         const perguntas = [];
         const questionBlocks = document.querySelectorAll('.question-block');
 
         questionBlocks.forEach(block => {
             const texto = block.querySelector('.question-title-input').value;
             const tipo = block.dataset.tipo;
+
+            // AQUI: Lendo o valor do checkbox 'Obrigatória'
             const obrigatoria = block.querySelector('.obrigatoria-toggle').checked;
 
             if (!texto) return;
@@ -210,17 +191,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (tipo === 'MULTIPLA_ESCOLHA') {
                 const opcoes = [];
-                const optionInputs = block.querySelectorAll('.option-text-input');
-
-                optionInputs.forEach(input => {
-                    if (input.value) {
-                        opcoes.push(input.value);
-                    }
+                block.querySelectorAll('.option-text-input').forEach(inp => {
+                    if(inp.value) opcoes.push(inp.value);
                 });
-
                 pergunta.opcoes = opcoes;
             }
-
             perguntas.push(pergunta);
         });
 
@@ -229,25 +204,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             descricao: descricao,
             perguntas: perguntas,
             meiosEnvio: {
-                email: emailToggle.checked,
-                sms: smsToggle.checked,
-                whatsapp: whatsappToggle.checked
+                email: emailToggle ? emailToggle.checked : false,
+                sms: smsToggle ? smsToggle.checked : false,
+                whatsapp: whatsappToggle ? whatsappToggle.checked : false
             }
         };
 
         try {
             if (modoEdicao) {
                 await editarPesquisa(pesquisaId, dto);
-                alert('Pesquisa atualizada com sucesso!');
+                alert('Pesquisa atualizada!');
             } else {
                 await criarPesquisa(dto);
-                alert('Pesquisa criada com sucesso!');
+                alert('Pesquisa criada!');
             }
             window.location.href = 'criacaoDePesquisasADM.html';
-
         } catch (error) {
-            console.error('Erro ao salvar pesquisa:', error);
-            alert('Falha ao salvar a pesquisa.');
+            console.error('Erro:', error);
+            alert('Erro ao salvar.');
         }
     });
 });
