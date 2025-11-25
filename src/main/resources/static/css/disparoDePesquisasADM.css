@@ -1,215 +1,179 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 24px;
-    background-color: #8c8c8c;
-    height: 60px;
-
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.logo-placeholder {
-    width: 120px;
-    height: 36px;
-    background-color: white;
-    border: 1px solid #b0b0b0;
-}
-
-.logout-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #f0f0f0;
-    border: 1px solid #b0b0b0;
-    cursor: pointer;
-}
-
-.nav {
-    background-color: #e0e0e0;
-    border-bottom: 1px solid #c0c0c0;
-
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    z-index: 999;
-}
-
-.nav-list {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0 24px;
-    height: 44px;
-}
-
-.nav-list li {
-    flex-grow: 1;
-}
-
-.nav-link {
-    display: block;
-    padding: 14px 16px;
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    border-bottom: 3px solid transparent;
-    text-align: center;
-}
-
-.nav-link.active {
-    border-bottom: 3px solid #777;
-}
-
+/* --- Configurações Globais --- */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #387CC8; /* Fundo Azul */
     overflow-x: hidden;
 }
 
+/* --- Layout Principal --- */
 .main-content {
-    padding: 120px 24px 24px 24px;
+    padding: 120px 40px 40px 40px;
     min-height: 100vh;
-    gap: 24px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
 
 .page-content {
+    width: 100%;
+    max-width: 1000px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    width: 100%;
+    gap: 20px;
+}
+
+/* --- Barra de Controles --- */
+.controls-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .search-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e0e0e0;
-    padding: 12px 16px;
-    border: 1px solid #b0b0b0;
-    height: 50px;
+    flex-grow: 1;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    font-size: 16px;
+    outline: none;
 }
 
-.search-placeholder {
-    font-size: 16px;
-    color: #555;
+.controls-buttons {
+    display: flex;
+    gap: 10px;
 }
 
 .filter-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    background-color: #f0f0f0;
-    border: 1px solid #b0b0b0;
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 30px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
+.filter-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* --- Lista de Cards --- */
 .list-container {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 15px;
 }
 
 .list-item {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
+    min-height: 140px;
+}
+
+.item-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #e0e0e0;
-    border: 1px solid #b0b0b0;
-    min-height: 100px;
-    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.item-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    color: #000;
+}
+
+.item-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.item-desc {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    margin: 0;
+    margin-bottom: 40px; /* Espaço para o botão não cobrir o texto */
+}
+
+/* --- Botão Disparar --- */
+.item-actions {
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
 }
 
 .disparar-btn {
-    padding: 10px 20px;
+    background-color: #387CC8; /* Azul do tema */
+    color: white;
+    border: none;
+    padding: 8px 30px;
+    border-radius: 20px;
     font-size: 14px;
     font-weight: bold;
-    background-color: #f0f0f0;
-    border: 1px solid #b0b0b0;
     cursor: pointer;
-    border-radius: 4px;
-    white-space: nowrap;
+    transition: background-color 0.2s;
 }
 
 .disparar-btn:hover {
-    background-color: #dcdcdc;
+    background-color: #2C62A3;
 }
 
-.item-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.action-icon {
-    width: 28px;
-    height: 28px;
-    cursor: pointer;
-}
-
-.action-icon.green {
-    background-color: #00b050;
-}
-
-.action-icon.red {
-    background-color: #ff0000;
-}
-
+/* --- Modal --- */
 .modal-overlay {
     display: none;
-
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .modal-content {
     background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
     width: 90%;
-    max-width: 450px;
+    max-width: 400px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .modal-title {
-    font-size: 1.3em;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .modal-message {
-    font-size: 1em;
     color: #666;
-    margin-bottom: 30px;
-    line-height: 1.4;
+    margin-bottom: 25px;
+    line-height: 1.5;
 }
 
 .modal-btn {
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: #387CC8;
+    color: white;
     border: none;
     padding: 10px 30px;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.2s;
+    font-weight: bold;
 }
 
 .modal-btn:hover {
-    background-color: #cccccc;
+    background-color: #2C62A3;
 }

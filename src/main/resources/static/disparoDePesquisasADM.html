@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disparo de Pesquisas</title>
 
+    <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/disparoDePesquisasADM.css">
-    <link rel="stylesheet" href="css/header.css"> </head>
+</head>
 <body>
 
 <div id="header-placeholder"></div>
+
 <main class="main-content">
     <div class="page-content">
 
-        <div class="search-bar">
-            <span class="search-placeholder">Pesquisar</span>
-            <button class="filter-btn">Filtrar</button>
+        <div class="controls-bar">
+            <input type="text" class="search-bar" placeholder="Pesquisar...">
+
+            <div class="controls-buttons">
+                <button class="filter-btn">Filtrar</button>
+            </div>
         </div>
 
         <div class="list-container">
@@ -26,11 +31,12 @@
 
 <div id="confirmation-modal" class="modal-overlay">
     <div class="modal-content">
-        <h3 class="modal-title">Disparo de pesquisa realizado com sucesso!</h3>
+        <h3 class="modal-title">Sucesso!</h3>
         <p class="modal-message">
-            Você pode acompanhar os resultados da pesquisa na aba 'Análise de dados'
+            Disparo de pesquisa realizado com sucesso!<br>
+            Acompanhe os resultados na aba 'Análise de dados'.
         </p>
-        <button id="modal-return-btn" class="modal-btn">Retornar</button>
+        <button id="modal-return-btn" class="modal-btn">Continuar</button>
     </div>
 </div>
 

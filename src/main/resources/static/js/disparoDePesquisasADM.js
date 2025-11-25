@@ -8,14 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const listContainer = document.querySelector('.list-container');
+    const modal = document.getElementById('confirmation-modal');
+    const returnBtn = document.getElementById('modal-return-btn');
 
     async function carregarPesquisas() {
         try {
             const pesquisas = await getPesquisas();
             listContainer.innerHTML = '';
 
-            if (pesquisas.length === 0) {
-                listContainer.innerHTML = '<p>Nenhuma pesquisa pronta para disparo.</p>';
+            if (!pesquisas || pesquisas.length === 0) {
+                listContainer.innerHTML = '<p style="color: white; text-align: center;">Nenhuma pesquisa pronta para disparo.</p>';
                 return;
             }
 
@@ -23,13 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const item = document.createElement('div');
                 item.className = 'list-item';
 
+                const dataCriacao = "05/10/2024";
+
                 item.innerHTML = `
-                    <div class="item-details" style="flex-grow: 1; margin-right: 20px;">
-                        <h4>${pesquisa.titulo || 'Pesquisa sem título'}</h4>
-                        <p>${pesquisa.descricao || 'Sem descrição.'}</p>
+                    <div class="item-header">
+                        <h4 class="item-title">${pesquisa.titulo || 'Pesquisa sem título'}</h4>
+                        <span class="item-date">${dataCriacao}</span>
                     </div>
+                    <p class="item-desc">${pesquisa.descricao || 'Sem descrição.'}</p>
+
                     <div class="item-actions">
-                         <button class="disparar-btn" data-id="${pesquisa.id}">Disparar pesquisa</button>
+                         <button class="disparar-btn" data-id="${pesquisa.id}">Disparar</button>
                     </div>
                 `;
                 listContainer.appendChild(item);
@@ -37,23 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Erro ao carregar pesquisas:', error);
-            listContainer.innerHTML = '<p>Falha ao carregar pesquisas. Tente novamente.</p>';
+            listContainer.innerHTML = '<p style="color: white; text-align: center;">Falha ao carregar pesquisas.</p>';
         }
     }
 
-    const modal = document.getElementById('confirmation-modal');
-    const returnBtn = document.getElementById('modal-return-btn');
-
     function showModal() {
-        if (modal) {
-            modal.style.display = 'flex';
-        }
+        if (modal) modal.style.display = 'flex';
     }
 
     function hideModal() {
-        if (modal) {
-            modal.style.display = 'none';
-        }
+        if (modal) modal.style.display = 'none';
     }
 
     if (returnBtn) {
@@ -61,26 +60,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     listContainer.addEventListener('click', async (event) => {
-            const target = event.target;
+        const target = event.target;
 
-            if (target.classList.contains('disparar-btn')) {
-                const id = target.dataset.id;
-                if (!id) return;
+        if (target.classList.contains('disparar-btn')) {
+            const id = target.dataset.id;
+            if (!id) return;
 
-                if (confirm('Tem certeza que deseja disparar esta pesquisa para todos os usuários?')) {
-                    try {
-                        const logResultado = await dispararPesquisaEmail(id);
-
-                        alert(logResultado);
-
-                        showModal();
-                    } catch (error) {
-                        console.error('Erro ao disparar pesquisa:', error);
-                        alert('Falha ao disparar a pesquisa.');
-                    }
+            if (confirm('Tem certeza que deseja disparar esta pesquisa para todos os usuários?')) {
+                try {
+                    const logResultado = await dispararPesquisaEmail(id);
+                    showModal();
+                } catch (error) {
+                    console.error('Erro ao disparar:', error);
+                    alert('Falha ao disparar a pesquisa.');
                 }
             }
-        });
+        }
+    });
 
     carregarPesquisas();
 });

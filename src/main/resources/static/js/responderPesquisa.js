@@ -24,64 +24,83 @@ document.addEventListener('DOMContentLoaded', () => {
     const voltarBtn = document.getElementById('voltar-btn');
     const logoutBtn = document.querySelector('.logout-btn');
 
+    // --- Renderização ---
     function renderizarPesquisa(pesquisa) {
-        surveyTitleEl.textContent = pesquisa.titulo || 'Pesquisa sem Título';
+        if(surveyTitleEl) surveyTitleEl.textContent = pesquisa.titulo || 'Pesquisa';
         formEl.innerHTML = '';
-        pesquisa.perguntas.forEach((pergunta, index) => {
-            const questionWrapper = document.createElement('div');
-            questionWrapper.className = 'question-item';
 
-            questionWrapper.innerHTML = `
-                <div class="question-header">
-                    <h4 class="question-title">
-                        Pergunta ${index + 1}: ${pergunta.texto}
-                        ${pergunta.obrigatoria ? '<span class="mandatory-star">*</span>' : ''}
-                    </h4>
-                </div>
-                <div class="question-response-area" data-pergunta-id="${pergunta.id}" data-tipo="${pergunta.tipo}" data-obrigatoria="${pergunta.obrigatoria}">
+        // Verificação de segurança
+        if (!pesquisa.perguntas || pesquisa.perguntas.length === 0) {
+            formEl.innerHTML = '<p style="text-align:center; padding:20px;">Esta pesquisa não possui perguntas cadastradas.</p>';
+            if(enviarBtn) enviarBtn.style.display = 'none';
+            return;
+        }
+
+        pesquisa.perguntas.forEach((pergunta, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'question-wrapper';
+
+            const questionCard = `
+                <div class="question-card">
+                    <p class="question-text">
+                        <strong>Pergunta ${index + 1}:</strong> ${pergunta.texto}
+                        ${pergunta.obrigatoria ? '<span class="mandatory">*</span>' : ''}
+                    </p>
                 </div>
             `;
 
-            const responseArea = questionWrapper.querySelector('.question-response-area');
+            let answerArea = '';
 
-            switch (pergunta.tipo) {
-                case 'TEXTO':
-                    responseArea.innerHTML = `
-                        <textarea class="answer-textarea" placeholder="Escreva aqui..." ${pergunta.obrigatoria ? 'required' : ''}></textarea>
-                    `;
-                    break;
-                case 'SIM_NAO':
-                    responseArea.innerHTML = `
-                        <div class="option-list">
-                            <label class="option-item">
-                                <input type="radio" name="pergunta_${pergunta.id}" value="Sim" ${pergunta.obrigatoria ? 'required' : ''}>
-                                <span>Sim</span>
-                            </label>
-                            <label class="option-item">
-                                <input type="radio" name="pergunta_${pergunta.id}" value="Não">
-                                <span>Não</span>
-                            </label>
-                        </div>
-                    `;
-                    break;
-                case 'MULTIPLA_ESCOLHA':
-                    const optionsHtml = pergunta.opcoes.map(opcao => `
-                        <label class="option-item">
-                            <input type="radio" name="pergunta_${pergunta.id}" value="${opcao}" ${pergunta.obrigatoria ? 'required' : ''}>
-                            <span>${opcao}</span>
-                        </label>
-                    `).join('');
-                    responseArea.innerHTML = `<div class="option-list">${optionsHtml}</div>`;
-                    break;
+            if (pergunta.tipo === 'TEXTO') {
+                // ALTERAÇÃO: Usando textarea em vez de input text
+                answerArea = `
+                    <div class="text-answer-container question-response-area"
+                         data-pergunta-id="${pergunta.id}" data-tipo="TEXTO">
+                        <textarea class="answer-textarea" rows="1" placeholder="Escreva aqui..." ${pergunta.obrigatoria ? 'required' : ''}></textarea>
+                    </div>
+                `;
             }
-            formEl.appendChild(questionWrapper);
+            else if (pergunta.tipo === 'SIM_NAO') {
+                answerArea = `
+                    <div class="options-card question-response-area"
+                         data-pergunta-id="${pergunta.id}" data-tipo="SIM_NAO">
+                        <label class="option-item">
+                            <input type="radio" name="pergunta_${pergunta.id}" value="Sim" ${pergunta.obrigatoria ? 'required' : ''}>
+                            Sim
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="pergunta_${pergunta.id}" value="Não">
+                            Não
+                        </label>
+                    </div>
+                `;
+            }
+            else if (pergunta.tipo === 'MULTIPLA_ESCOLHA') {
+                const opcoes = pergunta.opcoes || [];
+                const opcoesHtml = opcoes.map(op => `
+                    <label class="option-item">
+                        <input type="radio" name="pergunta_${pergunta.id}" value="${op}" ${pergunta.obrigatoria ? 'required' : ''}>
+                        ${op}
+                    </label>
+                `).join('');
+
+                answerArea = `
+                    <div class="options-card question-response-area"
+                         data-pergunta-id="${pergunta.id}" data-tipo="MULTIPLA_ESCOLHA">
+                        ${opcoesHtml}
+                    </div>
+                `;
+            }
+
+            wrapper.innerHTML = questionCard + answerArea;
+            formEl.appendChild(wrapper);
         });
     }
 
+    // --- Carregar Respostas Antigas ---
     async function carregarMinhasRespostas(pesquisaId) {
         try {
             const minhasRespostas = await getMyRespostasPorPesquisa(pesquisaId);
-
             if (minhasRespostas && minhasRespostas.length > 0) {
                 const respostasMap = new Map();
                 minhasRespostas.forEach(r => {
@@ -97,32 +116,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (respostasMap.has(id)) {
                         const respostaTexto = respostasMap.get(id);
                         if (tipo === 'TEXTO') {
-                            const textarea = area.querySelector('.answer-textarea');
-                            if (textarea) textarea.value = respostaTexto;
-                        } else if (tipo === 'SIM_NAO' || tipo === 'MULTIPLA_ESCOLHA') {
-                            const optionInput = area.querySelector(`input[value="${respostaTexto}"]`);
+                            // Busca textarea ou input (retrocompatibilidade)
+                            const input = area.querySelector('textarea') || area.querySelector('input');
+                            if (input) {
+                                input.value = respostaTexto;
+                                // Ajusta a altura se for textarea
+                                input.style.height = 'auto';
+                                input.style.height = (input.scrollHeight) + 'px';
+                            }
+                        } else {
+                            const optionInput = area.querySelector(`input[value="${respostaTexto.replace(/"/g, '\\"')}"]`);
                             if (optionInput) optionInput.checked = true;
                         }
                     }
                 });
             }
         } catch (error) {
-            console.warn('Erro ao carregar respostas.', error);
+            console.warn('Sem respostas anteriores ou erro ao carregar:', error);
         }
     }
 
     function alternarModoEdicao(habilitar) {
         const inputs = formEl.querySelectorAll('input, textarea');
-        inputs.forEach(input => {
-            input.disabled = !habilitar;
-        });
+        inputs.forEach(input => input.disabled = !habilitar);
 
         if (habilitar) {
-            enviarBtn.style.display = 'block';
-            editarBtn.style.display = 'none';
+            if(enviarBtn) enviarBtn.style.display = 'block';
+            if(editarBtn) editarBtn.style.display = 'none';
         } else {
-            enviarBtn.style.display = 'none';
-            editarBtn.style.display = 'block';
+            if(enviarBtn) enviarBtn.style.display = 'none';
+            if(editarBtn) editarBtn.style.display = 'block';
         }
     }
 
@@ -130,83 +153,85 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const pesquisa = await getPesquisaPorId(pesquisaId);
             renderizarPesquisa(pesquisa);
-            await carregarMinhasRespostas(pesquisaId);
 
             if (mode === 'view') {
+                await carregarMinhasRespostas(pesquisaId);
                 alternarModoEdicao(false);
             } else {
+                await carregarMinhasRespostas(pesquisaId);
                 alternarModoEdicao(true);
             }
 
         } catch (error) {
-            console.error('Erro ao carregar pesquisa:', error);
-            alert('Não foi possível carregar a pesquisa.');
+            console.error('Erro ao carregar:', error);
+            alert('Não foi possível carregar a pesquisa. Verifique o console (F12) para mais detalhes.');
             window.location.href = 'visualizacaoDoMuralUsuario.html';
         }
     }
 
-    if (editarBtn) {
-        editarBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alternarModoEdicao(true);
+    // --- Enviar ---
+    if (enviarBtn) {
+        enviarBtn.addEventListener('click', async () => {
+            if (!formEl.checkValidity()) {
+                alert('Por favor, responda todas as perguntas obrigatórias.');
+                formEl.reportValidity();
+                return;
+            }
+
+            const respostas = [];
+            const responseAreas = formEl.querySelectorAll('.question-response-area');
+
+            responseAreas.forEach(area => {
+                const id = area.dataset.perguntaId;
+                const tipo = area.dataset.tipo;
+                let resposta = null;
+
+                if (tipo === 'TEXTO') {
+                    const input = area.querySelector('textarea') || area.querySelector('input');
+                    resposta = input ? input.value : null;
+                } else {
+                    const checked = area.querySelector(`input[name="pergunta_${id}"]:checked`);
+                    if (checked) resposta = checked.value;
+                }
+
+                if(resposta) {
+                    respostas.push({ perguntaId: id, resposta: resposta });
+                }
+            });
+
+            const dto = { respostas: respostas };
+
+            try {
+                await submeterRespostas(dto);
+                alert('Respostas enviadas com sucesso!');
+                window.location.href = 'visualizacaoDoMuralUsuario.html';
+            } catch (error) {
+                console.error('Erro ao enviar:', error);
+                alert('Erro ao enviar resposta. Tente novamente.');
+            }
         });
     }
 
-    enviarBtn.addEventListener('click', async () => {
-        if (!formEl.checkValidity()) {
-            alert('Por favor, responda todas as perguntas obrigatórias (*).');
-            formEl.reportValidity();
-            return;
-        }
+    if(editarBtn) {
+        editarBtn.addEventListener('click', () => alternarModoEdicao(true));
+    }
 
-        const respostas = [];
-        const responseAreas = formEl.querySelectorAll('.question-response-area');
+    if(voltarBtn) {
+        voltarBtn.addEventListener('click', () => window.history.back());
+    }
 
-        responseAreas.forEach(area => {
-            const id = area.dataset.perguntaId;
-            const tipo = area.dataset.tipo;
-            let resposta = null;
-
-            switch (tipo) {
-                case 'TEXTO':
-                    resposta = area.querySelector('.answer-textarea').value;
-                    break;
-                case 'SIM_NAO':
-                case 'MULTIPLA_ESCOLHA':
-                    const checkedOption = area.querySelector(`input[name="pergunta_${id}"]:checked`);
-                    if (checkedOption) {
-                        resposta = checkedOption.value;
-                    }
-                    break;
-            }
-            respostas.push({ perguntaId: id, resposta: resposta });
+    if(logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('authToken');
+            window.location.href = 'paginaLogin.html';
         });
+    }
 
-        const dto = { respostas: respostas };
-
-        try {
-            await submeterRespostas(dto);
-            alert('Respostas salvas com sucesso!');
-
-            if (mode === 'view') {
-                 window.location.href = 'minhasRespostas.html';
-            } else {
-                 window.location.href = 'visualizacaoDoMuralUsuario.html';
-            }
-
-        } catch (error) {
-            console.error('Erro ao enviar respostas:', error);
-            alert('Houve um erro ao enviar sua resposta. Tente novamente.');
+    formEl.addEventListener('input', (e) => {
+        if (e.target.classList.contains('answer-textarea')) {
+            e.target.style.height = 'auto';
+            e.target.style.height = (e.target.scrollHeight) + 'px';
         }
-    });
-
-    voltarBtn.addEventListener('click', () => {
-        window.history.back();
-    });
-
-    logoutBtn.addEventListener('click', () => {
-        localStorage.removeItem('authToken');
-        window.location.href = 'paginaLogin.html';
     });
 
     carregarPesquisa();
