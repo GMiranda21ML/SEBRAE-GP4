@@ -52,15 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                     const data = await response.json();
+                    const data = await response.json();
+
                     localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('userRole', data.role);
 
-                    alert('Cadastro realizado com sucesso! Faça login para continuar.');
+                    alert('Cadastro realizado com sucesso!');
 
-                    if (role === 'ROLE_ADMIN') {
+                    if (data.role === 'ROLE_ADMIN') {
                         window.location.href = 'criacaoDePesquisasADM.html';
-                    } else if (role === 'ROLE_USER') {
-                        window.location.href = 'visualizacaoDoMuralUsuario.html';
+                    } else if (data.role === 'ROLE_USER') {
+                        window.location.href = 'dashboardUsuario.html';
                     } else {
                         window.location.href = 'paginaLogin.html';
                     }
