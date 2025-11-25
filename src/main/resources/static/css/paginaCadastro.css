@@ -3,21 +3,23 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #e0e0e0;
+    background-color: #1A4B6B;
+    color: white;
 }
 
 header {
-    background-color: #dcdcdc;
+    background-color: #2C5DA0;
     padding: 20px 40px;
     height: 80px;
     box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .logo-placeholder {
     width: 120px;
     height: 40px;
     background-color: #ffffff;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
 }
 
 .container {
@@ -26,16 +28,30 @@ header {
 }
 
 .form-container {
-    width: 60%;
-    background-color: #ffffff;
+    width: 40%;
+    background-color: white;
     padding: 40px;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .image-panel {
     width: 60%;
+    background-color: #4285F4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
 }
+
+.panel-logo {
+    max-width: 80%;
+    max-height: 80%;
+    height: auto;
+    width: auto;
+}
+
 
 .form-group {
     margin-bottom: 20px;
@@ -57,20 +73,35 @@ input[type="password"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    color: #333;
 }
 
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #333;
+    background-color: white;
+}
+
+
 button {
-    background-color: #ffffff;
-    border: 1px solid #aaa;
+    background-color: #4285F4;
+    border: 1px solid #4285F4;
     padding: 12px 24px;
     font-size: 16px;
-    color: #444;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.2s;
+    font-weight: bold;
 }
 
 button:hover {
-    background-color: #f5f5f5;
+    background-color: #2C5DA0;
+    border-color: #2C5DA0;
 }

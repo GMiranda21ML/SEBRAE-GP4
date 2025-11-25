@@ -1,47 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/paginaLogin.css">
 </head>
 <body>
+<div class="login-container">
+    <form class="login-form">
+        <img src="img/simbolo_azulclaro.png" alt="Logo do Sistema" class="form-logo"> <h2></h2>
 
-<header>
-    <div class="logo"></div>
-</header>
-
-<main>
-    <div class="left-panel">
-    </div>
-
-    <div class="right-panel">
-
-        <div class="login-container">
-            <form action="#" method="post">
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required>
-                </div>
-
-                <button type="submit">Log in</button>
-
-            </form>
-
-            <a href="paginaCadastro.html" class="signup-link">Cadastre-se</a>
+        <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required>
         </div>
 
-    </div>
-</main>
+        <div class="input-group">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+
+        <button type="submit" class="btn-login">ENTRAR</button>
+
+        <div class="account-help">
+            <p>Não tem uma conta?</p>
+            <a href="paginaCadastro.html" class="btn-cadastro">CADASTRAR-SE</a>
+        </div>
+    </form>
+</div>
 
 <script src="js/paginaLogin.js"></script>
-
 </body>
 </html>
