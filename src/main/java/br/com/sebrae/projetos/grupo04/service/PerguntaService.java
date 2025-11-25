@@ -25,13 +25,13 @@ public class PerguntaService {
 
     public Pergunta criarPerguntaPorID(CriarPerguntaPorIDDTO dto) {
         Pesquisa pesquisa = service.findPesquisaById(dto.idPesquisa());
-        Pergunta pergunta = new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(), pesquisa);
+        Pergunta pergunta = new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(),dto.opcoes(), pesquisa);
         return repository.save(pergunta);
     }
 
     public List<Pergunta> criarPerguntasParaPesquisa(List<CriarPerguntaDTO> dtos, Pesquisa pesquisa) {
         List<Pergunta> perguntas = dtos.stream()
-                .map(dto -> new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(), pesquisa))
+                .map(dto -> new Pergunta(dto.texto(), dto.tipo(), dto.obrigatoria(),dto.opcoes(), pesquisa))
                 .toList();
 
         return repository.saveAll(perguntas);
@@ -48,8 +48,9 @@ public class PerguntaService {
                 pergunta.setTexto(dto.texto());
                 pergunta.setTipo(dto.tipo());
                 pergunta.setObrigatoria(dto.obrigatoria());
+                pergunta.setOpcoes(dto.opcoes());
             } else {
-                Pergunta nova = new Pergunta(dto.texto(),dto.tipo(),dto.obrigatoria(),pesquisa);
+                Pergunta nova = new Pergunta(dto.texto(),dto.tipo(),dto.obrigatoria(),dto.opcoes(),pesquisa);
                 perguntasAntigas.add(nova);
             }
         }

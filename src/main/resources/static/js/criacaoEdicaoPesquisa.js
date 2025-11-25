@@ -203,11 +203,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             titulo: titulo,
             descricao: descricao,
             perguntas: perguntas,
-            meiosEnvio: {
-                email: emailToggle ? emailToggle.checked : false,
-                sms: smsToggle ? smsToggle.checked : false,
-                whatsapp: whatsappToggle ? whatsappToggle.checked : false
-            }
         };
 
         try {

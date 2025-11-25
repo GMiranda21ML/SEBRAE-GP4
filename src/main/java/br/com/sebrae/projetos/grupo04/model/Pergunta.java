@@ -3,8 +3,6 @@ package br.com.sebrae.projetos.grupo04.model;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoPergunta;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,28 +18,35 @@ public class Pergunta {
     @Enumerated(EnumType.STRING)
     private TipoPergunta tipo;
     private Boolean obrigatoria;
+
+    @ElementCollection
+    @CollectionTable(name = "pergunta_opcoes", joinColumns = @JoinColumn(name = "pergunta_id"))
+    @Column(name = "opcao")
+    private List<String> opcoes = new ArrayList<>();
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pesquisa_id")
     private Pesquisa pesquisa;
+
     @JsonIgnore
     @OneToMany(mappedBy = "pergunta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas = new ArrayList<>();
 
-
     public Pergunta() {}
+
+    public Pergunta(String texto, TipoPergunta tipo, Boolean obrigatoria, List<String> opcoes, Pesquisa pesquisa) {
+        this.texto = texto;
+        this.tipo = tipo;
+        this.obrigatoria = obrigatoria;
+        this.opcoes = opcoes;
+        this.pesquisa = pesquisa;
+    }
 
     public Pergunta(String texto, TipoPergunta tipo, Boolean obrigatoria) {
         this.texto = texto;
         this.tipo = tipo;
         this.obrigatoria = obrigatoria;
-    }
-
-    public Pergunta(String texto, TipoPergunta tipo, Boolean obrigatoria, Pesquisa pesquisa) {
-        this.texto = texto;
-        this.tipo = tipo;
-        this.obrigatoria = obrigatoria;
-        this.pesquisa = pesquisa;
     }
 
     public UUID getId() {
@@ -72,6 +77,14 @@ public class Pergunta {
         return this.obrigatoria;
     }
 
+    public List<String> getOpcoes() {
+        return opcoes;
+    }
+
+    public void setOpcoes(List<String> opcoes) {
+        this.opcoes = opcoes;
+    }
+
     public void setPesquisa(Pesquisa pesquisa) {
         this.pesquisa = pesquisa;
     }
@@ -83,5 +96,4 @@ public class Pergunta {
     public List<Resposta> getRespostas() {
         return this.respostas;
     }
-
 }
