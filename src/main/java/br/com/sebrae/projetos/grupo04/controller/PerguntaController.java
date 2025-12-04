@@ -2,8 +2,8 @@ package br.com.sebrae.projetos.grupo04.controller;
 
 
 import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaPorIDDTO;
+import br.com.sebrae.projetos.grupo04.DTO.MuralDTO;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
-import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.model.enums.TipoEntidade;
 import br.com.sebrae.projetos.grupo04.service.GenericoService;
 import br.com.sebrae.projetos.grupo04.service.PerguntaService;
@@ -42,4 +42,9 @@ public class PerguntaController {
         return ResponseEntity.ok().body(novaPergunta);
     }
 
+    @GetMapping("/mural")
+    public ResponseEntity<List<MuralDTO>> getMuralPerguntas() {
+        List<MuralDTO> mural = perguntaService.listarPerguntasPopulares();
+        return ResponseEntity.ok(mural);
+    }
 }

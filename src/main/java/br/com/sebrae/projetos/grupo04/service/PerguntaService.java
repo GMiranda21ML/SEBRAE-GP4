@@ -3,6 +3,7 @@ package br.com.sebrae.projetos.grupo04.service;
 
 import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaDTO;
 import br.com.sebrae.projetos.grupo04.DTO.CriarPerguntaPorIDDTO;
+import br.com.sebrae.projetos.grupo04.DTO.MuralDTO;
 import br.com.sebrae.projetos.grupo04.model.Pergunta;
 import br.com.sebrae.projetos.grupo04.model.Pesquisa;
 import br.com.sebrae.projetos.grupo04.repository.PerguntaRepository;
@@ -55,6 +56,9 @@ public class PerguntaService {
             }
         }
         return perguntasAntigas;
+    }
+    public List<MuralDTO> listarPerguntasPopulares() {
+        return repository.findPerguntasMaisRespondidas();
     }
 }
 
