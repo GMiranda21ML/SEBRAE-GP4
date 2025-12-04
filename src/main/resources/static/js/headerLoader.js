@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!headerPlaceholder) {
         return;
     }
-    const isSubdirectory = window.location.pathname.includes('/emAnalise/');
-    const basePath = isSubdirectory ? "../" : "";
-    const headerPath = basePath + "header.html";
+    const headerPath = "header.html";
 
     const userRole = localStorage.getItem('userRole');
 
@@ -27,15 +25,17 @@ document.addEventListener("DOMContentLoaded", function() {
                     links = [
                         { text: 'Home', href: 'dashboardUsuario.html' },
                         { text: 'Pesquisas', href: 'visualizacaoDoMuralUsuario.html' },
-                        { text: 'Mural', href: 'minhasRespostas.html' }
+                        { text: 'Histórico', href: 'minhasRespostas.html' },
+                        { text: 'Mural', href: 'mural.html' }
                     ];
                 } else {
+                    // ROLE_ADMIN
                     links = [
                         { text: 'Home', href: 'homepage.html' },
                         { text: 'Criação de pesquisas', href: 'criacaoDePesquisasADM.html' },
                         { text: 'Disparo de pesquisas', href: 'disparoDePesquisasADM.html' },
-                        { text: 'Análise de dados', href: 'emAnalise/analiseDadosADM.html' },
-                        { text: 'Mural', href: 'emAnalise/muralADM.html' }
+                        { text: 'Análise de dados', href: 'analiseDadosADM.html' },
+                        { text: 'Mural', href: 'muralADM.html' }
                     ];
                 }
 
@@ -43,16 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const li = document.createElement('li');
                     const a = document.createElement('a');
 
-                    let fullHref = item.href;
-                    if (isSubdirectory && !fullHref.startsWith('http') && !fullHref.startsWith('#')) {
-                        if (!fullHref.startsWith('../')) {
-                            fullHref = basePath + fullHref;
-                        }
-                    } else if (!isSubdirectory && fullHref.startsWith('../')) {
-                         fullHref = fullHref.replace('../', '');
-                    }
-
-                    a.href = fullHref;
+                    a.href = item.href;
                     a.textContent = item.text;
                     a.className = 'nav-link';
 
@@ -65,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
 
             navLinks.forEach(link => {
-                const linkPage = link.getAttribute("href").split("/").pop();
+                const linkPage = link.getAttribute("href");
                 if (linkPage === currentPage) {
                     link.classList.add("active");
                 } else {
@@ -74,11 +65,11 @@ document.addEventListener("DOMContentLoaded", function() {
             });
 
             const logo = headerPlaceholder.querySelector('.header-logo');
-            if(logo) logo.src = basePath + "img/simbolo_azulclaro.png";
+            if(logo) logo.src = "img/simbolo_azulclaro.png";
 
             const logoutBtn = headerPlaceholder.querySelector('.logout-btn');
             if(logoutBtn) {
-                logoutBtn.href = basePath + "paginaLogin.html";
+                logoutBtn.href = "paginaLogin.html";
                 logoutBtn.addEventListener('click', () => {
                     localStorage.removeItem('authToken');
                     localStorage.removeItem('userRole');

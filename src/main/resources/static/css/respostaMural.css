@@ -1,0 +1,152 @@
+/* Reset básico para garantir layout limpo */
+* {
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: #387CC8; /* Azul do tema */
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Ajuste para o conteúdo não ficar escondido atrás do header fixo */
+.main-container {
+    padding-top: 80px; /* Espaço para o header */
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Coluna da Esquerda --- */
+.input-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.rounded-input {
+    width: 100%;
+    background-color: #FFFDF7; /* Um branco levemente "creme" como na imagem, ou use #ffffff */
+    border: none;
+    border-radius: 15px;
+    padding: 15px 20px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.title-input {
+    height: 50px;
+}
+
+.body-input {
+    height: 200px; /* Altura maior para o comentário */
+    resize: vertical;
+}
+
+/* Placeholders de imagem (quadrados cinzas) */
+.image-placeholders {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.placeholder-box {
+    width: 100px;
+    height: 80px;
+    background-color: #D9D9D9;
+    border-radius: 4px;
+}
+
+/* --- Sidebar (Direita) --- */
+.sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinha itens à direita como na imagem */
+    gap: 10px;
+}
+
+.sidebar-header {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: right;
+    width: 100%;
+}
+
+.action-btn {
+    background-color: #2C5885; /* Azul mais escuro */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    width: 100%;
+    max-width: 120px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #1f4063;
+}
+
+.respond-btn {
+    background-color: #2C5885;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 0;
+    width: 100%;
+    max-width: 120px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 100px; /* Empurra para baixo simulando a imagem */
+}
+
+.respond-btn:hover {
+    background-color: #1f4063;
+}
+
+/* --- Barra Inferior --- */
+.bottom-bar {
+    margin-top: auto;
+    padding-top: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bottom-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    width: 100%;
+    color: white;
+    font-size: 16px;
+    padding: 10px 0;
+    outline: none;
+}
+
+.bottom-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}

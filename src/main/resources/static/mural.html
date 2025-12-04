@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mural</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/muralADM.css">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main class="main-content">
+
+    <div class="controls-bar" style="margin-bottom: 30px;">
+        <div style="display: flex; gap: 10px; width: 100%;">
+            <input type="text" id="novo-comentario-input" class="search-bar" placeholder="Escreva um comentário ou sugestão..." style="border: 1px solid #ccc;">
+            <button id="btn-publicar" class="filter-btn" style="background-color: #387CC8; color: white;">Publicar</button>
+        </div>
+    </div>
+
+    <div class="controls-bar">
+        <input type="text" id="filtro-mural" class="search-bar" placeholder="Pesquisar no mural">
+        <button class="filter-btn">Filtrar</button>
+    </div>
+
+    <div id="mural-container" class="list-container">
+        <p style="text-align: center; color: #666; padding: 20px;">Carregando mural...</p>
+    </div>
+
+</main>
+
+<script src="js/apiService.js"></script>
+<script src="js/muralADM.js"></script>
+<script src="js/headerLoader.js"></script>
+
+</body>
+</html>

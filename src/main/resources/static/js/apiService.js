@@ -86,3 +86,20 @@ function getMyRespostasPorPesquisa(pesquisaId) {
 function getMyPesquisasRespondidas() {
     return fetchAutenticado('/resposta/minhas-pesquisas', { method: 'GET' });
 }
+
+function getSugestoes() {
+    return fetchAutenticado('/sugestoes', { method: 'GET' });
+}
+
+function criarSugestao(texto) {
+    return fetchAutenticado('/sugestoes', {
+        method: 'POST',
+        body: JSON.stringify({ texto: texto })
+    });
+}
+
+function votarSugestao(id) {
+    return fetchAutenticado(`/sugestoes/${id}/votar`, {
+        method: 'POST'
+    });
+}
