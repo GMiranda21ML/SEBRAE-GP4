@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Elementos da tela
     const elTexto = document.getElementById('sugestao-texto');
     const elAutor = document.getElementById('sugestao-autor');
     const elData = document.getElementById('sugestao-data');
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const elInput = document.getElementById('comentario-input');
     const btnEnviar = document.getElementById('btn-enviar');
 
-    // Carregar Sugestão (Topo)
     try {
         const sugestao = await getSugestaoPorId(sugestaoId);
         elTexto.textContent = sugestao.texto;
@@ -37,7 +35,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         elTexto.textContent = 'Erro ao carregar sugestão.';
     }
 
-    // Carregar Comentários (Meio)
     async function carregarComentarios() {
         try {
             const comentarios = await getComentarios(sugestaoId);
@@ -51,16 +48,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             comentarios.forEach(c => {
                 const div = document.createElement('div');
                 div.className = 'comment-item';
-                
+
                 let dataFmt = '';
                 if(c.dataCriacao) {
                     const dc = new Date(c.dataCriacao);
                     dataFmt = dc.toLocaleDateString() + ' ' + dc.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 }
 
+                const adminBadge = c.autorIsAdmin
+                    ? '<span style="margin-left:8px; background-color:#387CC8; color:white; padding:2px 6px; border-radius:4px; font-size:0.7em; vertical-align:middle; font-weight:bold;" title="Administrador">ADM</span>'
+                    : '';
+
                 div.innerHTML = `
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                        <strong style="color: #387CC8;">${c.nomeAutor || 'Usuário'}</strong>
+                        <div>
+                            <strong style="color: #387CC8;">${c.nomeAutor || 'Usuário'}</strong>
+                            ${adminBadge}
+                        </div>
                         <span style="font-size: 0.8em; color: #888;">${dataFmt}</span>
                     </div>
                     <div style="color: #333;">${c.texto}</div>
@@ -74,7 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await carregarComentarios();
 
-    // Enviar Comentário (Fundo)
     btnEnviar.addEventListener('click', async () => {
         const texto = elInput.value.trim();
         if (!texto) return;

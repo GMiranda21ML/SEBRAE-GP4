@@ -7,5 +7,6 @@ public record ComentarioRespostaDTO(
         UUID id,
         String texto,
         String nomeAutor,
-        LocalDateTime dataCriacao
+        LocalDateTime dataCriacao ,
+        boolean autorIsAdmin
 ) {}

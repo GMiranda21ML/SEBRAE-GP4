@@ -1,11 +1,11 @@
 package br.com.sebrae.projetos.grupo04.service;
 
-
 import br.com.sebrae.projetos.grupo04.DTO.ComentarioRespostaDTO;
 import br.com.sebrae.projetos.grupo04.DTO.CriarComentarioDTO;
 import br.com.sebrae.projetos.grupo04.model.Comentario;
 import br.com.sebrae.projetos.grupo04.model.Sugestao;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
+import br.com.sebrae.projetos.grupo04.model.enums.Role;
 import br.com.sebrae.projetos.grupo04.repository.ComentarioRepository;
 import br.com.sebrae.projetos.grupo04.repository.SugestaoRepository;
 import br.com.sebrae.projetos.grupo04.service.exceptions.ResourceNotFoundException;
@@ -41,7 +41,8 @@ public class ComentarioService {
                         c.getId(),
                         c.getTexto(),
                         c.getUsuario().getNome(),
-                        c.getDataCriacao()
+                        c.getDataCriacao(),
+                        c.getUsuario().getRole() == Role.ROLE_ADMIN // Verifica Role
                 )).toList();
     }
 }

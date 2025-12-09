@@ -4,6 +4,7 @@ import br.com.sebrae.projetos.grupo04.DTO.CriarSugestaoDTO;
 import br.com.sebrae.projetos.grupo04.DTO.SugestaoResponseDTO;
 import br.com.sebrae.projetos.grupo04.model.Sugestao;
 import br.com.sebrae.projetos.grupo04.model.Usuario;
+import br.com.sebrae.projetos.grupo04.model.enums.Role;
 import br.com.sebrae.projetos.grupo04.repository.SugestaoRepository;
 import br.com.sebrae.projetos.grupo04.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,7 @@ public class SugestaoService {
     public List<SugestaoResponseDTO> listarSugestoes(Usuario usuarioLogado) {
         List<Sugestao> sugestoes = repository.findAllByOrderByDataCriacaoDesc();
 
-        return sugestoes.stream().map(s -> new SugestaoResponseDTO(
-                s.getId(),
-                s.getTexto(),
-                s.getUsuario().getNome(),
-                s.getDataCriacao(),
-                s.getCurtidas().size(),
-                s.getCurtidas().contains(usuarioLogado)
-        )).toList();
+        return sugestoes.stream().map(s -> convertToDTO(s, usuarioLogado)).toList();
     }
 
     public void alternarVoto(UUID idSugestao, Usuario usuario) {
@@ -48,9 +42,16 @@ public class SugestaoService {
 
         repository.save(sugestao);
     }
+
     public SugestaoResponseDTO buscarPorId(UUID id, Usuario usuarioLogado) {
         Sugestao s = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
+        return convertToDTO(s, usuarioLogado);
+    }
+
+    private SugestaoResponseDTO convertToDTO(Sugestao s, Usuario usuarioLogado) {
+        boolean respondidaPorAdmin = s.getComentarios() != null && s.getComentarios().stream()
+                .anyMatch(c -> c.getUsuario().getRole() == Role.ROLE_ADMIN);
 
         return new SugestaoResponseDTO(
                 s.getId(),
@@ -58,7 +59,8 @@ public class SugestaoService {
                 s.getUsuario().getNome(),
                 s.getDataCriacao(),
                 s.getCurtidas().size(),
-                s.getCurtidas().contains(usuarioLogado)
+                s.getCurtidas().contains(usuarioLogado),
+                respondidaPorAdmin
         );
     }
 }

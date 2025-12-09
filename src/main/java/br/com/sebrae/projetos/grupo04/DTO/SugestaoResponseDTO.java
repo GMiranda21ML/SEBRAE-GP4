@@ -9,5 +9,6 @@ public record SugestaoResponseDTO(
         String nomeAutor,
         LocalDateTime dataCriacao,
         int totalCurtidas,
-        boolean curtiu // Indica se o usuário logado já votou nesta sugestão
+        boolean curtiu ,
+        boolean respondidaPorAdmin
 ) {}

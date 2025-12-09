@@ -2,7 +2,9 @@ package br.com.sebrae.projetos.grupo04.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,6 +34,10 @@ public class Sugestao {
     )
     private Set<Usuario> curtidas = new HashSet<>();
 
+    // NOVO: Mapeamento dos comentários
+    @OneToMany(mappedBy = "sugestao", cascade = CascadeType.ALL)
+    private List<Comentario> comentarios = new ArrayList<>();
+
     public Sugestao() {
         this.dataCriacao = LocalDateTime.now();
     }
@@ -50,8 +56,8 @@ public class Sugestao {
     public Usuario getUsuario() { return usuario; }
     public void setUsuario(Usuario usuario) { this.usuario = usuario; }
     public Set<Usuario> getCurtidas() { return curtidas; }
+    public List<Comentario> getComentarios() { return comentarios; }
 
-    // Métodos auxiliares para voto
     public void adicionarCurtida(Usuario usuario) {
         this.curtidas.add(usuario);
     }

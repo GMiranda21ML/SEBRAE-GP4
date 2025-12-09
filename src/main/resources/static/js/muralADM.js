@@ -25,10 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const btnTextColor = jaCurtiu ? 'white' : '#333';
             const likeText = jaCurtiu ? 'Curtiu' : 'Curtir';
 
+            // Lógica para badge de Administrador
+            const badgeAdmin = sugestao.respondidaPorAdmin
+                ? `<div style="margin-bottom: 8px;">
+                     <span style="background-color: #d1e7dd; color: #0f5132; padding: 4px 8px; border-radius: 4px; font-size: 0.75em; font-weight: bold; border: 1px solid #badbcc;">
+                        ✓ Respondida por administrador
+                     </span>
+                   </div>`
+                : '';
+
             const card = document.createElement('div');
             card.className = 'data-block';
-
-            // Estilos do Card
             card.style.display = 'flex';
             card.style.flexDirection = 'column';
             card.style.justifyContent = 'space-between';
@@ -37,9 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.borderRadius = '8px';
             card.style.marginBottom = '15px';
             card.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.05)';
+            card.style.height = 'auto';
+            card.style.minHeight = '140px';
 
             card.innerHTML = `
                 <div class="data-details">
+                    ${badgeAdmin}
+
                     <div style="margin-bottom: 12px;">
                         <h4 style="margin: 0 0 5px 0; font-size: 1.1em; color: #333; font-weight: bold;">${sugestao.texto}</h4>
                     </div>
@@ -67,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(card);
         });
 
-        // Configurar evento de clique nos botões
         document.querySelectorAll('.like-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const id = btn.getAttribute('data-id');
@@ -83,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.comment-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
-                // Redireciona para a página de resposta com o ID da sugestão
                 window.location.href = `respostaMural.html?id=${id}`;
             });
         });
@@ -108,7 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Filtro simples
     if (filtroInput) {
         filtroInput.addEventListener('input', (e) => {
             const termo = e.target.value.toLowerCase();
