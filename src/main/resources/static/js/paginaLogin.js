@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     const data = await response.json();
 
-                    // --- ALTERAÇÃO AQUI: Salvando o Token e a Role ---
                     localStorage.setItem('authToken', data.token);
                     localStorage.setItem('userRole', data.role);
-                    // -------------------------------------------------
 
                     if (data.role === 'ROLE_USER') {
                         window.location.href = 'dashboardUsuario.html';
