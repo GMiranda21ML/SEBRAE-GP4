@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         { text: 'Home', href: 'homepage.html' },
                         { text: 'Criação de pesquisas', href: 'criacaoDePesquisasADM.html' },
                         { text: 'Disparo de pesquisas', href: 'disparoDePesquisasADM.html' },
-                        { text: 'Análise de dados', href: 'analiseDadosADM.html' },
                         { text: 'Mural', href: 'muralADM.html' }
                     ];
                 }

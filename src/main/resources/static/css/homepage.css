@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #387CC8;
+    overflow-x: hidden;
+    color: #333;
+}
+
+.main-content {
+    padding: 120px 40px 40px 40px;
+    min-height: 100vh;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.welcome-section {
+    color: white;
+    margin-bottom: 50px;
+}
+
+.welcome-section h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    align-items: stretch;
+}
+
+.dash-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    min-height: 260px;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.dash-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    border-color: rgba(56, 124, 200, 0.3);
+}
+
+.card-icon {
+    margin-bottom: 25px;
+    color: #387CC8;
+    display: inline-block;
+    padding: 12px;
+    background-color: #f0f7ff;
+    border-radius: 12px;
+    width: fit-content;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-info h3 {
+    margin: 0 0 12px 0;
+    color: #1A4B6B;
+    font-size: 1.4rem;
+}
+
+.card-info p {
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.card-info > a {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+
+    text-decoration: none;
+}
+
+.highlight-card {
+    border-left: 6px solid #2C62A3;
+}
+
+.action-btn {
+    background-color: #387CC8;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(56, 124, 200, 0.3);
+}
+
+.action-btn:hover {
+    background-color: #1A4B6B;
+}
+
+.text-link {
+    color: #387CC8;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: margin-left 0.2s;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 100px 20px 20px 20px;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    .dashboard-grid {
+        gap: 20px;
+    }
+}
