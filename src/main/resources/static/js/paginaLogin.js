@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.role === 'ROLE_USER') {
                         window.location.href = 'dashboardUsuario.html';
                     } else if (data.role === 'ROLE_ADMIN') {
-                        window.location.href = 'criacaoDePesquisasADM.html';
+                        window.location.href = 'homepage.html';
                     } else {
                         alert('Perfil de usuário desconhecido. Contate o suporte.');
                     }
