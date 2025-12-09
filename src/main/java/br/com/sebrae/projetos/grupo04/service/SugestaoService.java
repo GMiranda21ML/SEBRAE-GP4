@@ -48,4 +48,17 @@ public class SugestaoService {
 
         repository.save(sugestao);
     }
+    public SugestaoResponseDTO buscarPorId(UUID id, Usuario usuarioLogado) {
+        Sugestao s = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
+        return new SugestaoResponseDTO(
+                s.getId(),
+                s.getTexto(),
+                s.getUsuario().getNome(),
+                s.getDataCriacao(),
+                s.getCurtidas().size(),
+                s.getCurtidas().contains(usuarioLogado)
+        );
+    }
 }

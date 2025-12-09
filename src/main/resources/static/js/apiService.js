@@ -103,3 +103,18 @@ function votarSugestao(id) {
         method: 'POST'
     });
 }
+
+function getSugestaoPorId(id) {
+    return fetchAutenticado(`/sugestoes/${id}`, { method: 'GET' });
+}
+
+function getComentarios(idSugestao) {
+    return fetchAutenticado(`/sugestoes/${idSugestao}/comentarios`, { method: 'GET' });
+}
+
+function criarComentario(idSugestao, texto) {
+    return fetchAutenticado(`/sugestoes/${idSugestao}/comentarios`, {
+        method: 'POST',
+        body: JSON.stringify({ texto: texto })
+    });
+}

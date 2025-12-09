@@ -1,0 +1,11 @@
+package br.com.sebrae.projetos.grupo04.repository;
+
+import br.com.sebrae.projetos.grupo04.model.Comentario;
+import br.com.sebrae.projetos.grupo04.model.Sugestao;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.UUID;
+
+public interface ComentarioRepository extends JpaRepository<Comentario, UUID> {
+    List<Comentario> findBySugestaoOrderByDataCriacaoAsc(Sugestao sugestao);
+}
