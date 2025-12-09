@@ -1,0 +1,246 @@
+/* Reset e Fontes */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* --- Header --- */
+.landing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-logo {
+    height: 40px;
+}
+
+.brand-name {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-login {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.btn-register {
+    background-color: white;
+    color: #2C62A3;
+    text-decoration: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.btn-register:hover {
+    transform: scale(1.05);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(135deg, #2C62A3 0%, #387CC8 100%);
+    min-height: 85vh; /* Ocupa quase toda a tela */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 50px 50px 50px;
+    color: white;
+    position: relative;
+    /* Curva na parte inferior */
+    clip-path: ellipse(150% 100% at 50% 0%);
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background-color: #FFA500; /* Laranja para contraste CTA */
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.2s;
+    margin-right: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #ff8c00;
+    transform: translateY(-2px);
+}
+
+.learn-more {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.hero-image {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.floating-logo {
+    height: 350px;
+    opacity: 0.2; /* Efeito d'água sutil */
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- Features Section --- */
+.features-section {
+    padding: 80px 50px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.section-title h2 {
+    color: #2C62A3;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    text-align: left;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.icon-box {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    background-color: #f0f7ff;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+
+.feature-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* --- Footer --- */
+.landing-footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+    font-size: 0.9rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 120px;
+        clip-path: none;
+    }
+
+    .landing-header {
+        padding: 15px 20px;
+        background-color: #2C62A3; /* Header sólido no mobile */
+    }
+
+    .nav-links { display: none; } /* Simplifica menu no mobile */
+
+    .hero-content h1 { font-size: 2.5rem; }
+    .floating-logo { height: 200px; margin-top: 40px; }
+}

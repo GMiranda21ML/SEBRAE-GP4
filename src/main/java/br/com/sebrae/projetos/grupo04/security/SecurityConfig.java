@@ -29,6 +29,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET,
+                                "/",
+                                "/index.html",
+                                "/*.html",
                                 "/*.html",
                                 "/js/**",
                                 "/css/**",
