@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             localStorage.removeItem('authToken');
             alert('Você foi desconectado.');
-            window.location.href = 'paginaLogin.html';
+            window.location.href = 'index.html';
         });
     }
 

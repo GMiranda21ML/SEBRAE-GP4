@@ -24,12 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const voltarBtn = document.getElementById('voltar-btn');
     const logoutBtn = document.querySelector('.logout-btn');
 
-    // --- Renderização ---
     function renderizarPesquisa(pesquisa) {
         if(surveyTitleEl) surveyTitleEl.textContent = pesquisa.titulo || 'Pesquisa';
         formEl.innerHTML = '';
 
-        // Verificação de segurança
         if (!pesquisa.perguntas || pesquisa.perguntas.length === 0) {
             formEl.innerHTML = '<p style="text-align:center; padding:20px;">Esta pesquisa não possui perguntas cadastradas.</p>';
             if(enviarBtn) enviarBtn.style.display = 'none';
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let answerArea = '';
 
             if (pergunta.tipo === 'TEXTO') {
-                // ALTERAÇÃO: Usando textarea em vez de input text
                 answerArea = `
                     <div class="text-answer-container question-response-area"
                          data-pergunta-id="${pergunta.id}" data-tipo="TEXTO">
@@ -97,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Carregar Respostas Antigas ---
     async function carregarMinhasRespostas(pesquisaId) {
         try {
             const minhasRespostas = await getMyRespostasPorPesquisa(pesquisaId);
@@ -116,11 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (respostasMap.has(id)) {
                         const respostaTexto = respostasMap.get(id);
                         if (tipo === 'TEXTO') {
-                            // Busca textarea ou input (retrocompatibilidade)
                             const input = area.querySelector('textarea') || area.querySelector('input');
                             if (input) {
                                 input.value = respostaTexto;
-                                // Ajusta a altura se for textarea
                                 input.style.height = 'auto';
                                 input.style.height = (input.scrollHeight) + 'px';
                             }
@@ -169,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Enviar ---
     if (enviarBtn) {
         enviarBtn.addEventListener('click', async () => {
             if (!formEl.checkValidity()) {
@@ -223,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(logoutBtn) {
         logoutBtn.addEventListener('click', () => {
             localStorage.removeItem('authToken');
-            window.location.href = 'paginaLogin.html';
+            window.location.href = 'index.html';
         });
     }
 

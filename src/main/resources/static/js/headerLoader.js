@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const logoutBtn = headerPlaceholder.querySelector('.logout-btn');
             if(logoutBtn) {
-                logoutBtn.href = "paginaLogin.html";
+                logoutBtn.href = "index.html";
                 logoutBtn.addEventListener('click', () => {
                     localStorage.removeItem('authToken');
                     localStorage.removeItem('userRole');
