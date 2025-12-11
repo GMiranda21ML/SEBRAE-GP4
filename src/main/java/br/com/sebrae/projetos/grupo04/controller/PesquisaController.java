@@ -43,9 +43,9 @@ public class PesquisaController {
         if(usuarios.isEmpty()){
             System.err.println("Usuário não encontrado");
         }
-        final String LINK_SITE= "sebrae-gp4.onrender.com";
+        final String LINK_SITE= "https://sebrae-gp4-bh75.onrender.com/responderPesquisa.html?id=";
         String assunto = "Responder nova pesquisa: " + pesquisa.getTitulo();
-        String linkAcesso  = "http://"+LINK_SITE+"/responderPesquisa.html?id=" + pesquisa.getId();
+        String linkAcesso  = LINK_SITE + pesquisa.getId();
         String mensagemPadrao = "Olá, %s!\n"
                 + "Gostaria de responder nossa nova pesquisa?\n"
                 + "Titulo: %s\n"
