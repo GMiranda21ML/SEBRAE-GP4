@@ -72,6 +72,7 @@ public class PesquisaController {
                     emailEnviados++;
                 }catch (MailException e){
                     System.err.println("Erro ao enviar email para: " + emailDestinatario);
+                    e.printStackTrace();
                     falhasEnviar++;
                 }
             }
