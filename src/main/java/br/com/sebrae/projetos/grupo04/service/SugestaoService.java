@@ -8,6 +8,7 @@ import br.com.sebrae.projetos.grupo04.model.enums.Role;
 import br.com.sebrae.projetos.grupo04.repository.SugestaoRepository;
 import br.com.sebrae.projetos.grupo04.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,9 +50,34 @@ public class SugestaoService {
         return convertToDTO(s, usuarioLogado);
     }
 
+    public void editarSugestao(UUID id, CriarSugestaoDTO dto, Usuario usuario) {
+        Sugestao sugestao = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
+        if (!sugestao.getUsuario().getId().equals(usuario.getId())) {
+            throw new AccessDeniedException("Você não tem permissão para editar esta sugestão.");
+        }
+
+        sugestao.setTexto(dto.texto());
+        repository.save(sugestao);
+    }
+
+    public void deletarSugestao(UUID id, Usuario usuario) {
+        Sugestao sugestao = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+
+        if (!sugestao.getUsuario().getId().equals(usuario.getId())) {
+            throw new AccessDeniedException("Você não tem permissão para excluir esta sugestão.");
+        }
+
+        repository.delete(sugestao);
+    }
+
     private SugestaoResponseDTO convertToDTO(Sugestao s, Usuario usuarioLogado) {
         boolean respondidaPorAdmin = s.getComentarios() != null && s.getComentarios().stream()
                 .anyMatch(c -> c.getUsuario().getRole() == Role.ROLE_ADMIN);
+
+        boolean isAutor = s.getUsuario().getId().equals(usuarioLogado.getId());
 
         return new SugestaoResponseDTO(
                 s.getId(),
@@ -60,7 +86,8 @@ public class SugestaoService {
                 s.getDataCriacao(),
                 s.getCurtidas().size(),
                 s.getCurtidas().contains(usuarioLogado),
-                respondidaPorAdmin
+                respondidaPorAdmin,
+                isAutor
         );
     }
 }

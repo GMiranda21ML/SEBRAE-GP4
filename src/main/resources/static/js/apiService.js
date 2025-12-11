@@ -98,6 +98,19 @@ function criarSugestao(texto) {
     });
 }
 
+function editarSugestao(id, texto) {
+    return fetchAutenticado(`/sugestoes/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ texto: texto })
+    });
+}
+
+function deletarSugestao(id) {
+    return fetchAutenticado(`/sugestoes/${id}`, {
+        method: 'DELETE'
+    });
+}
+
 function votarSugestao(id) {
     return fetchAutenticado(`/sugestoes/${id}/votar`, {
         method: 'POST'
@@ -116,5 +129,18 @@ function criarComentario(idSugestao, texto) {
     return fetchAutenticado(`/sugestoes/${idSugestao}/comentarios`, {
         method: 'POST',
         body: JSON.stringify({ texto: texto })
+    });
+}
+
+function editarComentario(id, texto) {
+    return fetchAutenticado(`/sugestoes/comentarios/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ texto: texto })
+    });
+}
+
+function deletarComentario(id) {
+    return fetchAutenticado(`/sugestoes/comentarios/${id}`, {
+        method: 'DELETE'
     });
 }

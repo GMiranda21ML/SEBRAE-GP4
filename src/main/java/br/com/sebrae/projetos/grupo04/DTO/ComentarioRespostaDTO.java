@@ -8,5 +8,6 @@ public record ComentarioRespostaDTO(
         String texto,
         String nomeAutor,
         LocalDateTime dataCriacao ,
-        boolean autorIsAdmin
+        boolean autorIsAdmin,
+        boolean isAutor
 ) {}

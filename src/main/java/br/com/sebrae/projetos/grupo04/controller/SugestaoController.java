@@ -26,8 +26,6 @@ public class SugestaoController {
     @Autowired
     private ComentarioService comentarioService;
 
-    // --- Endpoints de Sugestão ---
-
     @PostMapping
     public ResponseEntity<Void> criar(@RequestBody @Valid CriarSugestaoDTO dto) {
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -42,12 +40,25 @@ public class SugestaoController {
         return ResponseEntity.ok(lista);
     }
 
-    // NOVO: Busca uma sugestão específica usando o Service (Corrigido)
     @GetMapping("/{id}")
     public ResponseEntity<SugestaoResponseDTO> buscarPorId(@PathVariable UUID id) {
         Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         SugestaoResponseDTO dto = service.buscarPorId(id, usuario);
         return ResponseEntity.ok(dto);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> editar(@PathVariable UUID id, @RequestBody @Valid CriarSugestaoDTO dto) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        service.editarSugestao(id, dto, usuario);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable UUID id) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        service.deletarSugestao(id, usuario);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/votar")
@@ -56,8 +67,6 @@ public class SugestaoController {
         service.alternarVoto(id, usuario);
         return ResponseEntity.ok().build();
     }
-
-    // --- Endpoints de Comentários ---
 
     @PostMapping("/{id}/comentarios")
     public ResponseEntity<Void> comentar(@PathVariable UUID id, @RequestBody @Valid CriarComentarioDTO dto) {
@@ -68,7 +77,22 @@ public class SugestaoController {
 
     @GetMapping("/{id}/comentarios")
     public ResponseEntity<List<ComentarioRespostaDTO>> listarComentarios(@PathVariable UUID id) {
-        List<ComentarioRespostaDTO> lista = comentarioService.listarComentarios(id);
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<ComentarioRespostaDTO> lista = comentarioService.listarComentarios(id, usuario);
         return ResponseEntity.ok(lista);
+    }
+
+    @PatchMapping("/comentarios/{idComentario}")
+    public ResponseEntity<Void> editarComentario(@PathVariable UUID idComentario, @RequestBody @Valid CriarComentarioDTO dto) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        comentarioService.editarComentario(idComentario, dto, usuario);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/comentarios/{idComentario}")
+    public ResponseEntity<Void> deletarComentario(@PathVariable UUID idComentario) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        comentarioService.deletarComentario(idComentario, usuario);
+        return ResponseEntity.noContent().build();
     }
 }

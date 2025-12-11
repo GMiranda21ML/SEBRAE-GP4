@@ -39,9 +39,9 @@ public class Comentario {
         this.dataCriacao = LocalDateTime.now();
     }
 
-    // Getters
     public UUID getId() { return id; }
     public String getTexto() { return texto; }
+    public void setTexto(String texto) { this.texto = texto; }
     public LocalDateTime getDataCriacao() { return dataCriacao; }
     public Usuario getUsuario() { return usuario; }
     public Sugestao getSugestao() { return sugestao; }

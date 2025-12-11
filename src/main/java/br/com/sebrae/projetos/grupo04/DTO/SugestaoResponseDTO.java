@@ -10,5 +10,6 @@ public record SugestaoResponseDTO(
         LocalDateTime dataCriacao,
         int totalCurtidas,
         boolean curtiu ,
-        boolean respondidaPorAdmin
+        boolean respondidaPorAdmin,
+        boolean isAutor
 ) {}

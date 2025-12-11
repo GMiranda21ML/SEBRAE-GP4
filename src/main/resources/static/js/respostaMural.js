@@ -59,6 +59,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     ? '<span style="margin-left:8px; background-color:#387CC8; color:white; padding:2px 6px; border-radius:4px; font-size:0.7em; vertical-align:middle; font-weight:bold;" title="Administrador">ADM</span>'
                     : '';
 
+                let botoesAcao = '';
+                if (c.isAutor) {
+                    botoesAcao = `
+                        <div style="margin-top: 10px; display: flex; gap: 10px; font-size: 0.9em;">
+                            <button class="btn-editar-comentario" data-id="${c.id}" data-texto="${c.texto.replace(/"/g, '&quot;')}" style="background: none; border: none; color: #387CC8; cursor: pointer; text-decoration: underline;">Editar</button>
+                            <button class="btn-deletar-comentario" data-id="${c.id}" style="background: none; border: none; color: #ff4d4d; cursor: pointer; text-decoration: underline;">Excluir</button>
+                        </div>
+                    `;
+                }
+
                 div.innerHTML = `
                     <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                         <div>
@@ -67,10 +77,41 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </div>
                         <span style="font-size: 0.8em; color: #888;">${dataFmt}</span>
                     </div>
-                    <div style="color: #333;">${c.texto}</div>
+                    <div style="color: #333; white-space: pre-wrap;">${c.texto}</div>
+                    ${botoesAcao}
                 `;
                 elLista.appendChild(div);
             });
+
+            document.querySelectorAll('.btn-deletar-comentario').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    if(confirm('Deseja realmente excluir este comentário?')) {
+                        try {
+                            await deletarComentario(e.target.dataset.id);
+                            carregarComentarios();
+                        } catch(err) {
+                            alert('Erro ao excluir.');
+                            console.error(err);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-editar-comentario').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const novoTexto = prompt("Edite seu comentário:", e.target.dataset.texto);
+                    if(novoTexto !== null && novoTexto.trim() !== "") {
+                        try {
+                            await editarComentario(e.target.dataset.id, novoTexto);
+                            carregarComentarios();
+                        } catch(err) {
+                            alert('Erro ao editar.');
+                            console.error(err);
+                        }
+                    }
+                });
+            });
+
         } catch (e) {
             console.error('Erro comentários:', e);
         }
