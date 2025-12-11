@@ -54,7 +54,7 @@ Além disso, o sistema conta com funcionalidades de análise de dados administra
 
 [Figma](https://www.figma.com/proto/5X0ksLJrlYQzP7Da5BsQ96/Projetos-3?node-id=263-2&t=ZfVL6HpEWrgizKlP-1)
 
-[Screencast Aplicação](LINK_DO_VIDEO_AQUI)
+[Screencast Aplicação](https://youtu.be/41p1WmLpEG4)
 
 ---
 
